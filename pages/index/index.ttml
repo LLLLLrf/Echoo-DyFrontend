@@ -1,0 +1,16 @@
+<view class="body">
+  <view class="title">Echoo</view>
+  <view class="container"></view>
+  <!-- <view class="filter"></view> -->
+
+  <button class="button" catchtap="navigateToDetail">
+    <!-- <view class="back"></view> -->
+    <view class="wrap">
+      <view>
+        Start
+      </view>
+    </view>
+  </button>
+  <!-- <view class="button-container">
+  </view> -->
+</view>

@@ -1,0 +1,66 @@
+<view class="container">
+  <view class="title">图片音频合成视频</view>
+  
+  <!-- 图片上传区域 -->
+  <view class="upload-section">
+    <view class="section-title">📷 选择图片</view>
+    <button class="button" bindtap="chooseImage">选择图片</button>
+    <view class="status {{imagePath ? 'success' : 'warning'}}">
+      {{imagePath ? '✅ 已选择图片' : '⚠️ 未选择图片'}}
+    </view>
+    <image wx:if="{{imagePath}}" class="preview-image" src="{{imagePath}}" mode="aspectFill" bindtap="previewImage"></image>
+    <view wx:if="{{imageInfo}}" class="audio-info">
+      图片尺寸: {{imageInfo.width}} × {{imageInfo.height}}
+    </view>
+  </view>
+
+  <!-- 音频上传区域 -->
+  <view class="upload-section">
+    <view class="section-title">🎵 选择音频</view>
+    <button class="button" bindtap="chooseAudio">选择音频文件</button>
+    <view class="status {{audioPath ? 'success' : 'warning'}}">
+      {{audioPath ? '✅ 已选择音频' : '⚠️ 未选择音频'}}
+    </view>
+    <view wx:if="{{audioInfo}}" class="audio-info">
+      文件名: {{audioInfo.name}}<br/>
+      文件大小: {{audioInfo.size}}
+    </view>
+    <button wx:if="{{audioPath}}" class="button" bindtap="playAudio" style="background: #4caf50;">
+      🎵 试听音频
+    </button>
+  </view>
+
+  <!-- 处理按钮 -->
+  <view class="upload-section">
+    <view class="section-title">🎬 生成视频</view>
+    <button class="button" bindtap="uploadFiles" disabled="{{isLoading || !imagePath || !audioPath}}">
+      <view wx:if="{{isLoading}}" class="loading">
+        <text>⏳ 处理中...</text>
+      </view>
+      <text wx:else>🚀 上传并生成视频</text>
+    </button>
+    
+    <!-- 处理状态 -->
+    <view wx:if="{{isLoading}}" class="status info">
+      🔄 正在处理，请稍候...
+    </view>
+    
+    <!-- 结果状态 -->
+    <view wx:if="{{videoPath}}" class="status success">
+      🎉 视频生成成功！已保存到本地
+    </view>
+  </view>
+
+  <!-- 视频预览区域 -->
+  <view wx:if="{{videoPath}}" class="upload-section">
+    <view class="section-title">📹 视频预览</view>
+    <video 
+      src="{{videoPath}}" 
+      controls 
+      style="width: 100%; height: 200px; border-radius: 8px;"
+    ></video>
+    <button class="button" bindtap="saveVideoToAlbum" style="background: #ff9800; margin-top: 10px;">
+      💾 保存到相册
+    </button>
+  </view>
+</view>
