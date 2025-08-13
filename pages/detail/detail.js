@@ -1,3 +1,5 @@
+const app = getApp();
+
 Page({
   data: {
     imagePath: '',
@@ -5,16 +7,57 @@ Page({
     videoPath: '',
     isLoading: false,
     imageInfo: null,
-    audioInfo: null
+    audioInfo: null,
+    currentPage: 'detail', // 当前页面标识
+    isLoggedIn: false,
+    userInfo: null
   },
 
   onLoad: function (options) {
     // 页面加载时的初始化
     console.log('详情页加载完成');
+    this.checkLoginStatus();
+  },
+
+  onShow: function () {
+    // 页面显示时检查登录状态
+    this.checkLoginStatus();
+  },
+
+  // 检查登录状态
+  checkLoginStatus: function () {
+    const isLoggedIn = app.isUserLoggedIn();
+    const userInfo = app.getUserInfoSync();
+    
+    this.setData({
+      isLoggedIn: isLoggedIn,
+      userInfo: userInfo
+    });
+
+    // 如果未登录，提示用户
+    if (!isLoggedIn) {
+      tt.showModal({
+        title: '需要登录',
+        content: '请先登录抖音账号',
+        showCancel: false,
+        success: () => {
+          // 返回首页
+          tt.navigateBack();
+        }
+      });
+    }
   },
 
   // 选择图片功能
   chooseImage: function () {
+    if (!this.data.isLoggedIn) {
+      tt.showToast({
+        title: '请先登录',
+        icon: 'none'
+      });
+      return;
+    }
+
     tt.chooseImage({
       count: 1,
       sizeType: ['compressed'], // 使用压缩图片
@@ -60,6 +103,14 @@ Page({
 
   // 选择音频功能
   chooseAudio: function () {
+    if (!this.data.isLoggedIn) {
+      tt.showToast({
+        title: '请先登录',
+        icon: 'none'
+      });
+      return;
+    }
+
     tt.chooseMedia({
       count: 1,
       mediaType: ['video'], // 仅支持视频类型（抖音小程序可能不支持直接选择音频）
@@ -104,6 +155,14 @@ Page({
 
   // 上传文件并生成视频
   uploadFiles: function () {
+    if (!this.data.isLoggedIn) {
+      tt.showToast({
+        title: '请先登录',
+        icon: 'none'
+      });
+      return;
+    }
+
     if (!this.data.imagePath || !this.data.audioPath) {
       tt.showToast({
         title: '请先选择图片和音频',
@@ -130,7 +189,8 @@ Page({
       name: 'image',
       formData: {
         audioPath: this.data.audioPath,
-        timestamp: Date.now()
+        timestamp: Date.now(),
+        userId: this.data.userInfo ? this.data.userInfo.nickName : 'unknown'
       },
       success: (res) => {
         console.log('上传成功:', res);
@@ -138,9 +198,9 @@ Page({
         try {
           const responseData = JSON.parse(res.data);
           
-          if (responseData.success && responseData.videoUrl) {
+          if (responseData.success && responseData.data && responseData.data.videoUrl) {
             // 下载生成的视频
-            this.downloadVideo(responseData.videoUrl);
+            this.downloadVideo(responseData.data.videoUrl, responseData.data.taskId);
           } else {
             this.handleError('服务器返回数据格式错误');
           }
@@ -156,7 +216,7 @@ Page({
   },
 
   // 下载视频到本地
-  downloadVideo: function (videoUrl) {
+  downloadVideo: function (videoUrl, taskId) {
     tt.downloadFile({
       url: videoUrl,
       success: (downloadRes) => {
@@ -165,6 +225,9 @@ Page({
           videoPath: downloadRes.tempFilePath,
           isLoading: false
         });
+        
+        // 保存视频记录到本地存储
+        this.saveVideoRecord(downloadRes.tempFilePath, taskId);
         
         tt.showToast({
           title: '视频生成成功！',
@@ -176,6 +239,48 @@ Page({
         this.handleError('视频下载失败');
       }
     });
+  },
+
+  // 保存视频记录
+  saveVideoRecord: function (videoPath, taskId) {
+    const videoRecord = {
+      id: taskId || Date.now().toString(),
+      name: `视频_${new Date().toLocaleDateString()}`,
+      path: videoPath,
+      createTime: new Date().toLocaleString(),
+      size: '未知',
+      thumbnail: this.data.imagePath, // 使用选择的图片作为缩略图
+      userId: this.data.userInfo ? this.data.userInfo.nickName : 'unknown'
+    };
+
+    // 获取现有记录
+    let recentVideos = tt.getStorageSync('recentVideos') || [];
+    recentVideos.unshift(videoRecord); // 添加到开头
+    
+    // 限制记录数量
+    if (recentVideos.length > 20) {
+      recentVideos = recentVideos.slice(0, 20);
+    }
+    
+    // 保存记录
+    tt.setStorageSync('recentVideos', recentVideos);
+    
+    // 更新统计数据
+    this.updateStatistics();
+  },
+
+  // 更新统计数据
+  updateStatistics: function () {
+    let statistics = tt.getStorageSync('statistics') || {
+      totalVideos: 0,
+      totalSize: '0 MB',
+      todayVideos: 0
+    };
+    
+    statistics.totalVideos += 1;
+    statistics.todayVideos += 1;
+    
+    tt.setStorageSync('statistics', statistics);
   },
 
   // 错误处理
@@ -243,5 +348,18 @@ Page({
         });
       }
     });
+  },
+
+  // 导航切换事件处理
+  onNavChange: function (e) {
+    const { key } = e.detail;
+    console.log('导航切换到:', key);
+    
+    if (key === 'profile') {
+      // 跳转到我的页面
+      tt.navigateTo({
+        url: '/pages/profile/profile'
+      });
+    }
   }
 });

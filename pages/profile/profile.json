@@ -2,5 +2,5 @@
   "usingComponents": {
     "bottom-nav": "/components/bottom-nav/bottom-nav"
   },
-  "navigationBarTitleText": "制作视频"
-}
+  "navigationBarTitleText": "我的"
+} 

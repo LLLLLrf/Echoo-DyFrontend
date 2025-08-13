@@ -63,4 +63,7 @@
       💾 保存到相册
     </button>
   </view>
+
+  <!-- 底部导航栏 -->
+  <bottom-nav current="detail" bind:navchange="onNavChange"></bottom-nav>
 </view>

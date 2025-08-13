@@ -1,0 +1,108 @@
+<view class="container">
+  <!-- 用户信息区域 -->
+  <view class="user-section">
+    <view class="user-info">
+      <image class="avatar" src="{{userInfo.avatar || '/images/default-avatar.png'}}" mode="aspectFill"></image>
+      <view class="user-details">
+        <text class="nickname">{{userInfo.nickname}}</text>
+        <text class="user-id">ID: {{userInfo.userId}}</text>
+      </view>
+      <button class="edit-btn" bindtap="editProfile">编辑</button>
+    </view>
+  </view>
+
+  <!-- 统计数据区域 -->
+  <view class="stats-section">
+    <view class="stats-title">数据统计</view>
+    <view class="stats-grid">
+      <view class="stat-item">
+        <text class="stat-number">{{statistics.totalVideos}}</text>
+        <text class="stat-label">总视频数</text>
+      </view>
+      <view class="stat-item">
+        <text class="stat-number">{{statistics.todayVideos}}</text>
+        <text class="stat-label">今日视频</text>
+      </view>
+      <view class="stat-item">
+        <text class="stat-number">{{statistics.totalSize}}</text>
+        <text class="stat-label">总大小</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 最近视频区域 -->
+  <view class="recent-section">
+    <view class="section-header">
+      <text class="section-title">最近视频</text>
+      <text class="view-all" bindtap="viewAllVideos">查看全部</text>
+    </view>
+    
+    <view class="video-list">
+      <view wx:if="{{recentVideos.length === 0}}" class="empty-state">
+        <text class="empty-text">暂无视频记录</text>
+        <text class="empty-desc">开始制作你的第一个视频吧！</text>
+      </view>
+      
+      <view wx:for="{{recentVideos}}" wx:key="id" class="video-item">
+        <view class="video-info" bindtap="viewVideoDetail" data-id="{{item.id}}">
+          <image class="video-thumbnail" src="{{item.thumbnail || '/images/video-placeholder.png'}}" mode="aspectFill"></image>
+          <view class="video-details">
+            <text class="video-name">{{item.name}}</text>
+            <text class="video-time">{{item.createTime}}</text>
+            <text class="video-size">{{item.size}}</text>
+          </view>
+        </view>
+        <button class="delete-btn" bindtap="deleteVideo" data-id="{{item.id}}" data-name="{{item.name}}">删除</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 功能菜单区域 -->
+  <view class="menu-section">
+    <view class="menu-group">
+      <view class="menu-item" bindtap="shareApp">
+        <view class="menu-icon">📤</view>
+        <text class="menu-text">分享应用</text>
+        <view class="menu-arrow">></view>
+      </view>
+      
+      <view class="menu-item" bindtap="feedback">
+        <view class="menu-icon">💬</view>
+        <text class="menu-text">意见反馈</text>
+        <view class="menu-arrow">></view>
+      </view>
+      
+      <view class="menu-item" bindtap="aboutUs">
+        <view class="menu-icon">ℹ️</view>
+        <text class="menu-text">关于我们</text>
+        <view class="menu-arrow">></view>
+      </view>
+    </view>
+
+    <view class="menu-group">
+      <view class="menu-item" bindtap="clearCache">
+        <view class="menu-icon">🗑️</view>
+        <text class="menu-text">清除缓存</text>
+        <view class="menu-arrow">></view>
+      </view>
+      
+      <view class="menu-item" bindtap="goToSettings">
+        <view class="menu-icon">⚙️</view>
+        <text class="menu-text">设置</text>
+        <view class="menu-arrow">></view>
+      </view>
+    </view>
+
+    <!-- 退出登录按钮 -->
+    <view class="menu-group">
+      <view class="menu-item logout-item" bindtap="logout">
+        <view class="menu-icon">🚪</view>
+        <text class="menu-text logout-text">退出登录</text>
+        <view class="menu-arrow">></view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部导航栏 -->
+  <bottom-nav current="profile" bind:navchange="onNavChange"></bottom-nav>
+</view> 
