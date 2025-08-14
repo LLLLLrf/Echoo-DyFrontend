@@ -148,4 +148,34 @@ export function showLoginError(error) {
     showCancel: false,
     confirmText: '知道了'
   });
-} 
+}
+
+/**
+ * 抖音小程序登录
+ */
+export function miniLogin() {
+  return new Promise((resolve, reject) => {
+    tt.login({
+      success: (res) => {
+        const { code } = res;
+        tt.request({
+          url: 'http://110.40.183.254:8001/auth/douyin/mini-login',
+          method: 'POST',
+          data: { code },
+          success: (response) => {
+            console.log(response)
+            const { login_token } = response.data;
+            tt.setStorageSync('token', login_token);
+            resolve(response.data);
+          },
+          fail: (err) => {
+            reject(err);
+          }
+        });
+      },
+      fail: (err) => {
+        reject(err);
+      }
+    });
+  });
+}

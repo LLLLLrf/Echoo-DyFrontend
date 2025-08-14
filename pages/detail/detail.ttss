@@ -23,13 +23,14 @@
   margin: 10px 0;
   width: 100%;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
 }
 
 .section-title {
   font-size: 16px;
   font-weight: 600;
   color: #333;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
 .button {
@@ -65,13 +66,13 @@
 
 .status.success {
   background-color: #e8f5e8;
-  color: #2e7d32;
+  color: #07C160;
   border: 1px solid #4caf50;
 }
 
 .status.warning {
   background-color: #fff3e0;
-  color: #f57c00;
+  color: #FF976A;
   border: 1px solid #ff9800;
 }
 
@@ -107,6 +108,20 @@
   border-radius: 6px;
   margin: 10px 0;
   font-size: 14px;
+  color: #666;
+}
+
+.privacy-notice {
+  padding: 20px;
+  background-color: #f8f8f8;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.privacy-notice text {
+  display: block;
+  margin-bottom: 10px;
   color: #666;
 }
 
@@ -149,4 +164,36 @@
 .nav-text {
   font-size: 12px;
   font-weight: 500;
+}
+
+/* 麦克风动画样式 */
+.mic-animation {
+  width: 24px;
+  height: 24px;
+  background-color: #ff4d4f;
+  border-radius: 50%;
+  margin-right: 8px;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* 录音按钮区域 */
+.recording-section {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
 }

@@ -4,7 +4,7 @@
   <!-- 图片上传区域 -->
   <view class="upload-section">
     <view class="section-title">📷 选择图片</view>
-    <button class="button" bindtap="chooseImage">选择图片</button>
+    <button class="button" bindtap="chooseImage" type="primary">选择图片</button>
     <view class="status {{imagePath ? 'success' : 'warning'}}">
       {{imagePath ? '✅ 已选择图片' : '⚠️ 未选择图片'}}
     </view>
@@ -16,24 +16,29 @@
 
   <!-- 音频上传区域 -->
   <view class="upload-section">
-    <view class="section-title">🎵 选择音频</view>
-    <button class="button" bindtap="chooseAudio">选择音频文件</button>
-    <view class="status {{audioPath ? 'success' : 'warning'}}">
-      {{audioPath ? '✅ 已选择音频' : '⚠️ 未选择音频'}}
+    <view class="section-title">🎵 音频制作</view>
+    <button  class="button" bindtap="start" tt:if="{{ !isRecording && !isPaused }}">开始录音</button>
+    
+    <view tt:if="{{ isRecording}}">
+      <view class="mic-animation"></view>
     </view>
-    <view wx:if="{{audioInfo}}" class="audio-info">
-      文件名: {{audioInfo.name}}<br/>
-      文件大小: {{audioInfo.size}}
+    
+    <button class="button" bindtap="stop" tt:if="{{ isRecording || isPaused }}">停止录音</button>
+    
+    <!--  增加一个麦克风的 动画 -->
+    <view class="status {{recordFilePath ? 'success' : 'warning'}}">
+      {{recordFilePath ? '✅ 已完成录音' : '⚠️ 未录音'}}
     </view>
-    <button wx:if="{{audioPath}}" class="button" bindtap="playAudio" style="background: #4caf50;">
+    
+    <!-- <button tt:if="{{recordFilePath}}" class="button" bindtap="playAudio" style="background: #4caf50;">
       🎵 试听音频
-    </button>
+    </button> -->
   </view>
 
   <!-- 处理按钮 -->
   <view class="upload-section">
     <view class="section-title">🎬 生成视频</view>
-    <button class="button" bindtap="uploadFiles" disabled="{{isLoading || !imagePath || !audioPath}}">
+    <button class="button" bindtap="uploadFiles" disabled="{{isLoading || !imagePath || !recordFilePath}}">
       <view wx:if="{{isLoading}}" class="loading">
         <text>⏳ 处理中...</text>
       </view>

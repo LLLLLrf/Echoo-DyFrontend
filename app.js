@@ -49,6 +49,8 @@ App({
           console.log('登录成功:', res);
           
           if (res.code) {
+            // 把code发送给后端，拿到token 存储
+            
             // 获取用户信息
             this.getUserInfo().then((userInfo) => {
               // 保存登录信息

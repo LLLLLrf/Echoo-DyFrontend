@@ -9,7 +9,7 @@ const config = {
   
   // 生产环境
   production: {
-    baseUrl: 'https://your-production-domain.com',
+    baseUrl: 'http://110.40.183.254:8001',
     uploadUrl: 'https://your-production-domain.com/api/upload',
     videoUrl: 'https://your-production-domain.com/api/video'
   }
