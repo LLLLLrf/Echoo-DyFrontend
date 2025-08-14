@@ -10,7 +10,9 @@ Page({
     audioInfo: null,
     currentPage: 'detail', // 当前页面标识
     isLoggedIn: false,
-    userInfo: null
+    userInfo: null,
+    showImagePicker: true,
+    showAudioPicker: true
   },
 
   onLoad: function (options) {
@@ -75,7 +77,8 @@ Page({
                 width: imageInfo.width,
                 height: imageInfo.height,
                 size: imageInfo.size || '未知'
-              }
+              },
+              showImagePicker: false
             });
             
             tt.showToast({
@@ -134,7 +137,8 @@ Page({
             audioInfo: {
               name: audioFile.name || '未命名',
               size: this.formatFileSize(audioFile.size)
-            }
+            },
+            showAudioPicker: false
           });
           
           tt.showToast({
@@ -361,5 +365,23 @@ Page({
         url: '/pages/profile/profile'
       });
     }
+  },
+
+  // 删除图片
+  removeImage: function() {
+    this.setData({
+      imagePath: '',
+      imageInfo: null,
+      showImagePicker: true
+    });
+  },
+
+  // 删除音频
+  removeAudio: function() {
+    this.setData({
+      audioPath: '',
+      audioInfo: null,
+      showAudioPicker: true
+    });
   }
 });

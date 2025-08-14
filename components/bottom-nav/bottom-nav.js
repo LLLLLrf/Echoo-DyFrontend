@@ -33,11 +33,14 @@ Component({
         // 触发父组件事件
         this.triggerEvent('navchange', { key: key, item: item });
         
-        // 跳转到对应页面
-        tt.navigateTo({
-          url: item.url
+        // 使用 redirectTo 替换当前页面
+        tt.redirectTo({
+          url: item.url,
+          success: () => {
+            this.setData({ current: key });
+          }
         });
       }
     }
   }
-}); 
+});

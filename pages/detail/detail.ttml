@@ -1,34 +1,54 @@
 <view class="container">
-  <view class="title">图片音频合成视频</view>
+  <!-- <view class="title">图片音频合成视频</view> -->
   
   <!-- 图片上传区域 -->
-  <view class="upload-section">
-    <view class="section-title">📷 选择图片</view>
+<view class="upload-section">
+  <view class="section-title">📷 选择图片</view>
+  
+  <block wx:if="{{showImagePicker}}">
     <button class="button" bindtap="chooseImage">选择图片</button>
-    <view class="status {{imagePath ? 'success' : 'warning'}}">
-      {{imagePath ? '✅ 已选择图片' : '⚠️ 未选择图片'}}
+    <view class="status warning">未选择图片</view>
+  </block>
+  
+  <block wx:else>
+    <view class="preview-container">
+      <image class="preview-image" src="{{imagePath}}" mode="aspectFill" bindtap="previewImage"></image>
+      <view class="preview-actions">
+        <button class="delete-button" bindtap="removeImage">删除</button>
+      </view>
     </view>
-    <image wx:if="{{imagePath}}" class="preview-image" src="{{imagePath}}" mode="aspectFill" bindtap="previewImage"></image>
     <view wx:if="{{imageInfo}}" class="audio-info">
       图片尺寸: {{imageInfo.width}} × {{imageInfo.height}}
     </view>
-  </view>
+  </block>
+</view>
 
   <!-- 音频上传区域 -->
-  <view class="upload-section">
-    <view class="section-title">🎵 选择音频</view>
+<view class="upload-section">
+  <view class="section-title">🎵 选择音频</view>
+  
+  <block wx:if="{{showAudioPicker}}">
     <button class="button" bindtap="chooseAudio">选择音频文件</button>
-    <view class="status {{audioPath ? 'success' : 'warning'}}">
-      {{audioPath ? '✅ 已选择音频' : '⚠️ 未选择音频'}}
+    <view class="status warning">未选择音频</view>
+  </block>
+  
+  <block wx:else>
+    <view class="preview-container">
+      <view class="audio-preview">
+        <text>🎵 {{audioInfo.name || '音频文件'}}</text>
+      </view>
+      <view class="preview-actions">
+        <button class="delete-button" bindtap="removeAudio">删除</button>
+      </view>
     </view>
     <view wx:if="{{audioInfo}}" class="audio-info">
-      文件名: {{audioInfo.name}}<br/>
       文件大小: {{audioInfo.size}}
     </view>
-    <button wx:if="{{audioPath}}" class="button" bindtap="playAudio" style="background: #4caf50;">
+    <button class="button" bindtap="playAudio" style="height: 70px; padding: 0px 0px; font-size: 1.1em; display: flex; align-items: center;justify-content: center;border-radius: 1000px;">
       🎵 试听音频
     </button>
-  </view>
+  </block>
+</view>
 
   <!-- 处理按钮 -->
   <view class="upload-section">

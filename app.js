@@ -80,7 +80,7 @@ App({
   getUserInfo: function () {
     return new Promise((resolve, reject) => {
       // 检查是否支持获取用户信息
-      if (!tt.getUserInfo) {
+      if (!tt.getUserProfile) {
         // 如果不支持，使用默认用户信息
         const defaultUserInfo = {
           nickName: '用户' + Math.floor(Math.random() * 1000),
@@ -95,7 +95,9 @@ App({
         return;
       }
 
-      tt.getUserInfo({
+      // 使用新的 getUserProfile API
+      tt.getUserProfile({
+        desc: '用于完善会员资料',
         success: (res) => {
           console.log('获取用户信息成功:', res);
           resolve(res.userInfo);
