@@ -2,34 +2,37 @@
   <view class="title">Echoo</view>
   
   <!-- 用户信息显示 -->
-  <view class="user-info" wx:if="{{isLoggedIn}}">
-    <image class="user-avatar" src="{{userInfo.avatarUrl || '/images/default-avatar.png'}}" mode="aspectFill"></image>
-    <text class="user-name">{{userInfo.nickName}}</text>
+  <view>
+    <view class="user-info" tt:if="{{isLoggedIn}}">
+      <image class="user-avatar" src="{{userInfo.avatarUrl || '/images/default-avatar.png'}}" mode="aspectFill"></image>
+      <text class="user-name">{{userInfo.nickName}}</text>
+    </view>
+    <view class="placeholder" tt:else>
+    </view>
   </view>
-  
+
   <view class="container"></view>
-  <!-- <view class="filter"></view> -->
 
   <button class="button" catchtap="navigateToDetail" disabled="{{isLoading}}">
-    <!-- <view class="back"></view> -->
     <view class="wrap">
-      <view wx:if="{{isLoading}}">
-        登录中...
-      </view>
-      <view wx:elif="{{!isLoggedIn}}">
-        Start
-      </view>
-      <view wx:else>
-        Start
-      </view>
+      <view tt:if="{{isLoading}}">登录中...</view>
+      <view tt:elif="{{!isLoggedIn}}">Start</view>
+      <view tt:else>Start</view>
     </view>
   </button>
   
   <!-- 登录提示 -->
-  <view class="login-tip" wx:if="{{!isLoggedIn}}">
+  <view class="login-tip" tt:if="{{!isLoggedIn}}">
     <text>点击上方按钮登录抖音账号</text>
   </view>
-  
-  <!-- <view class="button-container">
-  </view> -->
+
+  <!-- 弹窗 -->
+  <view class="popup" tt:if="{{showPopup}}">
+    <view class="popup-content">
+      <text class="popup-title">获取用户信息</text>
+      <text class="popup-message">需要获取您的头像、昵称等信息</text>
+      <button class="popup-button" catchtap="handleGetUserProfile">登录</button>
+      <button class="popup-button close" catchtap="closePopup">关闭</button>
+    </view>
+  </view>
 </view>

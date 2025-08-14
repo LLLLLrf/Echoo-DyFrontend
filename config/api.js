@@ -5,7 +5,7 @@ const config = {
     baseUrl: 'http://110.40.183.254:8001',
     uploadUrl: 'http://110.40.183.254:8001/api/upload',
     videoUrl: 'http://110.40.183.254:8001/api/video',
-    loginUrl: 'http://110.40.183.254:8001/api/auth/login'
+    loginUrl: 'http://110.40.183.254:8001/auth/douyin/mini-login'
   },
   
   // 生产环境
@@ -13,7 +13,7 @@ const config = {
     baseUrl: 'http://110.40.183.254:8001',
     uploadUrl: 'http://110.40.183.254:8001/api/upload',
     videoUrl: 'http://110.40.183.254:8001/api/video',
-    loginUrl: 'http://110.40.183.254:8001/api/auth/login'
+    loginUrl: 'http://110.40.183.254:8001/auth/douyin/mini-login'
   }
 };
 

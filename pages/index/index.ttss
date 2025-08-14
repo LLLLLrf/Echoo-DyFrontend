@@ -9,6 +9,11 @@
   padding: 40px 0;
 }
 
+.placeholder{
+  height: 130px;
+}
+
+
 /* .filter{
   background: linear-gradient(to bottom, #4b4b4b72,#25252520, #00000000, #00000000);
   height: 100vh;
@@ -387,4 +392,61 @@ More comprehensive version at shenanigans.shoghisimon.ca/collection/css-rain-bg/
 
 .button[disabled] .wrap {
   color: rgba(255, 255, 255, 0.8);
+}
+
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: end;
+  z-index: 1000;
+}
+
+.popup-content {
+  box-shadow: 0px 0px 40px #266689be;
+
+  background-color: #111111;
+  border-radius: 12px;
+  padding: 20px;
+  width: 80%;
+  max-width: 300px;
+  /* box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); */
+}
+
+.popup-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  display: block;
+  color: #fff;
+}
+
+.popup-message {
+  font-size: 14px;
+  color: #eee;
+  margin-bottom: 20px;
+  display: block;
+}
+
+.popup-button {
+  width: 100%;
+  height: 40px;
+  margin-bottom: 10px;
+  background: #1c74c1;
+  color: #f0f0f0;
+  font-weight: bold;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup-button.close {
+  background-color: #092f51;
+  color: #f0f0f0;
 }

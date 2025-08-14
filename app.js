@@ -41,40 +41,16 @@ App({
   // 用户登录 - 完整版本，调用后端接口
   login: function () {
     return new Promise((resolve, reject) => {
-      // 检查是否支持登录
       if (!tt.login) {
         reject(new Error('当前环境不支持登录'));
         return;
       }
 
-      // 第一步：获取code
       tt.login({
         success: (res) => {
           console.log('获取code成功:', res);
-          
           if (res.code) {
-            // 第二步：将code发送给后端换取openid和session_key
-            this.exchangeCodeForToken(res.code).then((tokenData) => {
-              // 第三步：获取用户信息
-              this.getUserProfile().then((userInfo) => {
-                // 保存登录信息
-                tt.setStorageSync('sessionKey', tokenData.session_key);
-                tt.setStorageSync('openid', tokenData.openid);
-                tt.setStorageSync('userInfo', userInfo);
-                
-                // 更新全局状态
-                this.globalData.userInfo = userInfo;
-                this.globalData.sessionKey = tokenData.session_key;
-                this.globalData.openid = tokenData.openid;
-                this.globalData.isLoggedIn = true;
-                
-                resolve(userInfo);
-              }).catch((err) => {
-                reject(err);
-              });
-            }).catch((err) => {
-              reject(err);
-            });
+            resolve({ code: res.code }); // 返回 code
           } else {
             reject(new Error('登录失败，未获取到code'));
           }
@@ -92,7 +68,7 @@ App({
     return new Promise((resolve, reject) => {
       // 引入API配置
       const apiConfig = require('./config/api.js');
-      
+      console.log('request-url::',apiConfig.getLoginUrl());
       // 发送code到后端
       tt.request({
         url: apiConfig.getLoginUrl(),
@@ -104,9 +80,7 @@ App({
           code: code
         },
         success: (res) => {
-          console.log('后端返回token数据:', res);
-          
-          if (res.data && res.data.success) {
+          if (res.data && res.statusCode==200) {
             resolve({
               openid: res.data.openid,
               session_key: res.data.session_key
@@ -151,12 +125,11 @@ App({
         resolve(defaultUserInfo);
         return;
       }
-
-      // 直接调用getUserProfile，抖音会自动弹出授权框
       tt.getUserProfile({
         desc: '用于完善用户资料',
         success: (res) => {
           console.log('获取用户信息成功:', res);
+          this.globalData.isLoggedIn=true;
           resolve(res.userInfo);
         },
         fail: (err) => {

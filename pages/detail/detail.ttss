@@ -39,7 +39,7 @@
     border-radius: 0.4rem;
     cursor: pointer;
     text-transform: uppercase;
-    background-color: rgb(13, 13, 24);
+    background-color: rgb(11, 11, 20);
     color: rgb(234, 234, 234);
     font-weight: 700;
     transition: 0.6s;
@@ -190,4 +190,36 @@
 .nav-text {
   font-size: 12px;
   font-weight: 500;
+}
+
+/* 麦克风动画样式 */
+.mic-animation {
+  width: 24px;
+  height: 24px;
+  background-color: #ff4d4f;
+  border-radius: 50%;
+  margin-right: 8px;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* 录音按钮区域 */
+.recording-section {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
 }

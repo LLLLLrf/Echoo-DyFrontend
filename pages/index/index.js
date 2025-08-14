@@ -4,7 +4,9 @@ Page({
   data: {
     isLoggedIn: false,
     userInfo: null,
-    isLoading: false
+    isLoading: false,
+    showPopup: false, // 控制弹窗显示
+    loginCode: null  // 存储 login 返回的 code
   },
 
   onLoad: function () {
@@ -33,12 +35,53 @@ Page({
     console.log("点击Start按钮");
     
     if (!this.data.isLoggedIn) {
-      // 未登录，先进行登录
-      this.loginAndNavigate();
+      this.setData({ isLoading: true });
+      
+      app.login().then(({ code }) => {
+        this.setData({ 
+          isLoading: false,
+          loginCode: code,
+          showPopup: true // 显示弹窗
+        });
+      }).catch((err) => {
+        this.setData({ isLoading: false });
+        console.error('登录失败:', err);
+        tt.showModal({
+          title: '登录失败',
+          content: '登录失败，请重试',
+          showCancel: false,
+          confirmText: '知道了'
+        });
+      });
     } else {
-      // 已登录，直接跳转
       this.goToDetail();
     }
+  },
+
+  // 关闭弹窗
+  closePopup: function () {
+    this.setData({ showPopup: false });
+  },
+
+  // 调用 getUserProfile
+  handleGetUserProfile: function () {
+    app.getUserProfile().then((userInfo) => {
+      this.setData({ 
+        userInfo: userInfo,
+        isLoggedIn: true,
+        showPopup: false
+      });
+      tt.showToast({
+        title: '获取用户信息成功',
+        icon: 'success'
+      });
+    }).catch((err) => {
+      console.error('获取用户信息失败:', err);
+      tt.showToast({
+        title: '获取用户信息失败',
+        icon: 'none'
+      });
+    });
   },
 
   // 登录并跳转

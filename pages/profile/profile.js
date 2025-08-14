@@ -1,5 +1,5 @@
 const app = getApp();
-
+const { requestWithAuth } = require('../../utils/request');
 Page({
   data: {
     userInfo: {
@@ -98,10 +98,21 @@ Page({
 
   // 加载最近视频
   loadRecentVideos: function () {
-    const recentVideos = tt.getStorageSync('recentVideos') || [];
-    this.setData({
-      recentVideos: recentVideos.slice(0, 5) // 只显示最近5个
-    });
+    // const recentVideos = tt.getStorageSync('recentVideos') || [];
+    // this.setData({
+    //   recentVideos: recentVideos.slice(0, 5) // 只显示最近5个
+    // });
+    // const userId=tt.getStorageInfoSync('userid')
+    const userId='dy_1755149617_9389d4ce'
+    requestWithAuth({
+      // url:"http://110.40.183.254:8001/tasks/video",
+      url: `http://localhost:8001/tasks/user/${userId}`,
+        // 'user_id': tt.getStorageInfoSync('userid')
+      method:'GET',
+    }).then((res)=>{
+      console.log(res)
+
+    })
   },
 
   // 编辑用户信息

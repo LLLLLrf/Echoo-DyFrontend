@@ -9,5 +9,9 @@
     "navigationBarBackgroundColor": "#000",
     "navigationBarTitleText": "Echoo",
     "navigationBarTextStyle": "white"
-  }
+  },
+  "__usePrivacyCheck__": true,
+  "requiredPrivateInfos": [
+    "chooseImage"
+  ]
 }
