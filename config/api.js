@@ -2,16 +2,18 @@
 const config = {
   // 开发环境
   development: {
-    baseUrl: 'http://localhost:3000',
-    uploadUrl: 'http://localhost:3000/api/upload',
-    videoUrl: 'http://localhost:3000/api/video'
+    baseUrl: 'http://110.40.183.254:8001',
+    uploadUrl: 'http://110.40.183.254:8001/api/upload',
+    videoUrl: 'http://110.40.183.254:8001/api/video',
+    loginUrl: 'http://110.40.183.254:8001/api/auth/login'
   },
   
   // 生产环境
   production: {
-    baseUrl: 'https://your-production-domain.com',
-    uploadUrl: 'https://your-production-domain.com/api/upload',
-    videoUrl: 'https://your-production-domain.com/api/video'
+    baseUrl: 'http://110.40.183.254:8001',
+    uploadUrl: 'http://110.40.183.254:8001/api/upload',
+    videoUrl: 'http://110.40.183.254:8001/api/video',
+    loginUrl: 'http://110.40.183.254:8001/api/auth/login'
   }
 };
 
@@ -25,6 +27,9 @@ module.exports = {
   
   // 获取视频接口地址
   getVideoUrl: () => currentConfig.videoUrl,
+  
+  // 获取登录接口地址
+  getLoginUrl: () => currentConfig.loginUrl,
   
   // 获取基础URL
   getBaseUrl: () => currentConfig.baseUrl,
