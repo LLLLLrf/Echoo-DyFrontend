@@ -40,58 +40,58 @@ Page({
   },
 
   onLoad: function (options) {
-    // 初始化录音管理器
-    this.recorderManager = tt.getRecorderManager();
+    // // 初始化录音管理器
+    // this.recorderManager = tt.getRecorderManager();
     
-    // 设置录音事件监听
-    this.recorderManager.onStart(() => {
-      this.setData({
-        isRecording: true,
-        recordFilePath: '',
-        isPaused: false
-      });
-      this.startCountDown();
-    });
+    // // 设置录音事件监听
+    // this.recorderManager.onStart(() => {
+    //   this.setData({
+    //     isRecording: true,
+    //     recordFilePath: '',
+    //     isPaused: false
+    //   });
+    //   this.startCountDown();
+    // });
     
-    this.recorderManager.onResume(() => {
-      this.setData({
-        isRecording: true,
-        isPaused: false
-      });
-      this.continueCountDown();
-    });
+    // this.recorderManager.onResume(() => {
+    //   this.setData({
+    //     isRecording: true,
+    //     isPaused: false
+    //   });
+    //   this.continueCountDown();
+    // });
     
-    this.recorderManager.onPause(() => {
-      this.setData({
-        isRecording: false,
-        isPaused: true
-      });
-      this.pauseCountDown();
-    });
+    // this.recorderManager.onPause(() => {
+    //   this.setData({
+    //     isRecording: false,
+    //     isPaused: true
+    //   });
+    //   this.pauseCountDown();
+    // });
     
-    this.recorderManager.onStop(({ tempFilePath }) => {
-      this.setData({
-        isRecording: false,
-        isPaused: false,
-        recordFilePath: tempFilePath,
-        audioPath: tempFilePath,  // 录音文件作为音频源
-        audioInfo: {
-          name: '录音文件',
-          size: this.formatFileSize(tempFilePath.size || 0)
-        },
-        showAudioPicker: false
-      });
-      this.stopCountDown();
-      tt.showToast({ title: '录音结束' });
-    });
+    // this.recorderManager.onStop(({ tempFilePath }) => {
+    //   this.setData({
+    //     isRecording: false,
+    //     isPaused: false,
+    //     recordFilePath: tempFilePath,
+    //     audioPath: tempFilePath,  // 录音文件作为音频源
+    //     audioInfo: {
+    //       name: '录音文件',
+    //       size: this.formatFileSize(tempFilePath.size || 0)
+    //     },
+    //     showAudioPicker: false
+    //   });
+    //   this.stopCountDown();
+    //   tt.showToast({ title: '录音结束' });
+    // });
     
-    this.recorderManager.onError(err => {
-      console.error('录音错误:', err);
-      tt.showToast({ title: '录音失败', icon: 'none' });
-    });
+    // this.recorderManager.onError(err => {
+    //   console.error('录音错误:', err);
+    //   tt.showToast({ title: '录音失败', icon: 'none' });
+    // });
     
-    // 检查登录状态
-    this.checkLoginStatus();
+    // // 检查登录状态
+    // this.checkLoginStatus();
   },
 
   onUnload: function() {
@@ -178,7 +178,7 @@ Page({
     tt.chooseImage({
       count: 1,
       sizeType: ['compressed'],
-      sourceType: ['album', 'camera'],
+      sourceType: ['album'],
       success: (res) => {
         const imagePath = res.tempFilePaths[0];
         
@@ -247,7 +247,8 @@ Page({
 
   // ========== 文件处理 ==========
   uploadFiles: function () {
-    if (!this.checkLogin()) return;
+    console.log(111)
+    // if (!this.checkLogin()) return;
     
     if (!this.data.imagePath) {
       tt.showToast({ title: '请先选择图片', icon: 'none' });
@@ -266,22 +267,25 @@ Page({
 
     // 上传图片
     uploadImage({
-      url: 'https://your-api-server.com/files/upload/image',
+      url: 'http://110.40.183.254:8001/files/upload/image',
       name: 'file',
       filePath: this.data.imagePath,
       formData: { priority: '0' }
     })
     .then((imageRes) => {
+      console.log("上传图片成功")
+      console.log(imageRes)
       const imageUrl = imageRes.data.file_url;
       
       // 上传音频
       return uploadImage({
-        url: 'https://your-api-server.com/files/upload/audio',
+        url: 'http://110.40.183.254:8001/files/upload/audio',
         name: 'file',
         filePath: audioSource,
         formData: { priority: '0' }
       })
       .then((audioRes) => {
+        console.log("上传音频成功")
         const audioUrl = audioRes.data.file_url;
         return { imageUrl, audioUrl };
       });
@@ -289,7 +293,7 @@ Page({
     .then(({ imageUrl, audioUrl }) => {
       // 请求生成视频
       return requestWithAuth({
-        url: "https://your-api-server.com/tasks/video",
+        url: "http://110.40.183.254:8001/tasks/video",
         method: 'POST',
         data: {
           image_files: [imageUrl],
@@ -298,12 +302,14 @@ Page({
       });
     })
     .then((videoRes) => {
-      // 处理生成的视频
-      if (videoRes.success && videoRes.data.videoUrl) {
-        this.downloadVideo(videoRes.data.videoUrl, videoRes.data.taskId);
-      } else {
-        throw new Error('服务器返回数据格式错误');
-      }
+      console.log(videoRes)
+      if(videoRes.message=="任务创建成功")
+        {
+          tt.hideLoading();
+          tt.showToast({ title: '任务创建成功！', icon: 'success' });
+
+          // 恢复默认
+        }
     })
     .catch((err) => {
       console.error('上传失败:', err);
@@ -397,10 +403,15 @@ Page({
 
   playAudio: function () {
     const audioSource = this.data.recordFilePath || this.data.audioPath;
+    console.log(audioSource)
     if (audioSource) {
-      const audioContext = tt.createInnerAudioContext();
-      audioContext.src = audioSource;
-      audioContext.play();
+      // const audioContext = tt.createInnerAudioContext();
+      // audioContext.src = audioSource;
+      // audioContext.play();
+
+      const bgam = tt.getBackgroundAudioManager();
+      bgam.src = audioSource;
+      bgam.play()
     }
   },
 
