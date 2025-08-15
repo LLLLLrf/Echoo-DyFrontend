@@ -13,5 +13,25 @@
   "__usePrivacyCheck__": true,
   "requiredPrivateInfos": [
     "chooseImage"
-  ]
+  ],
+  "tabBar": {
+    "color": "#666666",           
+    "selectedColor": "#00c2ff",  
+    "backgroundColor": "#000000", 
+    "borderStyle": "white",       
+    "list": [
+      {
+        "pagePath": "pages/detail/detail",
+        "text": "制作",
+        "iconPath": "images/tabbar/make.png",
+        "selectedIconPath": "images/tabbar/make_selected.png"
+      },
+      {
+        "pagePath": "pages/profile/profile",
+        "text": "我的",
+        "iconPath": "images/tabbar/user.png",
+        "selectedIconPath": "images/tabbar/user_selected.png"
+      }
+    ]
+  }
 }

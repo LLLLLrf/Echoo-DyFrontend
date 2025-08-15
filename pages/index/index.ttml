@@ -13,13 +13,17 @@
 
   <view class="container"></view>
 
-  <button class="button" catchtap="navigateToDetail" disabled="{{isLoading}}">
+  
+
+  <button class="button" catchtap="handleGetUserProfile">登录</button>
+
+  <!-- <button class="button" catchtap="navigateToDetail" disabled="{{isLoading}}">
     <view class="wrap">
       <view tt:if="{{isLoading}}">登录中...</view>
       <view tt:elif="{{!isLoggedIn}}">Start</view>
       <view tt:else>Start</view>
     </view>
-  </button>
+  </button> -->
   
   <!-- 登录提示 -->
   <view class="login-tip" tt:if="{{!isLoggedIn}}">

@@ -25,10 +25,10 @@
 
   <!-- 音频上传区域 -->
   <view class="upload-section">
-    <view class="section-title">🎵 选择音频</view>
+    <view class="section-title">🎵 选择视频（只用于提取音频）</view>
     
     <block wx:if="{{showAudioPicker}}">
-      <button class="button" bindtap="chooseAudio">选择音频文件</button>
+      <button class="button" bindtap="chooseAudio">选择视频文件</button>
       <view class="status warning">未选择音频</view>
     </block>
     
@@ -42,15 +42,13 @@
         </view>
       </view>
       <view wx:if="{{audioInfo}}" class="audio-info">
-        文件大小: {{audioInfo.size}}
+        文件大小: {{audioInfo.size}} MB
       </view>
          <!--  增加一个麦克风的 动画 -->
-        <view class="status {{recordFilePath ? 'success' : 'warning'}}">
+        <!-- <view class="status {{recordFilePath ? 'success' : 'warning'}}">
             {{recordFilePath ? '✅ 已完成录音' : '⚠️ 未录音'}}
-        </view>
-        <view wx:if="{{audioInfo}}" class="audio-info">
-            文件大小: {{audioInfo.size}}
-        </view>
+        </view> -->
+        
       <button class="button" bindtap="playAudio" style="height: 70px; padding: 0px 0px; font-size: 1.1em; display: flex; align-items: center;justify-content: center;border-radius: 1000px;">
         🎵 试听音频
       </button>
@@ -61,7 +59,7 @@
   <!-- 处理按钮 -->
   <view class="upload-section">
     <view class="section-title">🎬 生成视频</view>
-    <button class="button" bindtap="uploadFiles" disabled="{{isLoading || !imagePath || !recordFilePath}}">
+    <button class="button" bindtap="uploadFiles">
       <view wx:if="{{isLoading}}" class="loading">
         <text>⏳ 处理中...</text>
       </view>
@@ -93,5 +91,5 @@
   </view>
 
   <!-- 底部导航栏 -->
-  <bottom-nav current="detail" bind:navchange="onNavChange"></bottom-nav>
+  <!-- <bottom-nav current="detail" bind:navchange="onNavChange"></bottom-nav> -->
 </view>

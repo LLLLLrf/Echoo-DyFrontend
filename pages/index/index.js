@@ -41,8 +41,9 @@ Page({
         this.setData({ 
           isLoading: false,
           loginCode: code,
-          showPopup: true // 显示弹窗
+          // showPopup: true // 显示弹窗
         });
+        // this.handleGetUserProfile()
       }).catch((err) => {
         this.setData({ isLoading: false });
         console.error('登录失败:', err);
@@ -65,6 +66,24 @@ Page({
 
   // 调用 getUserProfile
   handleGetUserProfile: function () {
+    app.login().then(({ code }) => {
+      this.setData({ 
+        isLoading: false,
+        loginCode: code,
+        // showPopup: true // 显示弹窗
+      });
+      // this.handleGetUserProfile()
+    }).catch((err) => {
+      this.setData({ isLoading: false });
+      console.error('登录失败:', err);
+      tt.showModal({
+        title: '登录失败',
+        content: '登录失败，请重试',
+        showCancel: false,
+        confirmText: '知道了'
+      });
+    });
+
     app.getUserProfile().then((userInfo) => {
       this.setData({ 
         userInfo: userInfo,
@@ -75,6 +94,7 @@ Page({
         title: '获取用户信息成功',
         icon: 'success'
       });
+      this.goToDetail();
     }).catch((err) => {
       console.error('获取用户信息失败:', err);
       tt.showToast({
@@ -131,8 +151,17 @@ Page({
 
   // 跳转到详情页
   goToDetail: function () {
-    tt.navigateTo({
-      url: '/pages/detail/detail'
+    // tt.navigateTo({
+    //   url: '/pages/detail/detail'
+    // });
+    tt.switchTab({
+      url: '/pages/detail/detail',
+      success: (res) => {
+        
+      },
+      fail: (res) => {
+        
+      },
     });
   },
 

@@ -104,5 +104,5 @@
   </view>
 
   <!-- 底部导航栏 -->
-  <bottom-nav current="profile" bind:navchange="onNavChange"></bottom-nav>
+  <!-- <bottom-nav current="profile" bind:navchange="onNavChange"></bottom-nav> -->
 </view> 

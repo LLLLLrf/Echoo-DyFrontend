@@ -106,7 +106,8 @@ Page({
     const userId='dy_1755149617_9389d4ce'
     requestWithAuth({
       // url:"http://110.40.183.254:8001/tasks/video",
-      url: `http://localhost:8001/tasks/user/${userId}`,
+      // url: `http://localhost:8001/tasks/user/${userId}`,
+      url: `http://110.40.183.254:8001/tasks/user/${userId}`,
         // 'user_id': tt.getStorageInfoSync('userid')
       method:'GET',
     }).then((res)=>{
