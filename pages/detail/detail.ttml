@@ -92,4 +92,5 @@
 
   <!-- 底部导航栏 -->
   <!-- <bottom-nav current="detail" bind:navchange="onNavChange"></bottom-nav> -->
+  <custom-tab-bar />
 </view>

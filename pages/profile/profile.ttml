@@ -37,22 +37,32 @@
       <text class="view-all" bindtap="viewAllVideos">查看全部</text>
     </view>
     
-    <view class="video-list">
-      <view wx:if="{{recentVideos.length === 0}}" class="empty-state">
-        <text class="empty-text">暂无视频记录</text>
-        <text class="empty-desc">开始制作你的第一个视频吧！</text>
-      </view>
-      
-      <view wx:for="{{recentVideos}}" wx:key="id" class="video-item">
-        <view class="video-info" bindtap="viewVideoDetail" data-id="{{item.id}}">
-          <image class="video-thumbnail" src="{{item.thumbnail || '/images/video-placeholder.png'}}" mode="aspectFill"></image>
-          <view class="video-details">
-            <text class="video-name">{{item.name}}</text>
-            <text class="video-time">{{item.createTime}}</text>
-            <text class="video-size">{{item.size}}</text>
+    <view class="video-list-container">
+      <view class="video-list">
+        <view class="video-item" tt:for="{{recentVideos}}" tt:key="id">
+          <image class="video-thumb" src="{{item.thumbnail}}" mode="aspectFill" bindtap="previewVideoCover" data-url="{{item.thumbnail}}" />
+          
+          <!-- 视频状态标签 -->
+          <view class="video-status {{item.status}}">
+            {{item.status === 'completed' ? '已完成' : item.progress + '%'}}
+          </view>
+          
+          <view class="video-info">
+            <text class="video-time">{{item.createTime.split('T')[0]}}</text>
+            <view class="video-actions">
+              <button class="btn-download" tt:if="{{item.status === 'completed'}}" bindtap="downloadVideo" data-url="{{item.videoUrl}}">
+                下载
+              </button>
+            </view>
+          </view>
+          
+          <!-- 操作按钮 -->
+          <view class="video-actions">
+            <button class="btn-delete" bindtap="deleteVideo" data-id="{{item.id}}">
+              删除
+            </button>
           </view>
         </view>
-        <button class="delete-btn" bindtap="deleteVideo" data-id="{{item.id}}" data-name="{{item.name}}">删除</button>
       </view>
     </view>
   </view>
@@ -105,4 +115,7 @@
 
   <!-- 底部导航栏 -->
   <!-- <bottom-nav current="profile" bind:navchange="onNavChange"></bottom-nav> -->
+
+  <!-- 添加自定义导航栏 -->
+  <custom-tab-bar />
 </view> 

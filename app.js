@@ -130,6 +130,7 @@ App({
         success: (res) => {
           console.log('获取用户信息成功:', res);
           this.globalData.isLoggedIn=true;
+          this.globalData.userInfo=res.userInfo;
           resolve(res.userInfo);
         },
         fail: (err) => {

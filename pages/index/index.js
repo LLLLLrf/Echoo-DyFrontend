@@ -66,6 +66,14 @@ Page({
 
   // 调用 getUserProfile
   handleGetUserProfile: function () {
+    // 检查是否已登录且有用户信息
+    console.log("info:",this.data.userInfo);
+    console.log("islogin:",this.data.isLoggedIn);
+    if (this.data.isLoggedIn && this.data.userInfo) {
+      this.goToDetail();
+      return;
+    }
+
     app.login().then(({ code }) => {
       this.setData({ 
         isLoading: false,

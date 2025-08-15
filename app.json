@@ -2,7 +2,8 @@
   "pages": [
     "pages/index/index",
     "pages/detail/detail",
-    "pages/profile/profile"
+    "pages/profile/profile",
+    "pages/video-list/video-list"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -18,7 +19,8 @@
     "color": "#666666",           
     "selectedColor": "#00c2ff",  
     "backgroundColor": "#000000", 
-    "borderStyle": "white",       
+    "borderStyle": "white",
+    "custom": true,
     "list": [
       {
         "pagePath": "pages/detail/detail",

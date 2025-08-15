@@ -14,7 +14,14 @@ Page({
     },
     recentVideos: [],
     isLoading: false,
-    isLoggedIn: false
+    isLoggedIn: false,
+    // 新增分页相关数据
+    pagination: {
+      currentPage: 1,
+      pageSize: 5,
+      total: 0,
+      hasMore: true
+    }
   },
 
   onLoad: function (options) {
@@ -29,6 +36,7 @@ Page({
     // 页面显示时刷新数据
     this.checkLoginStatus();
     this.loadStatistics();
+    this.loadUserInfo();
     this.loadRecentVideos();
   },
 
@@ -59,7 +67,7 @@ Page({
   loadUserInfo: function () {
     // 优先使用全局登录信息
     const globalUserInfo = app.getUserInfoSync();
-    console.log("loading user info");
+    console.log("loading user info",globalUserInfo);
     if (globalUserInfo) {
       this.setData({
         userInfo: {
@@ -98,23 +106,44 @@ Page({
   },
 
   // 加载最近视频
-  loadRecentVideos: function () {
-    // const recentVideos = tt.getStorageSync('recentVideos') || [];
-    // this.setData({
-    //   recentVideos: recentVideos.slice(0, 5) // 只显示最近5个
-    // });
-    // const userId=tt.getStorageInfoSync('userid')
-    const userId='dy_1755149617_9389d4ce'
-    requestWithAuth({
-      // url:"http://110.40.183.254:8001/tasks/video",
-      // url: `http://localhost:8001/tasks/user/${userId}`,
-      url: `http://110.40.183.254:8001/tasks/user/${userId}`,
-        // 'user_id': tt.getStorageInfoSync('userid')
-      method:'GET',
-    }).then((res)=>{
-      console.log(res)
+  loadRecentVideos: function (loadMore = false) {
+    if (!loadMore) {
+      this.setData({
+        'pagination.currentPage': 1,
+        'pagination.hasMore': true
+      });
+    }
 
-    })
+    const { currentPage, pageSize } = this.data.pagination;
+    const userId = 'dy_1755149617_9389d4ce';
+    
+    requestWithAuth({
+      url: `http://110.40.183.254:8001/tasks/user/${userId}`,
+      method: 'GET',
+      data: {
+        page: currentPage,
+        page_size: pageSize
+      }
+    }).then((res) => {
+      const videosWithCover = res.tasks.map(task => ({
+        id: task.task_id,
+        status: task.status,
+        progress: task.progress,
+        createTime: task.created_at,
+        videoUrl: task.video_url,
+        // 直接使用服务端返回的封面或默认图
+        thumbnail: task.thumbnail_url || '/images/default-video-cover.png'
+      }));
+      console.log(res);
+
+      this.setData({
+        recentVideos: loadMore 
+          ? [...this.data.recentVideos, ...videosWithCover]
+          : videosWithCover,
+        'pagination.total': res.total || 0,
+        'pagination.hasMore': res.tasks.length >= pageSize
+      });
+    });
   },
 
   // 编辑用户信息
@@ -135,10 +164,12 @@ Page({
   },
 
   // 查看所有视频
-  viewAllVideos: function () {
-    tt.showToast({
-      title: '功能开发中',
-      icon: 'none'
+  viewAllVideos: function() {
+    tt.navigateTo({
+      url: '/pages/video-list/video-list',
+      success: () => {
+        console.log('已打开视频列表页');
+      }
     });
   },
 
@@ -314,5 +345,14 @@ Page({
         url: '/pages/detail/detail'
       });
     }
+  },
+
+  // 新增查看全部方法
+  previewVideoCover: function(e) {
+    const url = e.currentTarget.dataset.url;
+    tt.previewImage({
+      urls: [url],
+      current: url
+    });
   }
 }); 

@@ -1,0 +1,18 @@
+<view class="custom-tab-bar">
+  <view 
+    class="tab-item {{current === 0 ? 'active' : ''}}" 
+    bindtap="switchTab" 
+    data-index="0"
+  >
+    <image src="{{current === 0 ? selectedIconPath[0] : iconPath[0]}}" />
+    <text>{{list[0].text}}</text>
+  </view>
+  <view 
+    class="tab-item {{current === 1 ? 'active' : ''}}" 
+    bindtap="switchTab" 
+    data-index="1"
+  >
+    <image src="{{current === 1 ? selectedIconPath[1] : iconPath[1]}}" />
+    <text>{{list[1].text}}</text>
+  </view>
+</view>

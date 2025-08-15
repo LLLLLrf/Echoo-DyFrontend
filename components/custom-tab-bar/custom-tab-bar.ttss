@@ -1,0 +1,34 @@
+.custom-tab-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  display: flex;
+  background: linear-gradient(135deg, #1a1a1a 0%, #000000 100%);
+  box-shadow: 0 0px 20px rgba(30, 104, 128, 0.274);
+  z-index: 100;
+}
+
+.tab-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #666666;
+}
+
+.tab-item.active {
+  color: #00c2ff;
+}
+
+.tab-item image {
+  width: 24px;
+  height: 24px;
+  margin-bottom: 4px;
+}
+
+.tab-item text {
+  font-size: 10px;
+}
