@@ -114,7 +114,8 @@ Page({
       });
     }
 
-    const { currentPage, pageSize } = this.data.pagination;
+    const { currentPage } = this.data.pagination;
+    const pageSize = 9; // 固定加载9条
     const userId = 'dy_1755149617_9389d4ce';
     
     requestWithAuth({
@@ -125,16 +126,24 @@ Page({
         page_size: pageSize
       }
     }).then((res) => {
-      const videosWithCover = res.tasks.map(task => ({
-        id: task.task_id,
-        status: task.status,
-        progress: task.progress,
-        createTime: task.created_at,
-        videoUrl: task.video_url,
-        // 直接使用服务端返回的封面或默认图
-        thumbnail: task.thumbnail_url || '/images/default-video-cover.png'
-      }));
-      console.log(res);
+      console.log('后端返回的原始数据:', res);
+      
+      const videosWithCover = res.tasks.map(task => {
+        const videoData = {
+          id: task.task_id,
+          name: `视频_${task.created_at.split('T')[0].replace(/-/g, '')}`,
+          status: task.status,
+          // progress: task.progress || 0, // 确保有默认值
+          progress: Math.round(Math.random()*100,2),
+          thumbnail: 'https://p9-aiop-sign.byteimg.com/tos-cn-i-vuqhorh59i/20250816004616E1B398AA7CE0DE2B6548-4293-0~tplv-vuqhorh59i-image.image?rk3s=7f9e702d&x-expires=1755362776&x-signature=%2BqvS%2FivVSkPxHMfTC95y7TX1mOo%3D',
+          videoUrl: task.video_url
+        };
+        
+        console.log(`视频 ${videoData.id} 的状态: ${videoData.status}, 进度: ${videoData.progress}%`);
+        return videoData;
+      });
+
+      console.log('处理后的视频数据:', videosWithCover);
 
       this.setData({
         recentVideos: loadMore 
@@ -142,6 +151,17 @@ Page({
           : videosWithCover,
         'pagination.total': res.total || 0,
         'pagination.hasMore': res.tasks.length >= pageSize
+      });
+      
+      // 验证数据是否正确设置
+      setTimeout(() => {
+        console.log('当前页面数据:', this.data.recentVideos);
+      }, 100);
+    }).catch((err) => {
+      console.error('加载视频失败:', err);
+      tt.showToast({
+        title: '加载失败',
+        icon: 'none'
       });
     });
   },

@@ -104,22 +104,22 @@
   background: #101112;
   margin: 15px;
   border-radius: 12px;
-  padding: 20px;
-  max-height: 480px;
-  overflow: scroll;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  position: relative;
+  padding: 0 20px 20px 20px;
+  max-height: 300px;
+  overflow-y: auto;
+  margin-top: 12px;
 }
 
 .section-header {
   display: flex;
   justify-content: space-between;
+  padding: 20px 0 10px 0;
   align-items: center;
   margin-bottom: 10px;
   position: sticky;
   top: 0;
   background: #101112;
-  z-index: 1;
+  z-index: 99;
 }
 
 .section-title {
@@ -129,7 +129,7 @@
 }
 
 .view-all {
-  font-size: 14px;
+  font-size: 12px;
   color: #667eea;
 }
 
@@ -151,82 +151,144 @@
 }
 
 .video-list-container {
-  max-height: calc(200px - 60px); /* 减去 header 高度 */
+  max-height: calc(300px - 60px);
   overflow-y: auto;
 }
 
-.video-list {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+.video-grid {
+  display: flex;
+  flex-direction: column;
   gap: 10px;
-  margin-top: 10px;
+  margin-top: 12px;
 }
 
 .video-item {
-  position: relative;
+  display: flex;
+  height: 64px;
+  width: 100%;
   border-radius: 8px;
   overflow: hidden;
-  background: #2A2A2A;
-  height: 80px;
+  background: #1a1a1a;
+  margin-bottom: 8px;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+/* 进度条式渐变效果 */
+.video-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: calc(var(--progress, 0) * 1%);
+  height: 100%;
+  background: linear-gradient(90deg, 
+    #12bcf5 0%, 
+    #1E90FF 50%, 
+    #4169e1 100%
+  );
+  z-index: 3;
+  transition: width 0.3s ease;
+}
+
+/* 处理中状态的特殊效果 */
+.video-item.pending {
+  position: relative;
+}
+
+.video-item.pending::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(62, 62, 62, 0.221);
+  backdrop-filter: blur(3px);
+  border-radius: 8px;
+  z-index: 1;
+}
+
+/* 处理中状态的特殊效果 */
+.video-item.failed {
+  position: relative;
+}
+
+.video-item.failed::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(62, 62, 62, 0.221);
+  backdrop-filter: blur(3px);
+  border-radius: 8px;
+  z-index: 1;
 }
 
 .video-item:last-child {
   border-bottom: none;
 }
 
+.video-thumb {
+  width: 64px;
+  height: 64px;
+  background: #2A2A2A;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 4;
+}
+
+/* 给处理中和排队中的图片添加模糊效果 */
+.video-item.pending .video-thumb,
+.video-item.processing .video-thumb,
+.video-item.failed .video-thumb {
+  filter: blur(1.8px);
+  opacity: 0.8;
+  overflow: hidden;
+}
+
+/* 确保选择器正确工作 */
+.video-item[class*="pending"] .video-thumb,
+.video-item[class*="processing"] .video-thumb,
+.video-item[class*="failed"] .video-thumb {
+  filter: blur(1.8px);
+  opacity: 0.8;
+  overflow: hidden;
+}
+
+/* 移除整个卡片的模糊效果，只保留图片的模糊 */
+.video-item.pending::after,
+.video-item.processing::after,
+.video-item.failed::after {
+  display: none; /* 移除整个卡片的模糊遮罩 */
+}
+
 .video-info {
-  padding: 8px;
-}
-
-.video-thumbnail {
-  width: 100%;
-  height: 120px;
-  display: block;
-}
-
-.video-details {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 8px 12px;
+  position: relative;
+  z-index: 4;
 }
 
 .video-name {
-  display: block;
-  font-size: 14px;
+  font-size: 12px;
   color: #ccc;
-  margin-bottom: 5px;
   font-weight: 500;
+  margin-bottom: 4px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-.video-time {
+.progress-text {
   font-size: 10px;
-  color: #999;
-}
-
-.video-size {
-  font-size: 12px;
-  color: #999;
-}
-
-.delete-btn {
-  background: #ff4757;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  padding: 6px 12px;
-  font-size: 12px;
-  margin-left: 10px;
-}
-
-.progress-bar {
-  height: 4px;
-  background: #333;
-  margin-top: 8px;
-  border-radius: 2px;
-}
-
-.progress-inner {
-  height: 100%;
-  background: #00BFFF;
-  border-radius: 2px;
+  color: #56c3e7;
+  font-weight: 500;
 }
 
 .video-status {
@@ -236,15 +298,32 @@
   padding: 2px 6px;
   font-size: 10px;
   border-radius: 4px;
-  background: rgba(0,0,0,0.7);
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  z-index: 4;
+  font-weight: 500;
+  min-width: 40px;
+  text-align: center;
 }
 
 .video-status.completed {
-  color: #00BFFF;
+  background: rgba(0, 191, 255, 0.9);
+  color: white;
 }
 
 .video-status.pending {
-  color: #FF9500;
+  background: rgba(255, 149, 0, 0.9);
+  color: white;
+}
+
+.video-status.processing {
+  background: rgba(0, 191, 255, 0.9);
+  color: white;
+}
+
+.video-status.failed {
+  background: rgba(255, 69, 0, 0.9);
+  color: white;
 }
 
 /* 功能菜单区域 */

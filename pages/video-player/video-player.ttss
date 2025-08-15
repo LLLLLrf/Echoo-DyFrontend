@@ -1,0 +1,39 @@
+.container {
+  height: 100vh;
+  background: #121212;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  background: #1E1E1E;
+}
+
+.btn-back {
+  font-size: 24px;
+  color: #FFF;
+  margin-right: 15px;
+}
+
+.title {
+  font-size: 18px;
+  color: #FFF;
+}
+
+.video {
+  width: 100%;
+  height: 300px;
+}
+
+.controls {
+  padding: 20px;
+  text-align: center;
+}
+
+.play-btn {
+  background: #FF2D55;
+  color: white;
+  border-radius: 20px;
+  padding: 10px 30px;
+}

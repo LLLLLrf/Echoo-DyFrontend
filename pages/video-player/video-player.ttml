@@ -1,0 +1,20 @@
+<view class="container">
+  <view class="header">
+    <view class="btn-back" bindtap="goBack">←</view>
+    <view class="title">视频播放</view>
+  </view>
+
+  <video 
+    id="myVideo"
+    src="{{videoUrl}}"
+    controls
+    autoplay
+    class="video"
+  ></video>
+
+  <view class="controls">
+    <button class="play-btn" bindtap="togglePlay">
+      {{isPlaying ? '暂停' : '播放'}}
+    </button>
+  </view>
+</view>

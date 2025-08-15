@@ -1,27 +1,52 @@
+// 请求工具函数
+const app = getApp();
+
 /**
- * 封装带认证头的请求方法
- * @param {Object} options 请求配置
+ * 带认证的请求函数
+ * @param {Object} options - 请求选项
+ * @param {string} options.url - 请求URL
+ * @param {string} options.method - 请求方法
+ * @param {Object} options.data - 请求数据
+ * @param {Object} options.header - 请求头
  */
-export function requestWithAuth(options) {
-//   const token = tt.getStorageSync('token');
-//   if (!token) {
-//     return Promise.reject(new Error('未登录，请先登录'));
-//   }
-  const token = "token_dy_1755149617_9389d4ce_1755150511_a7ec6241086aaaa0"
-  const { url, method, data, header = {} } = options;
+function requestWithAuth(options) {
   return new Promise((resolve, reject) => {
+    // 获取用户认证信息
+    const userInfo = app.getUserInfoSync();
+    const openid = app.getOpenid();
+    
+    // 设置默认请求头
+    const defaultHeader = {
+      'Content-Type': 'application/json'
+    };
+    
+    // 如果有用户信息，添加认证头
+    if (userInfo && openid) {
+      defaultHeader['X-User-Id'] = openid;
+      defaultHeader['X-User-Name'] = userInfo.nickName || 'unknown';
+    }
+    
+    // 合并请求头
+    const headers = { ...defaultHeader, ...options.header };
+    
+    // 发起请求
     tt.request({
-      url,
-      method,
-      data,
-      header: {
-        ...header,
-        Authorization: `Bearer ${token}`
-      },
+      url: options.url,
+      method: options.method || 'GET',
+      data: options.data || {},
+      header: headers,
       success: (res) => {
-        resolve(res.data);
+        console.log('请求成功:', res);
+        
+        if (res.statusCode >= 200 && res.statusCode < 300) {
+          resolve(res.data);
+        } else {
+          console.error('请求失败:', res);
+          reject(new Error(`请求失败: ${res.statusCode}`));
+        }
       },
       fail: (err) => {
+        console.error('请求错误:', err);
         reject(err);
       }
     });
@@ -29,73 +54,69 @@ export function requestWithAuth(options) {
 }
 
 /**
- * 上传图片
- * @param {Object} options 上传配置
- * @param {string} options.url 上传地址
- * @param {string} options.filePath 图片路径
- * @param {string} options.name 表单字段名
- * @param {Object} options.formData 附加表单数据
+ * GET请求
+ * @param {string} url - 请求URL
+ * @param {Object} data - 请求参数
+ * @param {Object} header - 请求头
  */
-export function uploadImage(options) {
-//   const token = tt.getStorageSync('login_token');
-//   if (!token) {
-//     return Promise.reject(new Error('未登录，请先登录'));
-//   }
-
-// 调试时暂时写死token
-   const token = "token_dy_1755149617_9389d4ce_1755150511_a7ec6241086aaaa0"
-
-  return new Promise((resolve, reject) => {
-    tt.uploadFile({
-      url: options.url,
-      filePath: options.filePath,
-      name: options.name || 'images',
-      header: {
-        Authorization: `Bearer ${token}`
-      },
-      formData: options.formData || {},
-      success: (response) => {
-        resolve(JSON.parse(response.data));
-      },
-      fail: (err) => {
-        reject(err);
-      }
-    });
+function get(url, data = {}, header = {}) {
+  return requestWithAuth({
+    url,
+    method: 'GET',
+    data,
+    header
   });
 }
 
 /**
- * 上传图片
- * @param {Object} options 上传配置
- * @param {string} options.url 上传地址
- * @param {string} options.filePath 图片路径
- * @param {string} options.name 表单字段名
- * @param {Object} options.formData 附加表单数据
+ * POST请求
+ * @param {string} url - 请求URL
+ * @param {Object} data - 请求数据
+ * @param {Object} header - 请求头
  */
-export function uploadImage(options) {
-//   const token = tt.getStorageSync('login_token');
-//   if (!token) {
-//     return Promise.reject(new Error('未登录，请先登录'));
-//   }
-
-// 调试时暂时写死token
-   const token = "token_dy_1755149617_9389d4ce_1755150511_a7ec6241086aaaa0"
-
-  return new Promise((resolve, reject) => {
-    tt.uploadFile({
-      url: options.url,
-      filePath: options.filePath,
-      name: options.name || 'images',
-      header: {
-        Authorization: `Bearer ${token}`
-      },
-      formData: options.formData || {},
-      success: (response) => {
-        resolve(JSON.parse(response.data));
-      },
-      fail: (err) => {
-        reject(err);
-      }
-    });
+function post(url, data = {}, header = {}) {
+  return requestWithAuth({
+    url,
+    method: 'POST',
+    data,
+    header
   });
 }
+
+/**
+ * PUT请求
+ * @param {string} url - 请求URL
+ * @param {Object} data - 请求数据
+ * @param {Object} header - 请求头
+ */
+function put(url, data = {}, header = {}) {
+  return requestWithAuth({
+    url,
+    method: 'PUT',
+    data,
+    header
+  });
+}
+
+/**
+ * DELETE请求
+ * @param {string} url - 请求URL
+ * @param {Object} data - 请求数据
+ * @param {Object} header - 请求头
+ */
+function del(url, data = {}, header = {}) {
+  return requestWithAuth({
+    url,
+    method: 'DELETE',
+    data,
+    header
+  });
+}
+
+module.exports = {
+  requestWithAuth,
+  get,
+  post,
+  put,
+  delete: del
+};

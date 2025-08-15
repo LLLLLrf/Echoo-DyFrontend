@@ -4,23 +4,29 @@
     <view class="btn-close" bindtap="goBack">×</view>
   </view>
 
-  <view class="video-grid">
-    <view 
-      class="video-card" 
-      tt:for="{{videos}}" 
-      tt:key="id"
-      bindtap="previewVideo"
-      data-url="{{item.videoUrl}}"
-    >
-      <image class="thumbnail" src="{{item.thumbnail}}" mode="aspectFill" />
-      <view class="video-info">
-        <text class="video-title">{{item.name || '未命名视频'}}</text>
-        <text class="video-date">{{item.createTime.split('T')[0]}}</text>
+  <scroll-view 
+    class="video-scroll"
+    scroll-y
+    bindscrolltolower="onReachBottom"
+  >
+    <view class="video-grid">
+      <view 
+        class="video-card" 
+        tt:for="{{videos}}" 
+        tt:key="id"
+        bindtap="previewVideo"
+        data-url="{{item.videoUrl}}"
+      >
+        <image class="thumbnail" src="{{item.thumbnail}}" mode="aspectFill" />
+        <view class="video-play-icon"></view>
+        <view class="video-info">
+          <text class="video-title">{{item.name || '未命名视频'}}</text>
+          <text class="video-date">{{item.createTime.split('T')[0]}}</text>
+        </view>
+      </view>
+      <view class="load-more" tt:if="{{isLoading}}">
+        <text>加载中...</text>
       </view>
     </view>
-    
-    <view class="load-more" tt:if="{{isLoading}}">
-      <text>加载中...</text>
-    </view>
-  </view>
+  </scroll-view>
 </view>

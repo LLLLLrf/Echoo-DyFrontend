@@ -12,6 +12,7 @@
   </view>
 
   <!-- 统计数据区域 -->
+  <!--
   <view class="stats-section">
     <view class="stats-title">数据统计</view>
     <view class="stats-grid">
@@ -29,6 +30,7 @@
       </view>
     </view>
   </view>
+  -->
 
   <!-- 最近视频区域 -->
   <view class="recent-section">
@@ -37,34 +39,25 @@
       <text class="view-all" bindtap="viewAllVideos">查看全部</text>
     </view>
     
-    <view class="video-list-container">
-      <view class="video-list">
-        <view class="video-item" tt:for="{{recentVideos}}" tt:key="id">
-          <image class="video-thumb" src="{{item.thumbnail}}" mode="aspectFill" bindtap="previewVideoCover" data-url="{{item.thumbnail}}" />
-          
-          <!-- 视频状态标签 -->
-          <view class="video-status {{item.status}}">
-            {{item.status === 'completed' ? '已完成' : item.progress + '%'}}
-          </view>
-          
+    <scroll-view 
+      scroll-y
+      style="height: 240px"
+    >
+      <view class="video-grid">
+        <view class="video-item {{item.status}}" tt:for="{{recentVideos}}" tt:key="id" style="--progress: {{item.progress}}">
+          <image class="video-thumb" src="{{item.thumbnail}}" mode="aspectFill" />
           <view class="video-info">
-            <text class="video-time">{{item.createTime.split('T')[0]}}</text>
-            <view class="video-actions">
-              <button class="btn-download" tt:if="{{item.status === 'completed'}}" bindtap="downloadVideo" data-url="{{item.videoUrl}}">
-                下载
-              </button>
-            </view>
+            <text class="video-name">{{item.name}}</text>
+            <text class="progress-text">{{item.progress}}%</text>
+            <!-- 调试信息 -->
+            <text style="font-size: 8px; color: #666;">状态: {{item.status}}</text>
           </view>
-          
-          <!-- 操作按钮 -->
-          <view class="video-actions">
-            <button class="btn-delete" bindtap="deleteVideo" data-id="{{item.id}}">
-              删除
-            </button>
+          <view class="video-status {{item.status}}">
+            {{item.status === 'completed' ? '已完成' : (item.status === 'pending' ? '排队中' : (item.status === 'processing' ? '处理中' : '生成失败'))}}
           </view>
         </view>
       </view>
-    </view>
+    </scroll-view>
   </view>
 
   <!-- 功能菜单区域 -->

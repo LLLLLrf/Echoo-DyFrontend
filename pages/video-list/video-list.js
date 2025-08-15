@@ -7,7 +7,7 @@ Page({
     isLoading: false,
     pagination: {
       page: 1,
-      pageSize: 10,
+      pageSize: 5,
       hasMore: true
     }
   },
@@ -32,8 +32,8 @@ Page({
       const newVideos = res.tasks.map(item => ({
         id: item.task_id,
         name: `视频_${item.created_at.split('T')[0].replace(/-/g, '')}`,
-        thumbnail: item.thumbnail_url || '/images/default-cover.jpg',
-        videoUrl: item.video_url,
+        thumbnail: 'https://p9-aiop-sign.byteimg.com/tos-cn-i-vuqhorh59i/20250816004616E1B398AA7CE0DE2B6548-4293-0~tplv-vuqhorh59i-image.image?rk3s=7f9e702d&x-expires=1755362776&x-signature=%2BqvS%2FivVSkPxHMfTC95y7TX1mOo%3D',
+        videoUrl: 'http://110.40.183.254:9000/echoo/video/0814.mp4',
         createTime: item.created_at,
         status: item.status
       }));
@@ -44,26 +44,36 @@ Page({
         'pagination.page': this.data.pagination.page + 1,
         isLoading: false
       });
+    }).catch(err => {
+      console.error('加载失败:', err);
+      this.setData({ isLoading: false });
+      tt.showToast({ title: '加载失败', icon: 'none' });
     });
   },
 
-  loadMore() {
+  onReachBottom() {
     this.loadVideos();
   },
 
-  previewVideo(e) {
+  previewVideo: function(e) {
     const url = e.currentTarget.dataset.url;
-    if (!url) return;
-    
-    tt.showModal({
-      title: '播放视频',
-      content: '是否要播放此视频？',
-      success(res) {
-        if (res.confirm) {
-          tt.navigateTo({
-            url: `/pages/video-player/video-player?url=${encodeURIComponent(url)}`
-          });
-        }
+    if (!url) {
+      tt.showToast({
+        title: '视频地址无效',
+        icon: 'none'
+      });
+      return;
+    }
+
+    tt.navigateTo({
+      url: `/pages/video-player/video-player?url=${encodeURIComponent(url)}`,
+      success: () => console.log('跳转播放页成功'),
+      fail: (err) => {
+        console.error('跳转失败:', err);
+        tt.showToast({
+          title: '播放失败',
+          icon: 'none'
+        });
       }
     });
   },

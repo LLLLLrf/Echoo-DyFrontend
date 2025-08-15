@@ -3,7 +3,8 @@
     "pages/index/index",
     "pages/detail/detail",
     "pages/profile/profile",
-    "pages/video-list/video-list"
+    "pages/video-list/video-list",
+    "pages/video-player/video-player"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -11,10 +12,31 @@
     "navigationBarTitleText": "Echoo",
     "navigationBarTextStyle": "white"
   },
+  "networkTimeout": {
+    "request": 10000,
+    "connectSocket": 10000,
+    "uploadFile": 10000,
+    "downloadFile": 10000
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于视频定位功能"
+    }
+  },
   "__usePrivacyCheck__": true,
   "requiredPrivateInfos": [
-    "chooseImage"
+    "chooseImage",
+    "getLocation"
   ],
+  "navigateToMiniProgramAppIdList": [
+    "ttabcdefghijk"
+  ],
+  "request": {
+    "domain": [
+      "http://110.40.183.254",
+      "https://p9-aiop-sign.byteimg.com"
+    ]
+  },
   "tabBar": {
     "color": "#666666",           
     "selectedColor": "#00c2ff",  
