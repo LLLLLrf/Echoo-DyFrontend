@@ -59,6 +59,7 @@ Page({
   loadUserInfo: function () {
     // 优先使用全局登录信息
     const globalUserInfo = app.getUserInfoSync();
+    console.log("loading user info");
     if (globalUserInfo) {
       this.setData({
         userInfo: {
@@ -214,7 +215,7 @@ Page({
   aboutUs: function () {
     tt.showModal({
       title: '关于Echoo',
-      content: '版本：1.0.0\n一个简单易用的图片音频合成视频工具',
+      content: '版本：1.0.0\n一个简单易用的AI MV制作工具',
       showCancel: false,
       confirmText: '知道了'
     });
