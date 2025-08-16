@@ -264,7 +264,7 @@ Page({
   feedback: function () {
     tt.showModal({
       title: '意见反馈',
-      content: '如有问题或建议，请联系我们',
+      content: '如有BUG,请添加微信反馈,微信号:wh91806221',
       showCancel: false,
       confirmText: '知道了'
     });

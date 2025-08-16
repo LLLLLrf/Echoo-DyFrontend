@@ -1,5 +1,6 @@
 const app = getApp();
-const { uploadImage, requestWithAuth } = require('../../utils/request');
+const { requestWithAuth } = require('../../utils/request');
+const { uploadImage } = require('../../utils/upload');
 const DEFAULT_COUNT_DOWN = 60000;
 let cdtimer;
 

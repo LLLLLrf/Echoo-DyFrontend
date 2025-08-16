@@ -48,7 +48,7 @@
           <image class="video-thumb" src="{{item.thumbnail}}" mode="aspectFill" />
           <view class="video-info">
             <text class="video-name">{{item.name}}</text>
-            <text class="progress-text">{{item.progress}}%</text>
+            <text class="progress-text">{{item.status === 'completed' ? '100%' : item.progress + '%'}}</text>
             <!-- 调试信息 -->
             <text style="font-size: 8px; color: #666;">状态: {{item.status}}</text>
           </view>

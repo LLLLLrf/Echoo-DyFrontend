@@ -192,6 +192,7 @@
   );
   z-index: 1;
   transition: width 0.3s ease;
+  border-radius: 8px; /* 添加圆角保持视觉一致性 */
 }
 
 /* 处理中状态的特殊效果 */

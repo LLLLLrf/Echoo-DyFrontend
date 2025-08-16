@@ -10,43 +10,29 @@ const app = getApp();
  * @param {Object} options.header - 请求头
  */
 function requestWithAuth(options) {
+  const token = "token_dy_1755149617_9389d4ce_1755150511_a7ec6241086aaaa0";
   return new Promise((resolve, reject) => {
-    // 获取用户认证信息
     const userInfo = app.getUserInfoSync();
     const openid = app.getOpenid();
-    
-    // 设置默认请求头
     const defaultHeader = {
       'Content-Type': 'application/json'
     };
-    
-    // 如果有用户信息，添加认证头
-    if (userInfo && openid) {
-      defaultHeader['X-User-Id'] = openid;
-      defaultHeader['X-User-Name'] = userInfo.nickName || 'unknown';
-    }
-    
-    // 合并请求头
-    const headers = { ...defaultHeader, ...options.header };
-    
-    // 发起请求
+    const headers = { ...defaultHeader, ...options.header, Authorization: `Bearer ${token}` };
+
     tt.request({
       url: options.url,
       method: options.method || 'GET',
       data: options.data || {},
       header: headers,
+      timeout: 40000, // 设置超时时间为10秒（默认值为6000毫秒）
       success: (res) => {
-        console.log('请求成功:', res);
-        
         if (res.statusCode >= 200 && res.statusCode < 300) {
           resolve(res.data);
         } else {
-          console.error('请求失败:', res);
           reject(new Error(`请求失败: ${res.statusCode}`));
         }
       },
       fail: (err) => {
-        console.error('请求错误:', err);
         reject(err);
       }
     });
@@ -112,6 +98,8 @@ function del(url, data = {}, header = {}) {
     header
   });
 }
+
+
 
 module.exports = {
   requestWithAuth,
