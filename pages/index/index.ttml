@@ -1,5 +1,8 @@
 <view class="body">
-  <view class="title">Echoo</view>
+  <!-- <view class="title">Echoo</view> -->
+  <view class="logo-container">
+    <image class="logo" src="../../images/logo/logo2.png" mode="aspectFit"></image>
+  </view>
   
   <!-- 用户信息显示 -->
   <view>
@@ -12,6 +15,7 @@
   </view>
 
   <view class="container"></view>
+
 
 
 

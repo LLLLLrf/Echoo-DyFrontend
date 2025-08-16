@@ -18,6 +18,7 @@
   background: linear-gradient(180deg, #000, #101010,  #0713198f, #0a1a228f);
   padding: 30px 20px;
   color: white;
+  margin-bottom: 20px;
   box-shadow: 0px 0px 8px #000000;
 
 }
@@ -169,7 +170,7 @@
   border-radius: 8px;
   overflow: hidden;
   background: #1a1a1a;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
   position: relative;
   transition: all 0.3s ease;
 }
@@ -178,16 +179,18 @@
 .video-item::before {
   content: '';
   position: absolute;
+  border-left: #12bcf5 1px solid;
+  /* overflow: hidden; */
   top: 0;
-  left: 0;
-  width: calc(var(--progress, 0) * 1%);
+  left: 64px; /* 从图片宽度开始，不覆盖图片 */
+  width: calc((100% - 64px) * var(--progress, 0) / 100); /* 只覆盖右侧部分，按百分比计算 */
   height: 100%;
   background: linear-gradient(90deg, 
     #12bcf5 0%, 
     #1E90FF 50%, 
     #4169e1 100%
   );
-  z-index: 3;
+  z-index: 1;
   transition: width 0.3s ease;
 }
 
@@ -203,8 +206,8 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(62, 62, 62, 0.221);
-  backdrop-filter: blur(3px);
+  /* background: rgba(62, 62, 62, 0.221); */
+  backdrop-filter: blur(0px);
   border-radius: 8px;
   z-index: 1;
 }
@@ -221,8 +224,8 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(62, 62, 62, 0.221);
-  backdrop-filter: blur(3px);
+  /* background: rgba(62, 62, 62, 0.221); */
+  backdrop-filter: blur(0px);
   border-radius: 8px;
   z-index: 1;
 }
@@ -234,18 +237,19 @@
 .video-thumb {
   width: 64px;
   height: 64px;
-  background: #2A2A2A;
+  /* background: #2A2A2A; */
   flex-shrink: 0;
   position: relative;
-  z-index: 4;
+  /* overflow: hidden; */
+  z-index: 0;
 }
 
 /* 给处理中和排队中的图片添加模糊效果 */
 .video-item.pending .video-thumb,
 .video-item.processing .video-thumb,
 .video-item.failed .video-thumb {
-  filter: blur(1.8px);
-  opacity: 0.8;
+  /* filter: blur(1.8px); */
+  /* opacity: 0.8; */
   overflow: hidden;
 }
 
@@ -253,9 +257,11 @@
 .video-item[class*="pending"] .video-thumb,
 .video-item[class*="processing"] .video-thumb,
 .video-item[class*="failed"] .video-thumb {
-  filter: blur(1.8px);
-  opacity: 0.8;
-  overflow: hidden;
+  filter: blur(1px);
+  opacity: 1;
+  background-color: #fff;
+  border: #12bcf5 0.3px solid;
+  /* overflow: hidden; */
 }
 
 /* 移除整个卡片的模糊效果，只保留图片的模糊 */
@@ -307,22 +313,22 @@
 }
 
 .video-status.completed {
-  background: rgba(0, 191, 255, 0.9);
+  background: rgb(0, 191, 255);
   color: white;
 }
 
 .video-status.pending {
-  background: rgba(255, 149, 0, 0.9);
+  background: rgb(255, 149, 0);
   color: white;
 }
 
 .video-status.processing {
-  background: rgba(0, 191, 255, 0.9);
+  background: rgb(0, 191, 255);
   color: white;
 }
 
 .video-status.failed {
-  background: rgba(255, 69, 0, 0.9);
+  background: rgb(255, 68, 0);
   color: white;
 }
 

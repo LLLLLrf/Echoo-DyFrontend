@@ -43,8 +43,8 @@
 .video-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
-  padding: 10px;
+  gap: 20px;
+  padding: 10px 16px;
 }
 
 .video-card {
@@ -52,7 +52,7 @@
   background: #252525; /* 更深的背景色 */
   border-radius: 8px; /* 圆角 */
   overflow: hidden;
-  margin-bottom: 10px; /* 底部间距 */
+  margin-bottom: 0px; /* 底部间距 */
 }
 
 .video-play-icon {
@@ -78,6 +78,32 @@
   border-bottom: 10px solid transparent;
   border-left: 16px solid white;
   margin-left: 4px;
+}
+
+/* 分享按钮样式 */
+.share-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 32px;
+  height: 32px;
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  transition: all 0.2s ease;
+}
+
+.share-btn:active {
+  background: rgba(0, 0, 0, 0.9);
+  transform: scale(0.95);
+}
+
+.share-icon {
+  font-size: 16px;
+  color: white;
 }
 
 .thumbnail {

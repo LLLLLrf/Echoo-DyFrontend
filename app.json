@@ -20,7 +20,7 @@
   },
   "permission": {
     "scope.userLocation": {
-      "desc": "你的位置信息将用于视频定位功能"
+      "desc": "用于视频分享功能"
     }
   },
   "__usePrivacyCheck__": true,
@@ -57,5 +57,6 @@
         "selectedIconPath": "images/tabbar/user_selected.png"
       }
     ]
-  }
+  },
+  "requiredBackgroundModes": ["audio"]
 }

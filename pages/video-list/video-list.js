@@ -78,6 +78,136 @@ Page({
     });
   },
 
+  // 分享视频
+  shareVideo: function(e) {
+    const video = e.currentTarget.dataset.video;
+    if (!video || !video.videoUrl) {
+      tt.showToast({ title: '视频信息无效', icon: 'none' });
+      return;
+    }
+
+    // 使用抖音小程序的标准分享API
+    tt.share({
+      title: '分享这个精彩视频',
+      desc: '来自小程序的推荐视频',
+      path: `/pages/video-player/video-player?url=${encodeURIComponent(video.videoUrl)}`,
+      imageUrl: video.thumbnail,
+      success: (res) => {
+        console.log('分享成功', res);
+        tt.showToast({ title: '分享成功' });
+      },
+      fail: (err) => {
+        console.error('分享失败:', err);
+        tt.showToast({ title: '分享失败', icon: 'none' });
+      }
+    });
+  },
+
+  // 尝试分享视频
+  tryShareVideo: function(video) {
+    // 方式1: 使用抖音专用分享API
+    if (tt.shareVideoToFriend) {
+      tt.shareVideoToFriend({
+        videoPath: video.videoUrl,
+        title: video.name || '我的精彩视频',
+        success: (res) => {
+          tt.hideLoading();
+          console.log('抖音分享成功:', res);
+          tt.showToast({
+            title: '分享成功',
+            icon: 'success'
+          });
+        },
+        fail: (err) => {
+          console.error('抖音分享失败:', err);
+          // 尝试方式2
+          this.tryShareAppMessage(video);
+        }
+      });
+    } else {
+      // 直接尝试方式2
+      this.tryShareAppMessage(video);
+    }
+  },
+
+  // 方式2: 使用小程序分享
+  tryShareAppMessage: function(video) {
+    // 设置当前要分享的视频到全局数据
+    getApp().globalData.shareVideo = video;
+    
+    tt.showShareMenu({
+      withShareTicket: true,
+      success: (res) => {
+        tt.hideLoading();
+        console.log('显示分享菜单成功:', res);
+      },
+      fail: (err) => {
+        console.error('显示分享菜单失败:', err);
+        tt.hideLoading();
+        // 方式3: 复制链接
+        this.copyVideoLink(video);
+      }
+    });
+  },
+
+  // 方式3: 复制视频链接
+  copyVideoLink: function(video) {
+    tt.setClipboardData({
+      data: video.videoUrl,
+      success: (res) => {
+        tt.showToast({
+          title: '视频链接已复制',
+          icon: 'success'
+        });
+      },
+      fail: (err) => {
+        console.error('复制失败:', err);
+        tt.showToast({
+          title: '分享功能暂不可用',
+          icon: 'none'
+        });
+      }
+    });
+  },
+
+  // 监听分享事件
+  onShareAppMessage: function(res) {
+    // 从全局数据获取要分享的视频
+    const video = getApp().globalData.shareVideo;
+    
+    if (!video) {
+      return {
+        title: '我的精彩视频',
+        path: '/pages/index/index',
+        imageUrl: ''
+      };
+    }
+
+    return {
+      title: video.name || '我的精彩视频',
+      path: `/pages/index/index?shared=true&videoId=${video.id}`,
+      imageUrl: video.thumbnail || '',
+      success: (res) => {
+        console.log('分享成功:', res);
+        tt.showToast({
+          title: '分享成功',
+          icon: 'success'
+        });
+        // 清除全局分享数据
+        getApp().globalData.shareVideo = null;
+      },
+      fail: (err) => {
+        console.error('分享失败:', err);
+        tt.showToast({
+          title: '分享失败',
+          icon: 'none'
+        });
+        // 清除全局分享数据
+        getApp().globalData.shareVideo = null;
+      }
+    };
+  },
+
   goBack() {
     tt.navigateBack();
   }

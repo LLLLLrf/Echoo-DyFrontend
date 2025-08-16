@@ -185,7 +185,7 @@ Page({
         tt.getImageInfo({
           src: imagePath,
           success: (imageInfo) => {
-            this.setData({
+        this.setData({
               imagePath: imagePath,
               imageInfo: {
                 width: imageInfo.width,
@@ -225,7 +225,7 @@ Page({
             return;
           }
 
-          this.setData({
+        this.setData({
             audioPath: audioFile.tempFilePath,
             recordFilePath: '', // 清除录音文件
             audioInfo: {
@@ -318,14 +318,14 @@ Page({
   },
 
   downloadVideo: function (videoUrl, taskId) {
-    tt.downloadFile({
-      url: videoUrl,
-      success: (downloadRes) => {
+        tt.downloadFile({
+          url: videoUrl,
+          success: (downloadRes) => {
         tt.hideLoading();
-        this.setData({
-          videoPath: downloadRes.tempFilePath,
-          isLoading: false
-        });
+            this.setData({
+              videoPath: downloadRes.tempFilePath,
+              isLoading: false
+            });
         
         this.saveVideoRecord(downloadRes.tempFilePath, taskId);
         tt.showToast({ title: '视频生成成功！', icon: 'success' });
@@ -334,8 +334,8 @@ Page({
         console.error('下载视频失败:', err);
         this.handleError('视频下载失败');
       }
-    });
-  },
+            });
+          },
 
   saveVideoRecord: function (videoPath, taskId) {
     const videoRecord = {
@@ -379,7 +379,7 @@ Page({
 
   handleError: function (message) {
     tt.hideLoading();
-    this.setData({ isLoading: false });
+            this.setData({ isLoading: false });
     tt.showToast({ title: message, icon: 'none' });
   },
 

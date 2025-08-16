@@ -1,5 +1,5 @@
 <view class="container">
-    <!-- <view class="title">图片音频合成视频</view> -->
+    <!-- <view class="title">Echoo</view> -->
     
     <!-- 图片上传区域 -->
   <view class="upload-section">

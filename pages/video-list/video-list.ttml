@@ -1,8 +1,8 @@
 <view class="container">
-  <view class="header">
+  <!-- <view class="header">
     <view class="title">我的视频</view>
     <view class="btn-close" bindtap="goBack">×</view>
-  </view>
+  </view> -->
 
   <scroll-view 
     class="video-scroll"
@@ -19,6 +19,12 @@
       >
         <image class="thumbnail" src="{{item.thumbnail}}" mode="aspectFill" />
         <view class="video-play-icon"></view>
+        
+        <!-- 分享按钮 -->
+        <view class="share-btn" bindtap="shareVideo" data-video="{{item}}">
+          <text class="share-icon">📤</text>
+        </view>
+        
         <view class="video-info">
           <text class="video-title">{{item.name || '未命名视频'}}</text>
           <text class="video-date">{{item.createTime.split('T')[0]}}</text>

@@ -53,7 +53,7 @@
             <text style="font-size: 8px; color: #666;">状态: {{item.status}}</text>
           </view>
           <view class="video-status {{item.status}}">
-            {{item.status === 'completed' ? '已完成' : (item.status === 'pending' ? '排队中' : (item.status === 'processing' ? '处理中' : '生成失败'))}}
+            {{item.status === 'completed' ? '已完成' : (item.status === 'pending' ? '处理中' : (item.status === 'processing' ? '处理中' : '生成失败'))}}
           </view>
         </view>
       </view>

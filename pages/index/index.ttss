@@ -44,7 +44,7 @@
   width: 55%;
 
   z-index:101;
-  --white: #ffe7ff;
+  --white: #fae7fa;
   --bg: rgb(116, 48, 180);
   --radius: 100px;
   outline: none;
@@ -73,7 +73,7 @@
 .button .wrap {
   font-size: 26px;
   font-weight: 900;
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.8);
   padding: 6px 0px;
   border-radius: inherit;
   position: relative;
@@ -449,4 +449,20 @@ More comprehensive version at shenanigans.shoghisimon.ca/collection/css-rain-bg/
 .popup-button.close {
   background-color: #092f51;
   color: #f0f0f0;
+}
+
+.logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+
+}
+
+.logo {
+  width: 320px;
+  height: 320px;
+  margin-top: -20px;
+  border-radius: 50%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }

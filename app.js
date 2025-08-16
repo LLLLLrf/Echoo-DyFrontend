@@ -3,7 +3,8 @@ App({
     userInfo: null,
     isLoggedIn: false,
     sessionKey: null,
-    openid: null
+    openid: null,
+    shareVideo: null
   },
 
   onLaunch: function () {

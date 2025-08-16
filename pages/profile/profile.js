@@ -129,12 +129,19 @@ Page({
       console.log('后端返回的原始数据:', res);
       
       const videosWithCover = res.tasks.map(task => {
+        // 根据状态设置进度
+        let progress;
+        if (task.status === 'completed') {
+          progress = 100; // 已完成状态显示100%
+        } else {
+          progress = task.progress || Math.round(Math.random() * 100); // 其他状态使用后端进度或随机值
+        }
+        
         const videoData = {
           id: task.task_id,
           name: `视频_${task.created_at.split('T')[0].replace(/-/g, '')}`,
           status: task.status,
-          // progress: task.progress || 0, // 确保有默认值
-          progress: Math.round(Math.random()*100,2),
+          progress: progress,
           thumbnail: 'https://p9-aiop-sign.byteimg.com/tos-cn-i-vuqhorh59i/20250816004616E1B398AA7CE0DE2B6548-4293-0~tplv-vuqhorh59i-image.image?rk3s=7f9e702d&x-expires=1755362776&x-signature=%2BqvS%2FivVSkPxHMfTC95y7TX1mOo%3D',
           videoUrl: task.video_url
         };
