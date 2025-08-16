@@ -4,7 +4,8 @@
     "pages/detail/detail",
     "pages/profile/profile",
     "pages/video-list/video-list",
-    "pages/video-player/video-player"
+    "pages/video-player/video-player",
+    "pages/case-show/case-show"
   ],
   "window": {
     "backgroundTextStyle": "light",

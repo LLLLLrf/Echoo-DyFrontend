@@ -59,26 +59,31 @@
   <!-- 处理按钮 -->
   <view class="upload-section">
     <view class="section-title">🎬 生成视频</view>
-    <button class="button" bindtap="uploadFiles">
-      <view wx:if="{{isLoading}}" class="loading">
-        <text>⏳ 处理中...</text>
+    <button 
+      class="button" 
+      bindtap="uploadFiles" 
+      disabled="{{isLoading}}"
+      style="padding: 0.6rem 2rem;font-size: 1rem;"
+    >
+      <view tt:if="{{isLoading}}" class="loading">
+        <text>处理中</text>
       </view>
-      <text wx:else>🚀 上传并生成视频</text>
+      <text tt:else>🚀 上传并生成视频</text>
     </button>
     
     <!-- 处理状态 -->
-    <view wx:if="{{isLoading}}" class="status info">
+    <!-- <view tt:if="{{isLoading}}" class="status info">
       🔄 正在处理，请稍候...
-    </view>
+    </view> -->
     
     <!-- 结果状态 -->
-    <view wx:if="{{videoPath}}" class="status success">
+    <view tt:if="{{videoPath}}" class="status success">
       🎉 视频生成成功！已保存到本地
     </view>
   </view>
 
   <!-- 视频预览区域 -->
-  <view wx:if="{{videoPath}}" class="upload-section">
+  <view tt:if="{{videoPath}}" class="upload-section">
     <view class="section-title">📹 视频预览</view>
     <video 
       src="{{videoPath}}" 

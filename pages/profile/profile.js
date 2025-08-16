@@ -142,15 +142,13 @@ Page({
           name: `视频_${task.created_at.split('T')[0].replace(/-/g, '')}`,
           status: task.status,
           progress: progress,
-          thumbnail: 'https://p9-aiop-sign.byteimg.com/tos-cn-i-vuqhorh59i/20250816004616E1B398AA7CE0DE2B6548-4293-0~tplv-vuqhorh59i-image.image?rk3s=7f9e702d&x-expires=1755362776&x-signature=%2BqvS%2FivVSkPxHMfTC95y7TX1mOo%3D',
+          thumbnail: task.video_first_image_url,
           videoUrl: task.video_url
         };
         
-        console.log(`视频 ${videoData.id} 的状态: ${videoData.status}, 进度: ${videoData.progress}%`);
         return videoData;
       });
 
-      console.log('处理后的视频数据:', videosWithCover);
 
       this.setData({
         recentVideos: loadMore 
@@ -253,7 +251,7 @@ Page({
       withShareTicket: true,
       success: () => {
         tt.showToast({
-          title: '分享功能已开启',
+          title: '功能努力建设中',
           icon: 'success'
         });
       }
@@ -380,6 +378,12 @@ Page({
     tt.previewImage({
       urls: [url],
       current: url
+    });
+  },
+
+  showCaseStudies() {
+    tt.navigateTo({
+      url: '/pages/case-show/case-show'
     });
   }
 }); 

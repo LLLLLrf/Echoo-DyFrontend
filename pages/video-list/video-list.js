@@ -7,7 +7,7 @@ Page({
     isLoading: false,
     pagination: {
       page: 1,
-      pageSize: 5,
+      pageSize: 9,
       hasMore: true
     }
   },
@@ -32,8 +32,8 @@ Page({
       const newVideos = res.tasks.map(item => ({
         id: item.task_id,
         name: `视频_${item.created_at.split('T')[0].replace(/-/g, '')}`,
-        thumbnail: 'https://p9-aiop-sign.byteimg.com/tos-cn-i-vuqhorh59i/20250816004616E1B398AA7CE0DE2B6548-4293-0~tplv-vuqhorh59i-image.image?rk3s=7f9e702d&x-expires=1755362776&x-signature=%2BqvS%2FivVSkPxHMfTC95y7TX1mOo%3D',
-        videoUrl: 'http://110.40.183.254:9000/echoo/video/0814.mp4',
+        thumbnail: item.video_first_image_url,
+        videoUrl: item.video_url,
         createTime: item.created_at,
         status: item.status
       }));

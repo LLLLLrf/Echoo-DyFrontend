@@ -180,7 +180,7 @@
   content: '';
   position: absolute;
   border-left: #12bcf5 1px solid;
-  /* overflow: hidden; */
+  overflow: hidden;
   top: 0;
   left: 64px; /* 从图片宽度开始，不覆盖图片 */
   width: calc((100% - 64px) * var(--progress, 0) / 100); /* 只覆盖右侧部分，按百分比计算 */
@@ -192,7 +192,6 @@
   );
   z-index: 1;
   transition: width 0.3s ease;
-  border-radius: 8px; /* 添加圆角保持视觉一致性 */
 }
 
 /* 处理中状态的特殊效果 */
@@ -235,41 +234,34 @@
   border-bottom: none;
 }
 
-.video-thumb {
+.video-thumb-container {
+  position: relative;
   width: 64px;
   height: 64px;
-  /* background: #2A2A2A; */
-  flex-shrink: 0;
-  position: relative;
-  /* overflow: hidden; */
-  z-index: 0;
 }
 
-/* 给处理中和排队中的图片添加模糊效果 */
-.video-item.pending .video-thumb,
-.video-item.processing .video-thumb,
-.video-item.failed .video-thumb {
-  /* filter: blur(1.8px); */
-  /* opacity: 0.8; */
-  overflow: hidden;
+.video-thumb {
+  width: 100%;
+  height: 100%;
+  /* background-color: #f5f5f5; */
 }
 
-/* 确保选择器正确工作 */
-.video-item[class*="pending"] .video-thumb,
-.video-item[class*="processing"] .video-thumb,
-.video-item[class*="failed"] .video-thumb {
-  filter: blur(1px);
-  opacity: 1;
-  background-color: #fff;
-  border: #12bcf5 0.3px solid;
-  /* overflow: hidden; */
+.loading-placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #eaeaea;
 }
 
-/* 移除整个卡片的模糊效果，只保留图片的模糊 */
-.video-item.pending::after,
-.video-item.processing::after,
-.video-item.failed::after {
-  display: none; /* 移除整个卡片的模糊遮罩 */
+.loading-placeholder image {
+  width: 32px;
+  height: 32px;
+  opacity: 0.6;
 }
 
 .video-info {
@@ -389,3 +381,79 @@
   color: #ff4757;
   font-weight: 500;
 } 
+
+/* loading */
+
+.loading-placeholder{
+  background-color: #095067;
+  /* border: 1px solid #12bcf5; */
+  overflow: hidden;
+  position: absolute;
+  border-radius: 0px;
+}
+
+.loading-text{
+  color: #b3b3b3;
+  font-size: 8px;
+  position: absolute;
+  bottom: 10px;
+}
+
+.spinner {
+  position: absolute;
+  bottom: 34px;
+  width: 11px;
+  height: 11px;
+  animation: spinner-y0fdc1 2s infinite ease;
+  transform-style: preserve-3d;
+ }
+ 
+ .spinner > div {
+  background-color: #1271f536;
+  height: 100%;
+  position: absolute;
+  width: 100%;
+  border: 2px solid #b3b3b3;
+ }
+ 
+ .spinner div:nth-of-type(1) {
+  transform: translateZ(-5.5px) rotateY(180deg);
+ }
+ 
+ .spinner div:nth-of-type(2) {
+  transform: rotateY(-270deg) translateX(50%);
+  transform-origin: top right;
+ }
+ 
+ .spinner div:nth-of-type(3) {
+  transform: rotateY(270deg) translateX(-50%);
+  transform-origin: center left;
+ }
+ 
+ .spinner div:nth-of-type(4) {
+  transform: rotateX(90deg) translateY(-50%);
+  transform-origin: top center;
+ }
+ 
+ .spinner div:nth-of-type(5) {
+  transform: rotateX(-90deg) translateY(50%);
+  transform-origin: bottom center;
+ }
+ 
+ .spinner div:nth-of-type(6) {
+  transform: translateZ(5.5px);
+ }
+ 
+ @keyframes spinner-y0fdc1 {
+  0% {
+   transform: rotate(45deg) rotateX(-25deg) rotateY(25deg);
+  }
+ 
+  50% {
+   transform: rotate(45deg) rotateX(-385deg) rotateY(25deg);
+  }
+ 
+  100% {
+   transform: rotate(45deg) rotateX(-385deg) rotateY(385deg);
+  }
+ }

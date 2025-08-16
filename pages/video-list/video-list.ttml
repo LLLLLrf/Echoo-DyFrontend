@@ -21,9 +21,9 @@
         <view class="video-play-icon"></view>
         
         <!-- 分享按钮 -->
-        <view class="share-btn" bindtap="shareVideo" data-video="{{item}}">
+        <!-- <view class="share-btn" bindtap="shareVideo" data-video="{{item}}">
           <text class="share-icon">📤</text>
-        </view>
+        </view> -->
         
         <view class="video-info">
           <text class="video-title">{{item.name || '未命名视频'}}</text>

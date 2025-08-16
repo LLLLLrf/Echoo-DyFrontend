@@ -44,13 +44,30 @@
       style="height: 240px"
     >
       <view class="video-grid">
-        <view class="video-item {{item.status}}" tt:for="{{recentVideos}}" tt:key="id" style="--progress: {{item.progress}}">
-          <image class="video-thumb" src="{{item.thumbnail}}" mode="aspectFill" />
+        <view class="video-item" tt:for="{{recentVideos}}" tt:key="id" style="--progress: {{item.progress}}">
+          <view class="video-thumb-container">
+            <image 
+              class="video-thumb" 
+              src="{{item.thumbnail || '/images/placeholder.png'}}" 
+              mode="aspectFill" 
+            />
+            <view class="loading-placeholder" tt:if="{{!item.thumbnail}}">
+              <text class="loading-text">loading...</text>
+              <div class="spinner">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                </div>
+            </view>
+          </view>
           <view class="video-info">
             <text class="video-name">{{item.name}}</text>
             <text class="progress-text">{{item.status === 'completed' ? '100%' : item.progress + '%'}}</text>
             <!-- 调试信息 -->
-            <text style="font-size: 8px; color: #666;">状态: {{item.status}}</text>
+            <!-- <text style="font-size: 8px; color: #666;">状态: {{item.status}}</text> -->
           </view>
           <view class="video-status {{item.status}}">
             {{item.status === 'completed' ? '已完成' : (item.status === 'pending' ? '处理中' : (item.status === 'processing' ? '处理中' : '生成失败'))}}
@@ -68,9 +85,15 @@
         <text class="menu-text">分享应用</text>
         <view class="menu-arrow">></view>
       </view>
-      
+
+      <view class="menu-item" bindtap="showCaseStudies">
+        <view class="menu-icon">📽️</view>
+        <text class="menu-text">案例展示</text>
+        <view class="menu-arrow">></view>
+      </view>
+
       <view class="menu-item" bindtap="feedback">
-        <view class="menu-icon">💬</view>
+        <view class="menu-icon">📝</view>
         <text class="menu-text">意见反馈</text>
         <view class="menu-arrow">></view>
       </view>

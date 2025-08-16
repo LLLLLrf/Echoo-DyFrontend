@@ -1,0 +1,26 @@
+<view class="container">
+  <!-- 视频列表 -->
+  <view class="video-list" scroll-y>
+    <view 
+      class="video-item" 
+      tt:for="{{videos}}" 
+      tt:key="id"
+      bindtap="playVideo"
+      data-video="{{item}}"
+    >
+      <image class="thumbnail" src="{{item.thumbnail}}" mode="aspectFill" />
+      <text class="title">{{item.title}}</text>
+    </view>
+  </view>
+
+  <!-- 视频播放器 -->
+  <view class="player-container" tt:if="{{currentVideo}}">
+    <video
+      src="{{currentVideo.url}}"
+      controls
+      autoplay
+      bindended="onVideoEnded"
+    ></video>
+    <button class="back-btn" bindtap="goBack">返回列表</button>
+  </view>
+</view>
