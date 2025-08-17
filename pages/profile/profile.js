@@ -116,7 +116,8 @@ Page({
 
     const { currentPage } = this.data.pagination;
     const pageSize = 9; // 固定加载9条
-    const userId = 'dy_1755149617_9389d4ce';
+    // const userId = 'dy_1755149617_9389d4ce';
+    const userId = tt.getStorageSync('userid');
     
     requestWithAuth({
       url: `http://110.40.183.254:8001/tasks/user/${userId}`,

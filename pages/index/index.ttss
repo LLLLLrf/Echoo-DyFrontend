@@ -466,3 +466,13 @@ More comprehensive version at shenanigans.shoghisimon.ca/collection/css-rain-bg/
   border-radius: 50%;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
+
+.subtitle {
+  font-size: 18px;
+  color: #ffffff;
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 30px;
+  font-weight: 500;
+  opacity: 0.9;
+}

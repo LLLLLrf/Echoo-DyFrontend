@@ -6,7 +6,7 @@ export function uploadImage(options) {
 //   }
 
 // 调试时暂时写死token
-  const token = "token_dy_1755149617_9389d4ce_1755150511_a7ec6241086aaaa0"
+    const token = tt.getStorageSync('token');
 
  return new Promise((resolve, reject) => {
    tt.uploadFile({

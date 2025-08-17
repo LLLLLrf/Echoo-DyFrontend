@@ -20,9 +20,10 @@ Page({
     if (!this.data.pagination.hasMore || this.data.isLoading) return;
     
     this.setData({ isLoading: true });
-    
+    const userId = tt.getStorageSync('userid');
+
     requestWithAuth({
-      url: `http://110.40.183.254:8001/tasks/user/dy_1755149617_9389d4ce`,
+      url: `http://110.40.183.254:8001/tasks/user/${userId}`,
       method: 'GET',
       data: {
         page: this.data.pagination.page,
@@ -57,6 +58,25 @@ Page({
 
   previewVideo: function(e) {
     const url = e.currentTarget.dataset.url;
+    const status = e.currentTarget.dataset.status;
+    
+    // 检查视频状态
+    if (status === 'failed') {
+      tt.showToast({
+        title: '视频生成失败',
+        icon: 'none'
+      });
+      return;
+    }
+    
+    if (status !== 'completed') {
+      tt.showToast({
+        title: '视频生成中，请稍后',
+        icon: 'none'
+      });
+      return;
+    }
+    
     if (!url) {
       tt.showToast({
         title: '视频地址无效',
@@ -81,6 +101,25 @@ Page({
   // 分享视频
   shareVideo: function(e) {
     const video = e.currentTarget.dataset.video;
+    const status = e.currentTarget.dataset.status;
+    
+    // 检查视频状态
+    if (status === 'failed') {
+      tt.showToast({
+        title: '视频生成失败，无法分享',
+        icon: 'none'
+      });
+      return;
+    }
+    
+    if (status !== 'completed') {
+      tt.showToast({
+        title: '视频生成中，无法分享',
+        icon: 'none'
+      });
+      return;
+    }
+    
     if (!video || !video.videoUrl) {
       tt.showToast({ title: '视频信息无效', icon: 'none' });
       return;

@@ -10,7 +10,7 @@ const app = getApp();
  * @param {Object} options.header - 请求头
  */
 function requestWithAuth(options) {
-  const token = "token_dy_1755149617_9389d4ce_1755150511_a7ec6241086aaaa0";
+  const token = tt.getStorageSync('token');
   return new Promise((resolve, reject) => {
     const userInfo = app.getUserInfoSync();
     const openid = app.getOpenid();

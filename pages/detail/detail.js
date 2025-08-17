@@ -309,13 +309,46 @@ Page({
           tt.hideLoading();
           tt.showToast({ title: '任务创建成功！', icon: 'success' });
 
-          // 恢复默认
+          // 恢复默认状态
+          this.resetToDefault();
         }
     })
     .catch((err) => {
       console.error('上传失败:', err);
       this.handleError(err.message || '上传失败，请重试');
+    })
+    .finally(() => {
+      // 确保loading状态被重置
+      this.setData({ isLoading: false });
     });
+  },
+
+  // ========== 重置状态 ==========
+  resetToDefault: function() {
+    this.setData({
+      // 清除文件路径
+      imagePath: '',
+      audioPath: '',
+      videoPath: '',
+      recordFilePath: '',
+      
+      // 清除文件信息
+      imageInfo: null,
+      audioInfo: null,
+      
+      // 重置状态控制
+      isLoading: false,
+      showImagePicker: true,
+      showAudioPicker: true,
+      
+      // 重置录音状态
+      isRecording: false,
+      isPaused: false,
+      cd: DEFAULT_COUNT_DOWN
+    });
+    
+    // 停止录音相关定时器
+    this.stopCountDown();
   },
 
   downloadVideo: function (videoUrl, taskId) {

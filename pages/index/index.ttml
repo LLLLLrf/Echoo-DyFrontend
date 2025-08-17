@@ -3,16 +3,19 @@
   <view class="logo-container">
     <image class="logo" src="../../images/logo/logo2.png" mode="aspectFit"></image>
   </view>
+  <view class="subtitle">
+    AI音乐MV创作Agent
+  </view>
   
   <!-- 用户信息显示 -->
-  <view>
+  <!-- <view>
     <view class="user-info" tt:if="{{isLoggedIn}}">
       <image class="user-avatar" src="{{userInfo.avatarUrl || '/images/default-avatar.png'}}" mode="aspectFill"></image>
       <text class="user-name">{{userInfo.nickName}}</text>
     </view>
     <view class="placeholder" tt:else>
     </view>
-  </view>
+  </view> -->
 
   <view class="container"></view>
 

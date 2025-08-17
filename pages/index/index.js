@@ -1,3 +1,5 @@
+const apiConfig = require('../../config/api.js');
+
 const app = getApp();
 
 Page({
@@ -64,7 +66,7 @@ Page({
     this.setData({ showPopup: false });
   },
 
-  // 调用 getUserProfile
+  // 登录调用 getUserProfile
   handleGetUserProfile: function () {
     // 检查是否已登录且有用户信息
     console.log("info:",this.data.userInfo);
@@ -74,7 +76,8 @@ Page({
       return;
     }
 
-    app.login().then(({ code }) => {
+    app.login().then( ({ code }) => {
+      
       this.setData({ 
         isLoading: false,
         loginCode: code,
@@ -93,6 +96,28 @@ Page({
     });
 
     app.getUserProfile().then((userInfo) => {
+      const {loginCode} = this.data
+      // 发送code到后端
+      tt.request({
+        url: 'http://110.40.183.254:8001/auth/douyin/mini-login',
+        method: 'POST',
+        header: {
+          'Content-Type': 'application/json'
+        },
+        data: {
+          code: loginCode
+        },
+        success: (res) => {
+          if (res.data && res.statusCode==200) {
+            const token= res.data.login_token
+            const userId= res.data.user.userid
+            tt.setStorageSync('token', token);
+            tt.setStorageSync('userid', userId);
+            console.log("token设置成功")
+          } 
+        },
+      })
+      console.log(userInfo)
       this.setData({ 
         userInfo: userInfo,
         isLoggedIn: true,

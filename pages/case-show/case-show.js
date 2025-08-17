@@ -3,22 +3,22 @@ Page({
     videos: [
       {
         id: 1,
-        title: '案例视频1',
-        url: 'https://example.com/video1.mp4',
-        thumbnail: 'https://picsum.photos/200/300'
+        title: '案例视频1-《爱人错过》',
+        url: 'http://110.40.183.254:9000/echoo/video/example1.mp4',
+        thumbnail: 'http://110.40.183.254:9000/echoo/image/example1-first.jpg'
       },
       {
         id: 2,
-        title: '案例视频2',
-        url: 'https://example.com/video2.mp4',
-        thumbnail: 'https://picsum.photos/200/300'
+        title: '案例视频2-《如果有来生》',
+        url: 'http://110.40.183.254:9000/echoo/video/example2.mp4',
+        thumbnail: 'http://110.40.183.254:9000/echoo/image/example2-first.jpg'
       },
-      {
-        id: 3,
-        title: '案例视频3',
-        url: 'https://example.com/video3.mp4',
-        thumbnail: 'https://picsum.photos/200/300'
-      }
+      // {
+      //   id: 3,
+      //   title: '案例视频3',
+      //   url: 'https://example.com/video3.mp4',
+      //   thumbnail: 'https://picsum.photos/200/300'
+      // }
     ],
     currentVideo: null,
     isPlaying: false

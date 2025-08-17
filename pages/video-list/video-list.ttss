@@ -55,6 +55,61 @@
   margin-bottom: 0px; /* 底部间距 */
 }
 
+/* 生成中状态样式 */
+.video-card.video-generating {
+  opacity: 0.7;
+}
+
+/* 生成失败状态样式 */
+.video-card.video-failed {
+  opacity: 0.6;
+  border: 1px solid #ff4444;
+}
+
+.generating-mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+}
+
+.generating-text {
+  color: #FFF;
+  font-size: 14px;
+  background: rgba(0, 0, 0, 0.8);
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: 1px solid #666;
+}
+
+.failed-mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 68, 68, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+}
+
+.failed-text {
+  color: #FFF;
+  font-size: 14px;
+  background: rgba(255, 68, 68, 0.9);
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: 1px solid #ff4444;
+}
+
 .video-play-icon {
   position: absolute;
   top: 50%;
@@ -129,6 +184,21 @@
   font-size: 12px;
   color: #b8b8b8;
   margin-top: 6px; /* 增加间距 */
+}
+
+.video-status {
+  font-size: 12px;
+  margin-top: 4px;
+  display: block;
+}
+
+/* 根据状态显示不同颜色 */
+.video-card[data-status="failed"] .video-status {
+  color: #ff4444;
+}
+
+.video-card[data-status!="completed"][data-status!="failed"] .video-status {
+  color: #ffaa00;
 }
 
 .load-more {
