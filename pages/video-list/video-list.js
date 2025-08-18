@@ -30,7 +30,7 @@ Page({
         page_size: this.data.pagination.pageSize
       }
     }).then(res => {
-        if(!res.tasks === null){
+        if(!(res.tasks === null)){
           const newVideos = res.tasks.map(item => ({
             id: item.task_id,
             name: `视频_${item.created_at.split('T')[0].replace(/-/g, '')}`,
@@ -45,11 +45,11 @@ Page({
             'pagination.page': this.data.pagination.page + 1,
             isLoading: false
           });
+        }else{ 
+          this.setData({
+            isLoading: false
+          });
         }
-        
-        this.setData({
-        isLoading: false
-      });
     }).catch(err => {
       console.error('加载失败:', err);
       this.setData({ isLoading: false });
@@ -257,6 +257,14 @@ Page({
   },
 
   navigateToDetail: function() {
-    tt.navigateBack();
+    tt.switchTab({
+      url: "/pages/detail/detail",
+      success: (res) => {
+        
+      },
+      fail: (res) => {
+        
+      },
+    });
   }
 });
