@@ -17,7 +17,7 @@
     <view class="video-grid">
       <!-- 视频列表 -->
       <view 
-        class="video-card {{item.status !== 'completed' ? (item.status === 'failed' ? 'video-failed' : 'video-generating') : ''}}" 
+        class="video-card {{item.status !== 'completed' ? (item.status === 'error' ? 'video-failed' : 'video-generating') : ''}}" 
         tt:for="{{videos}}" 
         tt:key="id"
         bindtap="previewVideo"
@@ -28,7 +28,7 @@
         <view class="video-play-icon" tt:if="{{item.status === 'completed'}}"></view>
         
         <!-- 生成中状态显示 -->
-        <view class="generating-mask" tt:if="{{item.status !== 'completed' && item.status !== 'failed'}}">
+        <view class="generating-mask" tt:if="{{item.status !== 'completed' && item.status !== 'error'}}">
         <div class="loader">
           <span></span>
           <span></span>
@@ -39,7 +39,7 @@
         </view>
         
         <!-- 生成失败状态显示 -->
-        <view class="failed-mask" tt:if="{{item.status === 'failed'}}">
+        <view class="failed-mask" tt:if="{{item.status === 'error'}}">
           <text class="failed-text">生成失败</text>
         </view>
         
@@ -51,8 +51,7 @@
         <view class="video-info">
           <text class="video-title">{{item.name || '未命名视频'}}</text>
           <text class="video-date">{{item.createTime.split('T')[0]}}</text>
-          <text class="video-status" tt:if="{{item.status === 'failed'}}">生成失败</text>
-          <text class="video-status" tt:elif="{{item.status !== 'completed'}}">生成中</text>
+          <!-- <text class="video-status" tt:elif="{{item.status !== 'completed'}}">生成中</text> -->
         </view>
       </view>
 

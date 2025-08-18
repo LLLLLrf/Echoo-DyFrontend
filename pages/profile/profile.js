@@ -134,8 +134,11 @@ Page({
       const videosWithCover = res.tasks.map(task => {
         // 根据状态设置进度
         let progress;
+
         if (task.status === 'completed') {
           progress = 100; // 已完成状态显示100%
+        } else if (task.status === 'error') {
+          progress = 0;
         } else {
           progress = task.progress || Math.round(Math.random() * 100); // 其他状态使用后端进度或随机值
         }

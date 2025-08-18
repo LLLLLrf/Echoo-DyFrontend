@@ -10,10 +10,10 @@
   </view>
 
   <!-- 全屏时的点击区域 -->
-  <view 
+  <!-- <view 
     class="fullscreen-tap-area {{isFullscreen ? 'show' : ''}}" 
     bindtap="onVideoTap"
-  ></view>
+  ></view> -->
 
   <video 
     id="myVideo"
@@ -24,6 +24,7 @@
     show-fullscreen-btn="{{true}}"
     show-play-btn="{{true}}"
     show-center-play-btn="{{true}}"
+    bindfullscreenchange="handleFullScreenChange"
   ></video>
 
   <view class="controls">

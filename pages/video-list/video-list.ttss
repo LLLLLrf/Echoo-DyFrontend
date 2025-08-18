@@ -94,19 +94,20 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(255, 68, 68, 0.3);
+  background: rgba(255, 68, 68, 0.2);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 5;
+  z-index: 995;
 }
 
 .failed-text {
   color: #FFF;
   font-size: 14px;
-  background: rgba(255, 68, 68, 0.9);
+  background: rgb(207, 44, 44);
   padding: 8px 16px;
   border-radius: 20px;
+  z-index: 996;
   border: 1px solid #ff4444;
 }
 
@@ -197,7 +198,7 @@
   color: #ff4444;
 }
 
-.video-card[data-status!="completed"][data-status!="failed"] .video-status {
+.video-card[data-status="error"] .video-status {
   color: #ffaa00;
 }
 

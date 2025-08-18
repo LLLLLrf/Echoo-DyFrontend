@@ -9,25 +9,26 @@ Page({
 
   onLoad(options) {
     this.setData({
-      videoUrl: decodeURIComponent(options.url)
+      // videoUrl: "http://110.40.183.254:9000/echoo/video/example1.mp4",
+      videoUrl: decodeURIComponent(options.url),
     });
   },
 
   onReady() {
     this.videoContext = tt.createVideoContext('myVideo');
-    
-    // 监听视频全屏状态变化
-    this.videoContext.onFullscreenChange((res) => {
-      console.log('全屏状态变化:', res);
-      this.setData({
-        isFullscreen: res.fullScreen
-      });
-      
-      // 全屏时显示控制按钮
-      if (res.fullScreen) {
-        this.showFullscreenControls();
-      }
+    // 移除原有的 onFullScreenChange 监听
+  },
+
+  // 新增全屏状态变化事件处理
+  handleFullScreenChange(e) {
+    console.log('全屏状态变化:', e.detail);
+    this.setData({
+      isFullscreen: e.detail.fullScreen
     });
+    
+    if (e.detail.fullScreen) {
+      this.showFullscreenControls();
+    }
   },
 
   // 显示全屏控制按钮
@@ -65,13 +66,13 @@ Page({
   },
 
   // 切换全屏
-  toggleFullscreen() {
-    if (this.data.isFullscreen) {
-      this.videoContext.exitFullScreen();
-    } else {
-      this.videoContext.requestFullScreen();
-    }
-  },
+  // toggleFullscreen() {
+  //   if (this.data.isFullscreen) {
+  //     this.videoContext.exitFullScreen();
+  //   } else {
+  //     this.videoContext.requestFullScreen();
+  //   }
+  // },
 
   // 保存视频到本地
   saveToLocal() {

@@ -7,7 +7,7 @@
 /* 全屏状态下的返回按钮 */
 .fullscreen-back-btn {
   position: fixed;
-  top: 50px;
+  top: 90px;
   left: 20px;
   width: 40px;
   height: 40px;
@@ -45,6 +45,7 @@
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
+  padding: 20px 0;
 }
 
 .fullscreen-tap-area.show {

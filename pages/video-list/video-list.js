@@ -62,11 +62,12 @@ Page({
   },
 
   previewVideo: function(e) {
+    console.log("previewVideo:",e);
     const url = e.currentTarget.dataset.url;
     const status = e.currentTarget.dataset.status;
     
     // 检查视频状态
-    if (status === 'failed') {
+    if (status === 'error') {
       tt.showToast({
         title: '视频生成失败',
         icon: 'none'
@@ -92,7 +93,7 @@ Page({
 
     tt.navigateTo({
       url: `/pages/video-player/video-player?url=${encodeURIComponent(url)}`,
-      success: () => console.log('跳转播放页成功'),
+      success: () => console.log('跳转播放页成功',url),
       fail: (err) => {
         console.error('跳转失败:', err);
         tt.showToast({
