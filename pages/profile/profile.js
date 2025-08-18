@@ -278,7 +278,7 @@ Page({
   aboutUs: function () {
     tt.showModal({
       title: '关于Echoo',
-      content: '版本：1.0.0\n一个简单易用的AI MV制作工具',
+      content: '版本：1.0.0\n　AI音乐MV创作Agent',
       showCancel: false,
       confirmText: '知道了'
     });
