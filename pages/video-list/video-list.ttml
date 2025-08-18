@@ -1,8 +1,12 @@
 <view class="container">
-  <!-- <view class="header">
-    <view class="title">我的视频</view>
-    <view class="btn-close" bindtap="goBack">×</view>
-  </view> -->
+  
+  <!-- 空状态提示 -->
+  <view class="empty-state" tt:if="{{videos.length === 0 && !isLoading}}">
+    <!-- <image class="empty-icon" src="/images/empty-video.png" mode="aspectFit"></image> -->
+    <text class="empty-text">暂无生成视频</text>
+    <text class="empty-subtext">快去制作你的第一个视频吧</text>
+    <button class="empty-button" bindtap="goBack">开始制作</button>
+  </view>
 
   <scroll-view 
     class="video-scroll"
@@ -10,6 +14,7 @@
     bindscrolltolower="onReachBottom"
   >
     <view class="video-grid">
+      <!-- 视频列表 -->
       <view 
         class="video-card {{item.status !== 'completed' ? (item.status === 'failed' ? 'video-failed' : 'video-generating') : ''}}" 
         tt:for="{{videos}}" 
@@ -43,6 +48,9 @@
           <text class="video-status" tt:elif="{{item.status !== 'completed'}}">生成中</text>
         </view>
       </view>
+
+
+      <!-- 加载更多 -->
       <view class="load-more" tt:if="{{isLoading}}">
         <text>加载中...</text>
       </view>

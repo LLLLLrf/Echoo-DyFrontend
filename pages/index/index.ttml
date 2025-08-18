@@ -3,10 +3,10 @@
   <view class="logo-container">
     <image class="logo" src="../../images/logo/logo2.png" mode="aspectFit"></image>
   </view>
+  
   <view class="subtitle">
     AI音乐MV创作Agent
   </view>
-  
   <!-- 用户信息显示 -->
   <!-- <view>
     <view class="user-info" tt:if="{{isLoggedIn}}">

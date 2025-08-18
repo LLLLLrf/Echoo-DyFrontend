@@ -30,25 +30,30 @@ Page({
         page_size: this.data.pagination.pageSize
       }
     }).then(res => {
-      const newVideos = res.tasks.map(item => ({
-        id: item.task_id,
-        name: `视频_${item.created_at.split('T')[0].replace(/-/g, '')}`,
-        thumbnail: item.video_first_image_url,
-        videoUrl: item.video_url,
-        createTime: item.created_at,
-        status: item.status
-      }));
-
-      this.setData({
-        videos: [...this.data.videos, ...newVideos],
-        'pagination.hasMore': res.tasks.length >= this.data.pagination.pageSize,
-        'pagination.page': this.data.pagination.page + 1,
+        if(!res.tasks === null){
+          const newVideos = res.tasks.map(item => ({
+            id: item.task_id,
+            name: `视频_${item.created_at.split('T')[0].replace(/-/g, '')}`,
+            thumbnail: item.video_first_image_url,
+            videoUrl: item.video_url,
+            createTime: item.created_at,
+            status: item.status
+          }));
+          this.setData({
+            videos: [...this.data.videos, ...newVideos],
+            'pagination.hasMore': res.tasks.length >= this.data.pagination.pageSize,
+            'pagination.page': this.data.pagination.page + 1,
+            isLoading: false
+          });
+        }
+        
+        this.setData({
         isLoading: false
       });
     }).catch(err => {
       console.error('加载失败:', err);
       this.setData({ isLoading: false });
-      tt.showToast({ title: '加载失败', icon: 'none' });
+      // tt.showToast({ title: '加载失败', icon: 'none' });
     });
   },
 
@@ -248,6 +253,10 @@ Page({
   },
 
   goBack() {
+    tt.navigateBack();
+  },
+
+  navigateToDetail: function() {
     tt.navigateBack();
   }
 });

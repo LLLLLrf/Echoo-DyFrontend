@@ -9,10 +9,28 @@
   padding: 40px 0;
 }
 
+/* .subtitle{
+  font-size: 16px;
+  z-index: 99;
+  font-weight: 500;
+  color: transparent;
+  background: linear-gradient(to bottom, #3a3c7d, #bc99dd, #d6bdef, #2a2c6e);
+  -webkit-background-clip: text;
+  background-clip: text;
+  position: fixed;
+  bottom: 60px;
+} */
+
+.subtitle{
+  font-size: 16px;
+  color: #fff;
+}
+
+
+
 .placeholder{
   height: 130px;
 }
-
 
 /* .filter{
   background: linear-gradient(to bottom, #4b4b4b72,#25252520, #00000000, #00000000);
@@ -36,7 +54,6 @@
   margin-top: 20%;
   text-shadow: 2px 3px 15px rgba(173, 100, 241, 0.6);
 }
-
 
 .button {
   margin-bottom: 50%;
@@ -465,14 +482,4 @@ More comprehensive version at shenanigans.shoghisimon.ca/collection/css-rain-bg/
   margin-top: -20px;
   border-radius: 50%;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.subtitle {
-  font-size: 18px;
-  color: #ffffff;
-  text-align: center;
-  margin-top: 20px;
-  margin-bottom: 30px;
-  font-weight: 500;
-  opacity: 0.9;
 }

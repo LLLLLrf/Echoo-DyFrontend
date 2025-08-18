@@ -128,7 +128,9 @@ Page({
       }
     }).then((res) => {
       console.log('后端返回的原始数据:', res);
-      
+      if (res.tasks == null){
+        return false
+      }
       const videosWithCover = res.tasks.map(task => {
         // 根据状态设置进度
         let progress;

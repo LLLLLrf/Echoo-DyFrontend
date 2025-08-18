@@ -105,8 +105,8 @@
   background: #101112;
   margin: 15px;
   border-radius: 12px;
-  padding: 0 20px 20px 20px;
-  max-height: 300px;
+  padding: 0 20px 10px 20px;
+  max-height: 320px;
   overflow-y: auto;
   margin-top: 12px;
 }
@@ -135,20 +135,35 @@
 }
 
 .empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* height: 100px; */
+  /* padding-top: 20px; */
   text-align: center;
-  padding: 40px 20px;
 }
 
 .empty-text {
-  display: block;
   font-size: 16px;
-  color: #999;
+  color: #ccc;
   margin-bottom: 8px;
 }
 
 .empty-desc {
   font-size: 14px;
-  color: #ccc;
+  color: #666;
+  margin-bottom: 16px;
+}
+
+.empty-button {
+  background: linear-gradient(90deg, #12bcf5, #1E90FF);
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 24px;
+  font-size: 14px;
+  margin-top: 12px;
 }
 
 .video-list-container {

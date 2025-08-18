@@ -1,6 +1,5 @@
 {
   "navigationBarTitleText": "我的视频",
   "enableShareAppMessage": true,
-  "enableShareTimeline": true,
-  "navigationBarTextStyle": "white"
+  "enableShareTimeline": true
 } 

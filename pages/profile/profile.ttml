@@ -42,6 +42,7 @@
     <scroll-view 
       scroll-y
       style="height: 240px"
+      tt:if="{{!recentVideos.length === 0}}"
     >
       <view class="video-grid">
         <view class="video-item" tt:for="{{recentVideos}}" tt:key="id" style="--progress: {{item.progress}}">
@@ -73,8 +74,14 @@
             {{item.status === 'completed' ? '已完成' : (item.status === 'pending' ? '处理中' : (item.status === 'processing' ? '处理中' : '生成失败'))}}
           </view>
         </view>
+
       </view>
     </scroll-view>
+    <view class="empty-state" tt:if="{{recentVideos.length === 0}}">
+      <text class="empty-text">暂无生成视频</text>
+      <text class="empty-desc">快去试试吧</text>
+      <!-- <button class="empty-button" bindtap="navigateToDetail">开始制作</button> -->
+    </view>
   </view>
 
   <!-- 功能菜单区域 -->
