@@ -41,8 +41,8 @@
     
     <scroll-view 
       scroll-y
-      style="height: 240px"
-      tt:if="{{!recentVideos.length === 0}}"
+      style="max-height: 240px"
+      tt:if="{{!recentVideos.length==0}}"
     >
       <view class="video-grid">
         <view class="video-item" tt:for="{{recentVideos}}" tt:key="id" style="--progress: {{item.progress}}">
