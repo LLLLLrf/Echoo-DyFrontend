@@ -52,7 +52,10 @@
               src="{{item.thumbnail || '/images/placeholder.png'}}" 
               mode="aspectFill" 
             />
-            <view class="loading-placeholder" tt:if="{{!item.thumbnail}}">
+            <view class="loading-placeholder" tt:if="{{!item.thumbnail && item.status==="error"}}">
+              <text class="" style="font-size: 0.8em;color: #e47979;">error</text>
+            </view>
+            <view class="loading-placeholder" tt:if="{{!item.thumbnail && item.status==="pending"}}">
               <text class="loading-text">loading...</text>
               <div class="spinner">
                 <div></div>
