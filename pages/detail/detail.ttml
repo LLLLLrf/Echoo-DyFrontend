@@ -3,10 +3,11 @@
     
     <!-- 图片上传区域 -->
   <view class="upload-section">
-    <view class="section-title">📷 选择图片</view>
+    <view class="section-title">📷 上传个人照片</view>
     
     <block wx:if="{{showImagePicker}}">
       <button class="button" bindtap="chooseImage">选择图片</button>
+      <button class="button default-button" bindtap="useDefaultImage">使用参考图片</button>
       <view class="status warning">未选择图片</view>
     </block>
     
@@ -25,10 +26,11 @@
 
   <!-- 音频上传区域 -->
   <view class="upload-section">
-    <view class="section-title">🎵 选择视频（只用于提取音频）</view>
+    <view class="section-title">🎵 上传音乐视频（最好不超过30s，过长可能会生成失败）</view>
     
     <block wx:if="{{showAudioPicker}}">
       <button class="button" bindtap="chooseAudio">选择视频文件</button>
+      <button class="button default-button" bindtap="useDefaultAudio">使用参考视频</button>
       <view class="status warning">未选择音频</view>
     </block>
     
@@ -57,8 +59,8 @@
   
 
   <!-- 处理按钮 -->
-  <view class="upload-section">
-    <view class="section-title">🎬 生成视频</view>
+  <view class="upload-section-bottom">
+    <view class="section-title">🎬 生成个性化MV</view>
     <button 
       class="button" 
       bindtap="uploadFiles" 

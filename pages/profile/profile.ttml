@@ -32,6 +32,18 @@
   </view>
   -->
 
+  <!-- 案例展示卡片 -->
+  <view class="case-showcase-card" bindtap="showCaseStudies">
+    <view class="case-card-content">
+      <view class="case-icon">📽️</view>
+      <view class="case-text">
+        <text class="case-title">案例展示</text>
+        <text class="case-desc">查看精彩作品案例</text>
+      </view>
+      <view class="case-arrow">></view>
+    </view>
+  </view>
+
   <!-- 最近视频区域 -->
   <view class="recent-section">
     <view class="section-header">
@@ -90,13 +102,6 @@
   <!-- 功能菜单区域 -->
   <view class="menu-section">
     <view class="menu-group">
-      <view class="menu-item" bindtap="showCaseStudies">
-        <view class="menu-icon">📽️</view>
-        <text class="menu-text">案例展示</text>
-        <view class="menu-arrow">></view>
-      </view>
-
-
       <view class="menu-item" bindtap="shareApp">
         <view class="menu-icon">📤</view>
         <text class="menu-text">分享应用</text>
