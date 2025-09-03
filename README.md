@@ -7,5 +7,6 @@
 
 Echoo MV 是一个基于 AI 的音乐视频生成工具，它能够根据用户上传的人像和音频，自动生成卡通风格的mv作品
 
-## 🎥 视频展示
+## 🎥 产品展示
 
+<img src=./resources/demo.png align="center" />

@@ -12,6 +12,10 @@ Page({
     videoPath: '',
     recordFilePath: '',
     
+    // 默认文件路径
+    defaultImagePath: 'http://110.40.183.254:9000/echoo/image/japan.jpg',
+    defaultAudioPath: 'http://110.40.183.254:9000/echoo/video/xiaoyu.mp4', // 这里需要放置默认视频文件路径
+    
     // 文件信息
     imageInfo: null,
     audioInfo: null,
@@ -209,6 +213,41 @@ Page({
     });
   },
 
+  useDefaultImage: function() {
+    if (!this.checkLogin()) return;
+
+    const imagePath = this.data.defaultImagePath;
+    
+    tt.getImageInfo({
+      src: imagePath,
+      success: (imageInfo) => {
+        this.setData({
+          imagePath: imagePath,
+          imageInfo: {
+            width: imageInfo.width,
+            height: imageInfo.height,
+            size: imageInfo.size || '未知'
+          },
+          showImagePicker: false
+        });
+        tt.showToast({ title: '已选择默认图片', icon: 'success' });
+      },
+      fail: (err) => {
+        console.error('获取默认图片信息失败:', err);
+        this.setData({ 
+          imagePath: imagePath, 
+          imageInfo: {
+            width: 320,
+            height: 320,
+            size: '未知'
+          },
+          showImagePicker: false
+        });
+        tt.showToast({ title: '已选择默认图片', icon: 'success' });
+      }
+    });
+  },
+
   chooseAudio: function () {
     if (!this.checkLogin()) return;
 
@@ -246,6 +285,26 @@ Page({
     });
   },
 
+  useDefaultAudio: function() {
+    if (!this.checkLogin()) return;
+
+    // 这里需要替换为实际的默认视频文件路径
+    // 可以是网络地址或本地文件
+    const defaultAudioUrl = 'http://110.40.183.254:9000/echoo/video/xiaoyu.mp4'; // 示例网络音频
+    
+    this.setData({
+      audioPath: defaultAudioUrl,
+      recordFilePath: '', // 清除录音文件
+      audioInfo: {
+        name: '默认音频文件',
+        size: '未知'
+      },
+      showAudioPicker: false
+    });
+    
+    tt.showToast({ title: '已选择默认音频', icon: 'success' });
+  },
+
   // ========== 文件处理 ==========
   uploadFiles: function () {
     console.log(111)
@@ -266,6 +325,28 @@ Page({
     this.setData({ isLoading: true });
     tt.showLoading({ title: '正在处理...', mask: true });
 
+    // 这里做一个判断是否使用默认
+    if (this.data.imagePath === this.data.defaultImagePath) {
+      requestWithAuth({
+        url: "http://110.40.183.254:8001/tasks/video",
+        method: 'POST',
+        data: {
+          image_files: [this.data.defaultImagePath],
+          audio_files: [this.data.defaultAudioPath]
+        }
+      }).then((videoRes) => {
+      console.log(videoRes)
+      if(videoRes.message=="任务创建成功")
+        {
+          tt.hideLoading();
+          tt.showToast({ title: '任务创建成功！', icon: 'success' });
+
+          // 恢复默认状态
+          this.resetToDefault();
+        }
+    })
+    }
+    else {
     // 上传图片
     uploadImage({
       url: 'http://110.40.183.254:8001/files/upload/image',
@@ -321,6 +402,7 @@ Page({
       // 确保loading状态被重置
       this.setData({ isLoading: false });
     });
+  }
   },
 
   // ========== 重置状态 ==========
