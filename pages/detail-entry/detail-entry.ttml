@@ -1,35 +1,18 @@
-<view class="container">
+﻿<view class="container">
   <view class="header">
     <image class="logo" src="/images/logo/logo2.png" mode="aspectFit"></image>
     <text class="title">选择创作方式</text>
   </view>
 
-  <!-- <view class="button-container">
-    <view 
-      class="entry-button" 
-      tt:for="{{buttons}}" 
-      tt:key="id"
-      style="background-image: url('{{item.bgImage}}')"
-      bindtap="navigateToDetail"
-      data-id="{{item.id}}"
-    >
-      <text class="button-title">{{item.title}}</text>
-      <text class="button-desc">{{item.desc}}</text>
+  <view class="wheel-container">
+    <view class="wheel">
+      <view class="card" tt:for="{{10}}" tt:key="*this">
+        <text class="card-number">{{item + 1}}</text>
+        <text class="card-content">{{['歌词','Live','变装','特效','滤镜','转场','字幕','音效','模板','AI'][item]}}</text>
+      </view>
+      <view class="center-circle"></view>
     </view>
-  </view> -->
-  
-  <div class="card-3d-container">
-    <div class="card-3d">
-        <div>1</div>
-        <div>2</div>
-        <div>3</div>
-        <div>4</div>
-        <div>5</div>
-        <div>6</div>
-        <div>7</div>
-        <div>8</div>
-    </div>
-</div>
+  </view>
 
   <custom-tab-bar />
 </view>

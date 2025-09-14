@@ -1,4 +1,4 @@
-.container {
+﻿.container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -91,98 +91,80 @@
 }
 */
 
-
-/* From Uiverse.io by musashi-13 */ 
-@keyframes autoRun3d {
-  from {
-    transform: perspective(800px) rotateY(-360deg);
-  }
-  to {
-    transform: perspective(800px) rotateY(0deg);
-  }
-}
-
-@keyframes animateBrightness {
-  10% {
-    filter: brightness(1);
-  }
-  50% {
-    filter: brightness(0.1);
-  }
-  90% {
-    filter: brightness(1);
-  }
-}
-
-.card-3d {
+.wheel-container {
+  width: 100%;
+  height: 350px;
   position: relative;
-  width: 100vw;
-  height: 300px;
-  transform-style: preserve-3d;
-  transform: perspective(800px);
-  animation: autoRun3d 20s linear infinite;
-  will-change: transform;
+  overflow: visible;
+  margin-left: 90%; /* 左侧留出空间 */
 }
 
-.card-3d div {
+.wheel {
   position: absolute;
-  width: 100px;
-  height: 180px;
-  background-color: rgb(199, 199, 199);
-  border: solid 2px lightgray;
-  border-radius: 0.5rem;
+  right: 0; /* 贴紧右侧边缘 */
   top: 50%;
-  left: 50%;
-  transform-origin: center center;
-  animation: animateBrightness 20s linear infinite;
-  transition-duration: 200ms;
-  will-change: transform, filter;
+  width: 250px;
+  height: 250px;
+  transform: translateY(-50%);
+  animation: rotate 20s linear infinite;
+  transform-origin: right center; /* 关键：旋转中心设为右侧边缘中点 */
 }
 
-.card-3d:active {
-  animation-play-state: paused !important;
+.card {
+  position: absolute;
+  width: 75vw;
+  height: 180px;
+  right: 0; /* 从右侧边缘延伸 */
+  top: 50%;
+  margin-top: -70px;
+  transform-origin: right center; /* 卡片自身旋转中心 */
+  background: linear-gradient(145deg, #667eea 0%, #764ba2 100%);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
 }
 
-.card-3d:active div {
-  animation-play-state: paused !important;
+/* 10张卡片分布 */
+.card:nth-child(1) { transform: rotate(0deg) translateX(-150px); }
+.card:nth-child(2) { transform: rotate(36deg) translateX(-150px); }
+.card:nth-child(3) { transform: rotate(72deg) translateX(-150px); }
+.card:nth-child(4) { transform: rotate(108deg) translateX(-150px); }
+.card:nth-child(5) { transform: rotate(144deg) translateX(-150px); }
+.card:nth-child(6) { transform: rotate(180deg) translateX(-150px); }
+.card:nth-child(7) { transform: rotate(216deg) translateX(-150px); }
+.card:nth-child(8) { transform: rotate(252deg) translateX(-150px); }
+.card:nth-child(9) { transform: rotate(288deg) translateX(-150px); }
+.card:nth-child(10) { transform: rotate(324deg) translateX(-150px); }
+
+.center-circle {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translate(50%, -50%);
+  width: 60px;
+  height: 60px;
+  background: radial-gradient(circle, #fff 0%, #667eea 100%);
+  border-radius: 50%;
+  box-shadow: 0 0 20px rgba(102,126,234,0.8);
+  z-index: 5;
 }
 
-.card-3d div:nth-child(1) {
-  transform: translate(-50%, -50%) rotateY(0deg) translateZ(150px);
-  animation-delay: -0s;
+@keyframes rotate {
+  from { transform: translateY(-50%) rotate(0deg); }
+  to { transform: translateY(-50%) rotate(360deg); }
 }
 
-.card-3d div:nth-child(2) {
-  transform: translate(-50%, -50%) rotateY(45deg) translateZ(150px);
-  animation-delay: -2s;
-}
-
-.card-3d div:nth-child(3) {
-  transform: translate(-50%, -50%) rotateY(90deg) translateZ(150px);
-  animation-delay: -4s;
-}
-
-.card-3d div:nth-child(4) {
-  transform: translate(-50%, -50%) rotateY(135deg) translateZ(150px);
-  animation-delay: -6s;
-}
-
-.card-3d div:nth-child(5) {
-  transform: translate(-50%, -50%) rotateY(180deg) translateZ(150px);
-  animation-delay: -8s;
-}
-
-.card-3d div:nth-child(6) {
-  transform: translate(-50%, -50%) rotateY(225deg) translateZ(150px);
-  animation-delay: -10s;
-}
-
-.card-3d div:nth-child(7) {
-  transform: translate(-50%, -50%) rotateY(270deg) translateZ(150px);
-  animation-delay: -12s;
-}
-
-.card-3d div:nth-child(8) {
-  transform: translate(-50%, -50%) rotateY(315deg) translateZ(150px);
-  animation-delay: -14s;
-}
+/* .center-circle {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 50%;
+  border: 4px solid white;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  z-index: 5;
+} */
