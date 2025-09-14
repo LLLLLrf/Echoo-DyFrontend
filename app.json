@@ -2,10 +2,12 @@
   "pages": [
     "pages/index/index",
     "pages/detail/detail",
+    "pages/detail-entry/detail-entry",
     "pages/profile/profile",
     "pages/video-list/video-list",
     "pages/video-player/video-player",
-    "pages/case-show/case-show"
+    "pages/case-show/case-show",
+    "pages/template-create/template-create"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -46,7 +48,7 @@
     "custom": true,
     "list": [
       {
-        "pagePath": "pages/detail/detail",
+        "pagePath": "pages/detail-entry/detail-entry",
         "text": "制作",
         "iconPath": "images/tabbar/make.png",
         "selectedIconPath": "images/tabbar/make_selected.png"

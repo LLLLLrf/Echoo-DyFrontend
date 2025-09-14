@@ -1,19 +1,8 @@
 <view class="container">
-  <!-- 全屏状态下的返回按钮 -->
-  <view class="fullscreen-back-btn {{isFullscreen && showFullscreenControls ? 'show' : ''}}" bindtap="goBack">
-    ←
-  </view>
-
   <view class="header">
-    <!-- <view class="btn-back" bindtap="goBack">←</view> -->
-    <!-- <view class="title">视频播放</view> -->
+    <view class="btn-back" bindtap="goBack">←</view>
+    <view class="title">视频播放</view>
   </view>
-
-  <!-- 全屏时的点击区域 -->
-  <!-- <view 
-    class="fullscreen-tap-area {{isFullscreen ? 'show' : ''}}" 
-    bindtap="onVideoTap"
-  ></view> -->
 
   <video 
     id="myVideo"
@@ -21,24 +10,11 @@
     controls
     autoplay
     class="video"
-    show-fullscreen-btn="{{true}}"
-    show-play-btn="{{true}}"
-    show-center-play-btn="{{true}}"
-    bindfullscreenchange="handleFullScreenChange"
   ></video>
 
   <view class="controls">
     <button class="play-btn" bindtap="togglePlay">
       {{isPlaying ? '暂停' : '播放'}}
-    </button>
-    
-    <!-- 保存到本地按钮 -->
-    <button 
-      class="save-btn" 
-      bindtap="saveToLocal"
-      disabled="{{isSaving}}"
-    >
-      {{isSaving ? '保存中...' : '保存到本地'}}
     </button>
   </view>
 </view>

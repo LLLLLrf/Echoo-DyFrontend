@@ -80,16 +80,20 @@
 }
 
 .default-button {
-  background: linear-gradient(270deg, rgba(255, 152, 0, 0.8) 0%, rgba(255, 193, 7, 0.8) 60%) !important;
+  background: linear-gradient(270deg, rgba(255, 152, 0, 1) 0%, rgba(255, 193, 7, 1) 60%) !important;
   color: #fff !important;
   margin-top: 10px;
-  font-size: 1rem !important;
-  padding: 0.8rem 1.5rem !important;
+  font-size: 0.78rem !important;
+  padding: 0rem 1.5rem !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
   box-shadow: 0px 0px 30px rgba(255, 152, 0, 0.5) !important;
 }
 
 .default-button:hover {
-  background: linear-gradient(270deg, rgba(255, 152, 0, 1) 0%, rgba(255, 193, 7, 1) 60%) !important;
+  background: linear-gradient(270deg, rgba(255, 152, 0, 0.8) 0%, rgba(255, 193, 7, 0.8) 60%) !important;
   color: #000 !important;
 }
 

@@ -2,7 +2,7 @@ Component({
   data: {
     current: 0,
     list: [
-      { pagePath: "pages/detail/detail", text: "制作" },
+      { pagePath: "pages/detail-entry/detail-entry", text: "制作" },
       { pagePath: "pages/profile/profile", text: "我的" }
     ],
     iconPath: [

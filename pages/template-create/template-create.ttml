@@ -1,0 +1,99 @@
+<view class="container">
+  <view class="header">
+    <text class="title">自定义工作流</text>
+    <text class="subtitle">点击节点展开编辑</text>
+  </view>
+
+  <scroll-view scroll-y class="node-container">
+    <block tt:for="{{nodes}}" tt:key="id">
+      <view class="node-item" data-id="{{item.id}}">
+        <!-- 修改节点头部区域 -->
+        <view class="node-header" bindtap="toggleNodeExpand" data-id="{{item.id}}">
+          <text class="node-title">节点 {{index + 1}}: {{item.name}}</text>
+          <view class="node-actions">
+            <text class="action-btn" catchtap="removeNode" data-id="{{item.id}}">删除</text>
+            <button 
+              class="save-btn" 
+              catchtap="saveNode"
+              data-id="{{item.id}}"
+              tt:if="{{item.expanded}}"
+            >保存</button>
+          </view>
+        </view>
+
+        <!-- 折叠内容 -->
+        <view class="expandable-content" tt:if="{{item.expanded}}" catchtap="noop">
+          <view class="form-group">
+            <text class="label">节点名称</text>
+            <input 
+              class="input" 
+              value="{{item.tempData.name}}" 
+              placeholder="输入节点名称"
+              bindinput="handleInputChange"
+              data-field="name"
+              data-id="{{item.id}}"
+            />
+          </view>
+
+          <view class="form-group">
+            <text class="label">选择模型</text>
+            <picker 
+              mode="selector" 
+              range="{{modelOptions}}" 
+              range-key="name"
+              value="{{modelOptions.findIndex(opt => opt.value === item.model)}}"
+              bindchange="handleInputChange"
+              data-field="model"
+              data-id="{{item.id}}"
+            >
+              <view class="picker">
+                {{item._displayModel}}
+              </view>
+            </picker>
+          </view>
+
+          <view class="form-group">
+            <text class="label">Prompt提示词</text>
+            <textarea 
+              class="textarea" 
+              value="{{item.tempData.prompt}}" 
+              placeholder="描述你想要生成的画面"
+              bindinput="handleInputChange"
+              data-field="prompt"
+              data-id="{{item.id}}"
+            />
+          </view>
+
+          <view class="form-group">
+            <text class="label">视频时长(秒)</text>
+            <input 
+              type="number" 
+              class="input" 
+              value="{{item.tempData.duration}}" 
+              placeholder="5"
+              bindinput="handleInputChange"
+              data-field="duration"
+              data-id="{{item.id}}"
+            />
+          </view>
+
+          <view class="form-footer">
+            <button 
+              class="save-btn" 
+              bindtap="saveNode"
+              data-id="{{item.id}}"
+            >保存节点</button>
+          </view>
+        </view>
+      </view>
+
+      <!-- 连接线（非末节点时显示） -->
+      <view class="node-connector" tt:if="{{index < nodes.length - 1}}"></view>
+    </block>
+  </scroll-view>
+
+  <view class="footer">
+    <button class="add-btn" bindtap="addNode">+ 新增节点</button>
+    <button class="submit-btn" bindtap="submitWorkflow">提交模板</button>
+  </view>
+</view>

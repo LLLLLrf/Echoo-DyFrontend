@@ -1,5 +1,11 @@
 {
     "setting": {
         "urlCheck": false
+    },
+    "condition": {
+        "miniprogram": {
+            "current": -1,
+            "list": []
+        }
     }
 }

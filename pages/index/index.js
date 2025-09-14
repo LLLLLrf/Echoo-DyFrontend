@@ -184,16 +184,11 @@ Page({
 
   // 跳转到详情页
   goToDetail: function () {
-    // tt.navigateTo({
-    //   url: '/pages/detail/detail'
-    // });
     tt.switchTab({
-      url: '/pages/detail/detail',
-      success: (res) => {
-        
-      },
+      url: '/pages/detail-entry/detail-entry',
+      success: (res) => {},
       fail: (res) => {
-        
+        console.error('跳转失败:', res);  // 添加错误日志
       },
     });
   },

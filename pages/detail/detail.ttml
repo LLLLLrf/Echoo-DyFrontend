@@ -26,7 +26,7 @@
 
   <!-- 音频上传区域 -->
   <view class="upload-section">
-    <view class="section-title">🎵 上传音乐视频（最好不超过30s，过长可能会生成失败）</view>
+    <view class="section-title">🎵 上传音乐视频（30s内效果最佳哦~）</view>
     
     <block wx:if="{{showAudioPicker}}">
       <button class="button" bindtap="chooseAudio">选择视频文件</button>
