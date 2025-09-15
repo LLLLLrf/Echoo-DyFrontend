@@ -2,10 +2,13 @@
 
   <view class="preview-image-container">
     <image 
-      src="/images/button_bg/cdplayer.jpg" 
+      src="{{currentTemplate.cover || '/images/placeholder.png'}}" 
       mode="aspectFill" 
       class="preview-image"
     />
+    <view class="template-title" style="color: {{currentTemplate.color || '#ffffff'}};">
+      {{currentTemplate.title || '模板预览'}}
+    </view>
   </view>
 
   <view class="content">
@@ -13,7 +16,7 @@
     <view class="function-row">
       <view class="function-item" bindtap="uploadPortrait">
         <image src="/images/tabbar/user.png" class="function-icon" />
-        <text class="function-label">选择照片</text>
+        <text class="function-label">上传照片</text>
       </view>
       <image 
         src="{{portraitPreview || '/images/placeholder.png'}}" 
@@ -42,13 +45,13 @@
 
     <view class="text-input-container">
       <input 
-        placeholder="输入视频描述..." 
+        placeholder="（可选）输入人物服装定制需求..." 
         class="text-input"
         bindinput="handleTextInput"
       />
     </view>
     
-    <button class="button">
+    <button class="button" bindtap="submit">
         <div class="dots_border"></div>
         <span class="text_button">点击开始生成</span>
       </button>

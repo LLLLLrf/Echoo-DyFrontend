@@ -11,67 +11,75 @@ Page({
     banners: [
       {
         id: 1,
-        title: '歌词卡片',
-        url: imageBase64.cdplayer
+        title: 'Kpop韩流',
+        cover: "http://110.40.183.254:9000/echoo/image/example3-first.jpg"
       },
       {
         id: 2,
-        title: '现场live秀',
-        url: imageBase64.concert
+        title: '奇幻穿越',
+        cover: "http://110.40.183.254:9000/echoo/image/halibote.png"
       },
-      {
-        id: 3,
-        title: '卡点变装',
-        url: imageBase64.people
-      }
+      // {
+      //   id: 3,
+      //   title: '合拍挑战',
+      //   url: imageBase64.people
+      // }
     ],
     cards: [
       {
-        id: 101,
-        title: '夏日海滩',
-        cover: '/images/button_bg/cdplayer.jpg'
+        id: 1,
+        title: '赛博霓虹',
+        cover: 'http://110.40.183.254:9000/echoo/image/nihong.png',
+        color: '#ffffff'
       },
       {
-        id: 102,
+        id: 2,
+        title: '合拍挑战',
+        cover: 'http://110.40.183.254:9000/echoo/image/hepai.jpg',
+        color: '#000000'
+      },
+      {
+        id: 3,
+        title: '油画世界',
+        cover: imageBase64.youhua,
+        color: '#ffffff'
+      },
+      {
+        id: 4,
+        title: '故事MV',
+        cover: 'http://110.40.183.254:9000/echoo/image/example2-first.jpg',
+        color: '#000000'
+      },
+      {
+        id: 5,
+        title: 'Kpop韩流',
+        cover: 'http://110.40.183.254:9000/echoo/image/example3-first.jpg',
+        color: '#ffffff'
+      },
+      {
+        id: 6,
         title: '城市夜景',
-        cover: '/images/button_bg/concert.jpg'
+        cover: '/images/button_bg/concert.jpg',
+        color: '#000000'
       },
       {
-        id: 103,
+        id: 7,
         title: '森林徒步',
-        cover: '/images/button_bg/people.jpg'
+        cover: '/images/button_bg/people.jpg',
+        color: '#ffffff'
       },
       {
-        id: 104,
+        id: 8,
         title: '星空延时',
-        cover: '/images/button_bg/guitar.jpg'
-      },
-      {
-        id: 105,
-        title: '夏日海滩',
-        cover: '/images/button_bg/cdplayer.jpg'
-      },
-      {
-        id: 106,
-        title: '城市夜景',
-        cover: '/images/button_bg/concert.jpg'
-      },
-      {
-        id: 107,
-        title: '森林徒步',
-        cover: '/images/button_bg/people.jpg'
-      },
-      {
-        id: 108,
-        title: '星空延时',
-        cover: '/images/button_bg/guitar.jpg'
+        cover: '/images/button_bg/guitar.jpg',
+        color: '#000000'
       }
     ],
     loading: false
   },
 
   onLoad() {
-    this.fetchCardList();
+    // this.fetchCardList();
     this.autoRotateTimer = setInterval(() => {
       if (!this.data.isRotating && this.data.velocity === 0) {
         this.setData({

@@ -3,10 +3,10 @@
     <text class="title">模板广场</text>
   </view>
 
-  <swiper class="banner-swiper" autoplay interval="4000" circular>
+  <swiper class="banner-swiper" autoplay interval="4000" circular bindtap="navigateToCreate">
     <swiper-item tt:for="{{banners}}" tt:key="id">
       <text class="button-title">{{item.title}}</text>
-      <image src="{{item.url}}" mode="aspectFill" class="banner-image" />
+      <image src="{{item.cover}}" mode="aspectFill" class="banner-image" />
     </swiper-item>
   </swiper>
 
@@ -20,7 +20,7 @@
         data-id="{{item.id}}"
       >
         <image src="{{item.cover}}" mode="aspectFill" class="card-image" />
-        <text class="card-title">{{item.title}}</text>
+        <text class="card-title" style="color: {{item.color || '#ffffff'}};">{{item.title}}</text>
       </view>
     </view>
   </scroll-view>

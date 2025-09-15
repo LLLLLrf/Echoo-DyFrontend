@@ -178,7 +178,6 @@
   left: 0;
   right: 0;
   padding: 8px;
-  color: #eee;
   font-size: 14px;
   z-index: 999;
 }
