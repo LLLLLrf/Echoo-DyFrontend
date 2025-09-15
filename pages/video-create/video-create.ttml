@@ -26,7 +26,16 @@
     </view>
 
     <!-- 选择音频区域 -->
-    <view class="function-row">
+    <view class="function-row" tt:if="{{templateId == 0}}">
+      <view class="function-item" bindtap="chooseAudio">
+        <image src="/images/tabbar/make.png" class="function-icon" />
+        <text class="function-label">选择音频</text>
+      </view>
+      <text class="audio-preview">{{selectedAudioName || '未选择'}}</text>
+    </view>
+
+    <!-- 选择预设音频区域 -->
+    <view class="function-row" tt:else>
       <picker 
         mode="selector" 
         range="{{audioOptions}}" 

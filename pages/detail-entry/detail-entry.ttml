@@ -3,8 +3,8 @@
     <text class="title">模板广场</text>
   </view>
 
-  <swiper class="banner-swiper" autoplay interval="4000" circular bindtap="navigateToCreate">
-    <swiper-item tt:for="{{banners}}" tt:key="id">
+  <swiper class="banner-swiper" autoplay interval="4000" circular>
+    <swiper-item tt:for="{{banners}}" tt:key="id" bindtap="navigateToCreate">
       <text class="button-title">{{item.title}}</text>
       <image src="{{item.cover}}" mode="aspectFill" class="banner-image" />
     </swiper-item>

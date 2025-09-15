@@ -119,7 +119,7 @@ Page({
       tt.chooseImage({
         count: Math.min(5 - currentImages.length, 5),
         sizeType: ['compressed'],
-        sourceType: ['album', 'camera'],
+        sourceType: ['album'],
         success: (res) => {
           const newImages = [...currentImages, ...res.tempFilePaths];
           this.setData({

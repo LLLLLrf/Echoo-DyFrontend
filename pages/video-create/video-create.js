@@ -10,49 +10,35 @@ Page({
     ],
         // 模板信息映射表，对应 detail-entry 中的 cards 数据
     templateMap: {
-      1: {
+      3: {
         title: '赛博霓虹',
         cover: 'http://110.40.183.254:9000/echoo/image/nihong.png',
         color: '#ffffff'
       },
-      2: {
+      4: {
         title: '合拍挑战',
         cover: 'http://110.40.183.254:9000/echoo/image/hepai.jpg',
         color: '#000000'
       },
-      3: {
+      2: {
         title: '奇幻穿越',
         cover: 'http://110.40.183.254:9000/echoo/image/halibote.png',
         color: '#ffffff'
       },
-      4: {
+      0: {
         title: '故事MV',
         cover: 'http://110.40.183.254:9000/echoo/image/example2-first.jpg',
         color: '#000000'
       },
-      5: {
-        title: '夏日海滩',
-        cover: '/images/button_bg/cdplayer.jpg',
-        color: '#ffffff'
-      },
-      6: {
-        title: '城市夜景',
-        cover: '/images/button_bg/concert.jpg',
-        color: '#000000'
-      },
-      7: {
-        title: '森林徒步',
-        cover: '/images/button_bg/people.jpg',
-        color: '#ffffff'
-      },
-      8: {
-        title: '星空延时',
-        cover: '/images/button_bg/guitar.jpg',
+      1: {
+        title: 'Kpop韩流',
+        cover: 'http://110.40.183.254:9000/echoo/image/example3-first.jpg',
         color: '#000000'
       }
     },
     portraitPreview: null,
     selectedAudioName: null,
+    selectedAudioFile: null, // 存储选择的音频文件路径
     inputText: '',
     currentTemplate: null // 当前选中的模板信息
   },
@@ -111,6 +97,37 @@ Page({
     });
   },
 
+  // 选择音频文件（当templateId为0时使用）
+  chooseAudio() {
+    tt.chooseMedia({
+      count: 1,
+      mediaType: ['video'],
+      sourceType: ['album'],
+      success: (res) => {
+        const tempFiles = res.tempFiles;
+        if (tempFiles && tempFiles.length > 0) {
+          const audioFile = tempFiles[0];
+          
+          if (audioFile.size > 50 * 1024 * 1024) {
+            tt.showToast({ title: '文件过大，请选择小于50MB的文件', icon: 'none' });
+            return;
+          }
+
+          this.setData({
+            selectedAudioFile: audioFile.tempFilePath,
+            selectedAudioName: audioFile.name || '自定义音频文件'
+          });
+          
+          tt.showToast({ title: '音频文件选择成功', icon: 'success' });
+        }
+      },
+      fail: (err) => {
+        console.error('选择音频文件失败:', err);
+        tt.showToast({ title: '选择音频文件失败', icon: 'none' });
+      }
+    });
+  },
+
   // 选择音频
   handleAudioChange(e) {
     const index = e.detail.value;
@@ -125,6 +142,7 @@ Page({
   },
 
   submit(){
+    // 上传图片
     uploadImage({
       url: 'http://110.40.183.254:8001/files/upload/image',
       name: 'file',
@@ -136,17 +154,37 @@ Page({
       console.log(imageRes)
       const imageUrl = imageRes.data.file_url;
       
+      // 根据templateId判断是否需要上传音频文件
+      if (this.data.templateId == 0 && this.data.selectedAudioFile) {
+        // 上传自定义音频文件
+        return uploadImage({
+          url: 'http://110.40.183.254:8001/files/upload/audio',
+          name: 'file',
+          filePath: this.data.selectedAudioFile,
+          formData: { priority: '0' }
+        })
+        .then((audioRes) => {
+          console.log("上传音频成功")
+          const audioUrl = audioRes.data.file_url;
+          return { imageUrl, audioFiles: [audioUrl] };
+        });
+      } else {
+        // 使用预设音频
+        return { imageUrl, audioFiles: [] };
+      }
+    })
+    .then(({ imageUrl, audioFiles }) => {
       // 请求生成视频
       return requestWithAuth({
         url: "http://localhost:8001/tasks/video",
         method: 'POST',
         data: {
           image_files: [imageUrl],
-          audio_files: [],
-          template_id: 1 ,
-          input_params: {
-            'music':'blackpink',
-            'clothes':this.data.inputText
+          audio_files: audioFiles,
+          template_id: this.data.templateId == 0 ? null : parseInt(this.data.templateId),
+          input_params: this.data.templateId == 0 ? {} : {
+            'music': 'blackpink',
+            'clothes': this.data.inputText
           }
         }
       });
@@ -170,5 +208,11 @@ Page({
       // 确保loading状态被重置
       this.setData({ isLoading: false });
     });
+  },
+
+  handleError: function (message) {
+    tt.hideLoading();
+    this.setData({ isLoading: false });
+    tt.showToast({ title: message, icon: 'none' });
   }
 });

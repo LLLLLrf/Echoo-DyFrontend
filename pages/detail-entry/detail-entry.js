@@ -27,31 +27,31 @@ Page({
     ],
     cards: [
       {
-        id: 1,
+        id: 3,
         title: '赛博霓虹',
         cover: 'http://110.40.183.254:9000/echoo/image/nihong.png',
         color: '#ffffff'
       },
       {
-        id: 2,
+        id: 4,
         title: '合拍挑战',
         cover: 'http://110.40.183.254:9000/echoo/image/hepai.jpg',
         color: '#000000'
       },
       {
-        id: 3,
+        id: 5,
         title: '油画世界',
         cover: imageBase64.youhua,
         color: '#ffffff'
       },
       {
-        id: 4,
+        id: 0,
         title: '故事MV',
         cover: 'http://110.40.183.254:9000/echoo/image/example2-first.jpg',
         color: '#000000'
       },
       {
-        id: 5,
+        id: 1,
         title: 'Kpop韩流',
         cover: 'http://110.40.183.254:9000/echoo/image/example3-first.jpg',
         color: '#ffffff'
@@ -115,7 +115,7 @@ Page({
   // 点击卡片跳转
   navigateToCreate(e) {
     const { id } = e.currentTarget.dataset;
-    console.log(id);
+    console.log(111);
     tt.navigateTo({
       url: `/pages/video-create/video-create?templateId=${id}`,
       success: () => console.log(`跳转成功，携带ID: ${id}`),
