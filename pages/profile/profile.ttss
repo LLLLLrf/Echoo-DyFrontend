@@ -156,6 +156,62 @@
   opacity: 0.8;
 }
 
+/* 创造模版卡片 */
+.template-create-card {
+  background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 50%, #81C784 100%);
+  margin: 15px;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.template-create-card:active {
+  transform: scale(0.98);
+  box-shadow: 0 2px 8px rgba(76, 175, 80, 0.4);
+}
+
+.template-card-content {
+  display: flex;
+  align-items: center;
+  color: white;
+}
+
+.template-icon {
+  font-size: 24px;
+  margin-right: 15px;
+  background: rgba(255, 255, 255, 0.2);
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.template-text {
+  flex: 1;
+}
+
+.template-title {
+  font-size: 18px;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.template-desc {
+  font-size: 14px;
+  opacity: 0.9;
+  display: block;
+}
+
+.template-arrow {
+  font-size: 18px;
+  opacity: 0.8;
+}
+
 /* 最近视频区域 */
 .recent-section {
   background: #101112;

@@ -44,6 +44,18 @@
     </view>
   </view>
 
+  <!-- 创造模版卡片 -->
+  <view class="template-create-card" bindtap="createTemplate">
+    <view class="template-card-content">
+      <view class="template-icon">🎨</view>
+      <view class="template-text">
+        <text class="template-title">创造模版</text>
+        <text class="template-desc">制作个性化视频模版</text>
+      </view>
+      <view class="template-arrow">></view>
+    </view>
+  </view>
+
   <!-- 最近视频区域 -->
   <view class="recent-section">
     <view class="section-header">

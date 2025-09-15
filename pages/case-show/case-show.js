@@ -13,6 +13,12 @@ Page({
         url: 'http://110.40.183.254:9000/echoo/video/example2.mp4',
         thumbnail: 'http://110.40.183.254:9000/echoo/image/example2-first.jpg'
       },
+      {
+        id: 3,
+        title: '案例视频3-《韩流混剪》',
+        url: 'http://110.40.183.254:9000/echoo/video/kpop_1757923700_68520935.mp4',
+        thumbnail: 'http://110.40.183.254:9000/echoo/image/example3-first.jpg'
+      },
       // {
       //   id: 3,
       //   title: '案例视频3',

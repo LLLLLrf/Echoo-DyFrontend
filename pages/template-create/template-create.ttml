@@ -65,6 +65,39 @@
           </view>
 
           <view class="form-group">
+            <text class="label">主角预设</text>
+            <view class="character-preset">
+              <view class="preset-option">
+                <text class="option-label">是否上传主角图片</text>
+                <switch 
+                  checked="{{item.tempData.enableCharacterImages}}"
+                  bindchange="handleInputChange"
+                  data-field="enableCharacterImages"
+                  data-id="{{item.id}}"
+                />
+              </view>
+              
+              <view class="image-upload-section" tt:if="{{item.tempData.enableCharacterImages}}">
+                <view class="uploaded-images" tt:if="{{item.tempData.characterImages && item.tempData.characterImages.length > 0}}">
+                  <view class="image-item" tt:for="{{item.tempData.characterImages}}" tt:key="*this" tt:for-item="imgPath">
+                    <image class="preview-image" src="{{imgPath}}" mode="aspectFill" />
+                    <view class="delete-image" 
+                          catchtap="removeCharacterImage" 
+                          data-id="{{item.id}}" 
+                          data-index="{{index}}">×</view>
+                  </view>
+                </view>
+                
+                <button class="upload-btn" 
+                        catchtap="uploadCharacterImages" 
+                        data-id="{{item.id}}">
+                  + 上传主角图片 ({{item.tempData.characterImages ? item.tempData.characterImages.length : 0}}/5)
+                </button>
+              </view>
+            </view>
+          </view>
+
+          <view class="form-group">
             <text class="label">视频时长(秒)</text>
             <input 
               type="number" 

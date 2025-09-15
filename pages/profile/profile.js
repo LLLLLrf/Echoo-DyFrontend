@@ -386,6 +386,11 @@ Page({
       current: url
     });
   },
+  createTemplate:function(){
+    tt.navigateTo({
+      url: '/pages/template-create/template-create'
+    });
+  },
 
   showCaseStudies() {
     tt.navigateTo({
