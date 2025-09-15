@@ -55,24 +55,6 @@ Page({
         title: 'Kpop韩流',
         cover: 'http://110.40.183.254:9000/echoo/image/example3-first.jpg',
         color: '#ffffff'
-      },
-      {
-        id: 6,
-        title: '城市夜景',
-        cover: '/images/button_bg/concert.jpg',
-        color: '#000000'
-      },
-      {
-        id: 7,
-        title: '森林徒步',
-        cover: '/images/button_bg/people.jpg',
-        color: '#ffffff'
-      },
-      {
-        id: 8,
-        title: '星空延时',
-        cover: '/images/button_bg/guitar.jpg',
-        color: '#000000'
       }
     ],
     loading: false
