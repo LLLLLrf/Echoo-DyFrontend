@@ -39,7 +39,7 @@
       <text class="audio-preview">{{selectedAudioName || '未选择'}}</text>
     </view>
 
-    <!-- 文本输入区域 -->
+
     <view class="text-input-container">
       <input 
         placeholder="输入视频描述..." 
@@ -47,5 +47,11 @@
         bindinput="handleTextInput"
       />
     </view>
+    
+    <button class="button">
+        <div class="dots_border"></div>
+        <span class="text_button">点击开始生成</span>
+      </button>
+  
   </view>
 </view>
