@@ -1,18 +1,31 @@
 ﻿<view class="container">
   <view class="header">
-    <image class="logo" src="/images/logo/logo2.png" mode="aspectFit"></image>
-    <text class="title">选择创作方式</text>
+    <text class="title">模板广场</text>
   </view>
 
-  <view class="wheel-container">
-    <view class="wheel">
-      <view class="card" tt:for="{{10}}" tt:key="*this">
-        <text class="card-number">{{item + 1}}</text>
-        <text class="card-content">{{['歌词','Live','变装','特效','滤镜','转场','字幕','音效','模板','AI'][item]}}</text>
+  <!-- 修复swiper标签嵌套问题 -->
+  <swiper class="banner-swiper" autoplay interval="4000" circular>
+    <swiper-item tt:for="{{banners}}" tt:key="id">
+      <text class="button-title">{{item.title}}</text>
+      <image src="{{item.url}}" mode="aspectFill" class="banner-image" />
+    </swiper-item>
+  </swiper>
+
+  <!-- 修复scroll-view闭合标签 -->
+  <scroll-view class="scroll-card" scroll-y style="height: calc(100vh - 220px);position: fixed;top:160px;">
+    <view class="card-container">
+      <view 
+        class="card-item" 
+        tt:for="{{cards}}" 
+        tt:key="id"
+        bindtap="navigateToCreate"
+        data-id="{{item.id}}"
+      >
+        <image src="{{item.cover}}" mode="aspectFill" class="card-image" />
+        <text class="card-title">{{item.title}}</text>
       </view>
-      <view class="center-circle"></view>
     </view>
-  </view>
+  </scroll-view>
 
   <custom-tab-bar />
 </view>

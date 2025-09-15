@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "视频创作",
+  "usingComponents": {
+    "custom-tab-bar": "/components/custom-tab-bar/custom-tab-bar"
+  }
+}

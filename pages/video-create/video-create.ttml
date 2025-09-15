@@ -1,0 +1,51 @@
+<view class="container">
+
+  <view class="preview-image-container">
+    <image 
+      src="/images/button_bg/cdplayer.jpg" 
+      mode="aspectFill" 
+      class="preview-image"
+    />
+  </view>
+
+  <view class="content">
+    <!-- 上传人像区域 -->
+    <view class="function-row">
+      <view class="function-item" bindtap="uploadPortrait">
+        <image src="/images/tabbar/user.png" class="function-icon" />
+        <text class="function-label">选择照片</text>
+      </view>
+      <image 
+        src="{{portraitPreview || '/images/placeholder.png'}}" 
+        class="preview-thumbnail"
+        mode="aspectFill"
+      />
+    </view>
+
+    <!-- 选择音频区域 -->
+    <view class="function-row">
+      <picker 
+        mode="selector" 
+        range="{{audioOptions}}" 
+        range-key="name"
+        bindchange="handleAudioChange"
+        class="function-item"
+      >
+        <view style="display: flex;justify-content: center;align-items: center;">
+          <image src="/images/tabbar/make.png" class="function-icon" />
+          <text class="function-label">选择音频</text>
+        </view>
+      </picker>
+      <text class="audio-preview">{{selectedAudioName || '未选择'}}</text>
+    </view>
+
+    <!-- 文本输入区域 -->
+    <view class="text-input-container">
+      <input 
+        placeholder="输入视频描述..." 
+        class="text-input"
+        bindinput="handleTextInput"
+      />
+    </view>
+  </view>
+</view>

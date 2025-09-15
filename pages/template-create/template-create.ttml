@@ -41,7 +41,7 @@
               mode="selector" 
               range="{{modelOptions}}" 
               range-key="name"
-              value="{{modelOptions.findIndex(opt => opt.value === item.model)}}"
+              value="{{item.modelIndex}}"
               bindchange="handleInputChange"
               data-field="model"
               data-id="{{item.id}}"

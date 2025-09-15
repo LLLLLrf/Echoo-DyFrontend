@@ -7,7 +7,8 @@
     "pages/video-list/video-list",
     "pages/video-player/video-player",
     "pages/case-show/case-show",
-    "pages/template-create/template-create"
+    "pages/template-create/template-create",
+    "pages/video-create/video-create"
   ],
   "window": {
     "backgroundTextStyle": "light",
