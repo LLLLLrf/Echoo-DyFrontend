@@ -14,10 +14,15 @@ Page({
         title: 'Kpop韩流',
         cover: "http://110.40.183.254:9000/echoo/image/example4-first.jpg"
       },
+      // {
+      //   id: 2,
+      //   title: '奇幻穿越',
+      //   cover: "http://110.40.183.254:9000/echoo/image/halibote.png"
+      // },
       {
         id: 2,
-        title: '奇幻穿越',
-        cover: "http://110.40.183.254:9000/echoo/image/halibote.png"
+        title: '',
+        cover: "http://110.40.183.254:9000/echoo/image/guanggao.jpg"
       },
       // {
       //   id: 3,
@@ -27,40 +32,46 @@ Page({
     ],
     cards: [
       {
-        id: 3,
-        title: '赛博霓虹',
-        cover: 'http://110.40.183.254:9000/echoo/image/nihong.png',
-        color: '#ffffff'
+        id: 1,
+        title: 'Kpop韩流',
+        cover: 'http://110.40.183.254:9000/echoo/image/example4-first.jpg',
+        color: '#ffffff',
+        available: true
       },
       {
         id: 4,
         title: '合拍挑战',
         cover: 'http://110.40.183.254:9000/echoo/image/hepai.jpg',
-        color: '#000000'
-      },
-      {
-        id: 5,
-        title: '欧美流行',
-        cover: 'http://110.40.183.254:9000/echoo/image/europe-example.jpg',
-        color: '#ffffff'
-      },
-      {
-        id: 6,
-        title: '油画世界',
-        cover: imageBase64.youhua,
-        color: '#ffffff'
+        color: '#000000',
+        available: false
       },
       {
         id: 0,
         title: '故事MV',
         cover: 'http://110.40.183.254:9000/echoo/image/example2-first.jpg',
-        color: '#000000'
+        color: '#ffffff',
+        available: true
       },
       {
-        id: 1,
-        title: 'Kpop韩流',
-        cover: 'http://110.40.183.254:9000/echoo/image/example4-first.jpg',
-        color: '#ffffff'
+        id: 3,
+        title: '赛博霓虹',
+        cover: 'http://110.40.183.254:9000/echoo/image/nihong.png',
+        color: '#ffffff',
+        available: false
+      },
+      {
+        id: 5,
+        title: '欧美流行',
+        cover: 'http://110.40.183.254:9000/echoo/image/europe-example.jpg',
+        color: '#ffffff',
+        available: true
+      },
+      {
+        id: 6,
+        title: '油画世界',
+        cover: imageBase64.youhua,
+        color: '#ffffff',
+        available: false
       }
     ],
     loading: false
@@ -103,7 +114,21 @@ Page({
   // 点击卡片跳转
   navigateToCreate(e) {
     const { id } = e.currentTarget.dataset;
-    console.log(111);
+    
+    // 查找对应的卡片配置
+    const card = this.data.cards.find(card => card.id === id);
+    
+    // 检查卡片是否可用
+    if (!card || !card.available) {
+      tt.showToast({
+        title: '该模板暂未上线',
+        icon: 'none',
+        duration: 2000
+      });
+      return;
+    }
+    
+    console.log(`跳转到模板 ${id}: ${card.title}`);
     tt.navigateTo({
       url: `/pages/video-create/video-create?templateId=${id}`,
       success: () => console.log(`跳转成功，携带ID: ${id}`),

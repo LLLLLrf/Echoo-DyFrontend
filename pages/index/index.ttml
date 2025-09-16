@@ -1,7 +1,7 @@
 <view class="body">
   <!-- <view class="title">Echoo</view> -->
   <view class="logo-container">
-    <image class="logo" src="../../images/logo/logo2.png" mode="aspectFit"></image>
+    <image class="logo" src="../../images/logo/echoo-logo.jpg" mode="aspectFit"></image>
   </view>
   
   <view class="subtitle">

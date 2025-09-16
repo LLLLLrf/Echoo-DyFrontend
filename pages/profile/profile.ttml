@@ -5,6 +5,13 @@
       <image class="avatar" src="{{userInfo.avatar || '/images/default-avatar.png'}}" mode="aspectFill"></image>
       <view class="user-details">
         <text class="nickname">{{userInfo.nickname}}</text>
+        
+        <!-- 会员状态显示 -->
+        <view class="membership-status" tt:if="{{userInfo.subscription}}">
+          <text class="membership-badge">{{userInfo.subscription.name}} 会员</text>
+          <text class="membership-expire">到期时间: {{userInfo.subscription.expireDate}}</text>
+        </view>
+        
         <view class="score-section">
           <view class="score-info">
             <text class="score-icon">💎</text>

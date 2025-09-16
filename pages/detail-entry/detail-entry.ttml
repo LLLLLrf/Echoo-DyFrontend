@@ -4,7 +4,7 @@
   </view>
 
   <swiper class="banner-swiper" autoplay interval="4000" circular>
-    <swiper-item tt:for="{{banners}}" data-id="{{item.id}}" tt:key="id" bindtap="navigateToCreate">
+    <swiper-item tt:for="{{banners}}" tt:key="id" bindtap="navigateToCreate">
       <text class="button-title">{{item.title}}</text>
       <image src="{{item.cover}}" mode="aspectFill" class="banner-image" />
     </swiper-item>
@@ -21,6 +21,9 @@
       >
         <image src="{{item.cover}}" mode="aspectFill" class="card-image" />
         <text class="card-title" style="color: {{item.color || '#ffffff'}};">{{item.title}}</text>
+        <!-- <view class="unavailable-mask" tt:if="{{!item.available}}">
+          <text class="unavailable-text">暂未上线</text>
+        </view> -->
       </view>
     </view>
   </scroll-view>

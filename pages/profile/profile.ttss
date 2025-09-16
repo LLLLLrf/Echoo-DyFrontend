@@ -47,6 +47,28 @@
   margin-bottom: 8px;
 }
 
+/* 会员状态样式 */
+.membership-status {
+  margin-bottom: 10px;
+}
+
+.membership-badge {
+  background: linear-gradient(45deg, #ffd700, #ffed4e);
+  color: #333;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 4px 12px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 4px;
+}
+
+.membership-expire {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.7);
+  display: block;
+}
+
 /* 积分区域样式 */
 .score-section {
   display: flex;

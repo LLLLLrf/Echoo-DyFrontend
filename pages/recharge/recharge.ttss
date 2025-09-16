@@ -70,6 +70,140 @@
   font-weight: bold;
 }
 
+/* 选项卡样式 */
+.tab-container {
+  display: flex;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12rpx;
+  margin: 0 30rpx 30rpx;
+  padding: 8rpx;
+  backdrop-filter: blur(10rpx);
+}
+
+.tab-item {
+  flex: 1;
+  text-align: center;
+  padding: 20rpx;
+  border-radius: 8rpx;
+  transition: all 0.3s ease;
+}
+
+.tab-item.active {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.tab-text {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.tab-item.active .tab-text {
+  color: #667eea;
+}
+
+/* 内容区域 */
+.content-section {
+  padding: 20rpx 30rpx 40rpx;
+}
+
+/* 订阅套餐样式 */
+.subscription-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.subscription-item {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 20rpx;
+  padding: 30rpx;
+  position: relative;
+  border: 4rpx solid transparent;
+  transition: all 0.3s ease;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.1);
+}
+
+.subscription-item.selected {
+  border-color: #667eea;
+  background: rgba(255, 255, 255, 1);
+  transform: scale(1.02);
+  box-shadow: 0 8rpx 30rpx rgba(102, 126, 234, 0.3);
+}
+
+.subscription-item.popular {
+  border-color: #ff6b6b;
+}
+
+.subscription-item.popular.selected {
+  border-color: #667eea;
+}
+
+.popular-badge {
+  position: absolute;
+  top: -10rpx;
+  right: 20rpx;
+  background: linear-gradient(45deg, #ff6b6b, #feca57);
+  color: white;
+  font-size: 20rpx;
+  padding: 8rpx 16rpx;
+  border-radius: 20rpx;
+  font-weight: bold;
+}
+
+.plan-name {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10rpx;
+}
+
+.plan-price {
+  display: flex;
+  align-items: baseline;
+  margin-bottom: 15rpx;
+}
+
+.price-currency {
+  font-size: 24rpx;
+  color: #667eea;
+  margin-right: 4rpx;
+}
+
+.price-amount {
+  font-size: 48rpx;
+  font-weight: bold;
+  color: #667eea;
+}
+
+.price-period {
+  font-size: 24rpx;
+  color: #666;
+  margin-left: 4rpx;
+}
+
+.plan-credits {
+  background: linear-gradient(45deg, #667eea, #764ba2);
+  color: white;
+  font-size: 24rpx;
+  padding: 8rpx 16rpx;
+  border-radius: 20rpx;
+  display: inline-block;
+  margin-bottom: 20rpx;
+}
+
+.plan-features {
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+}
+
+.feature-item {
+  font-size: 24rpx;
+  color: #666;
+  line-height: 1.5;
+}
+
 /* 套餐区域 */
 .packages-section {
   padding: 20rpx 30rpx 40rpx;

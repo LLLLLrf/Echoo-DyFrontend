@@ -4,7 +4,7 @@
     <view class="back-btn" bindtap="goBack">
       <text class="back-icon">‹</text>
     </view>
-    <text class="page-title">积分充值</text>
+    <text class="page-title">会员充值</text>
     <view class="placeholder"></view>
   </view>
 
@@ -16,13 +16,51 @@
     </view>
   </view>
 
-  <!-- 充值套餐 -->
-  <view class="packages-section">
+  <!-- 选项卡 -->
+  <view class="tab-container">
+    <view class="tab-item {{activeTab === 'subscription' ? 'active' : ''}}" bindtap="switchTab" data-tab="subscription">
+      <text class="tab-text">会员订阅</text>
+    </view>
+    <view class="tab-item {{activeTab === 'credits' ? 'active' : ''}}" bindtap="switchTab" data-tab="credits">
+      <text class="tab-text">积分充值</text>
+    </view>
+  </view>
+
+  <!-- 会员订阅内容 -->
+  <view class="content-section" tt:if="{{activeTab === 'subscription'}}">
+    <text class="section-title">选择订阅套餐</text>
+    <view class="subscription-grid">
+      <view 
+        class="subscription-item {{selectedPlan && selectedPlan.id === item.id ? 'selected' : ''}} {{item.popular ? 'popular' : ''}}"
+        tt:for="{{subscriptionPlans}}" 
+        tt:key="id"
+        bindtap="selectPlan"
+        data-id="{{item.id}}"
+      >
+        <view class="popular-badge" tt:if="{{item.popular}}">推荐</view>
+        <view class="plan-name">{{item.name}}</view>
+        <view class="plan-price">
+          <text class="price-currency">¥</text>
+          <text class="price-amount">{{item.price}}</text>
+          <text class="price-period">/{{item.period}}</text>
+        </view>
+        <view class="plan-credits">{{item.credits}}积分/月</view>
+        <view class="plan-features">
+          <text class="feature-item" tt:for="{{item.features}}" tt:for-item="feature" tt:key="*this">
+            • {{feature}}
+          </text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 积分充值内容 -->
+  <view class="content-section" tt:if="{{activeTab === 'credits'}}">
     <text class="section-title">选择充值套餐</text>
     <view class="packages-grid">
       <view 
         class="package-item {{selectedPackage && selectedPackage.id === item.id ? 'selected' : ''}}"
-        tt:for="{{rechargePackages}}" 
+        tt:for="{{creditPackages}}" 
         tt:key="id"
         bindtap="selectPackage"
         data-id="{{item.id}}"
@@ -42,8 +80,14 @@
 
   <!-- 充值说明 -->
   <view class="notice-section">
-    <text class="notice-title">充值说明</text>
-    <view class="notice-list">
+    <text class="notice-title">说明</text>
+    <view class="notice-list" tt:if="{{activeTab === 'subscription'}}">
+      <text class="notice-item">• 订阅会员享受专属权益和每月积分</text>
+      <text class="notice-item">• 订阅期间无广告干扰</text>
+      <text class="notice-item">• 可随时在设置中取消订阅</text>
+      <text class="notice-item">• 如有问题请联系客服</text>
+    </view>
+    <view class="notice-list" tt:else>
       <text class="notice-item">• 积分可用于生成视频、解锁高级功能</text>
       <text class="notice-item">• 充值后积分立即到账</text>
       <text class="notice-item">• 积分永久有效，无过期时间</text>
@@ -54,13 +98,14 @@
   <!-- 购买按钮 -->
   <view class="purchase-section">
     <button 
-      class="purchase-btn {{selectedPackage ? 'active' : 'disabled'}}" 
+      class="purchase-btn {{(selectedPlan || selectedPackage) ? 'active' : 'disabled'}}" 
       bindtap="confirmPurchase"
-      disabled="{{!selectedPackage || isLoading}}"
+      disabled="{{!(selectedPlan || selectedPackage) || isLoading}}"
     >
       <text tt:if="{{isLoading}}">处理中...</text>
-      <text tt:elif="{{selectedPackage}}">支付 ¥{{selectedPackage.price}}</text>
-      <text tt:else>请选择充值套餐</text>
+      <text tt:elif="{{activeTab === 'subscription' && selectedPlan}}">订阅 ¥{{selectedPlan.price}}/{{selectedPlan.period}}</text>
+      <text tt:elif="{{activeTab === 'credits' && selectedPackage}}">支付 ¥{{selectedPackage.price}}</text>
+      <text tt:else>请选择套餐</text>
     </button>
   </view>
 </view>

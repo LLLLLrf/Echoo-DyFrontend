@@ -3,7 +3,44 @@ const { requestWithAuth } = require('../../utils/request');
 Page({
   data: {
     currentScore: 0,
-    rechargePackages: [
+    activeTab: 'subscription', // 'subscription' 或 'credits'
+    
+    // 订阅套餐
+    subscriptionPlans: [
+      {
+        id: 'pro',
+        name: 'Pro',
+        price: 29.9,
+        period: '月',
+        credits: 300,
+        features: [
+          '300积分/月',
+          '免广告体验',
+          '优先客服支持',
+          '高清视频导出'
+        ],
+        popular: false
+      },
+      {
+        id: 'pro_max',
+        name: 'Pro Max',
+        price: 79.9,
+        period: '月',
+        credits: 1000,
+        features: [
+          '1000积分/月',
+          '免广告体验',
+          '专属客服支持',
+          '4K高清视频导出',
+          '无限云存储',
+          '专属模板库'
+        ],
+        popular: true
+      }
+    ],
+
+    // 积分充值包
+    creditPackages: [
       {
         id: 1,
         amount: 100,
@@ -33,6 +70,8 @@ Page({
         label: '豪华包'
       }
     ],
+    
+    selectedPlan: null,
     selectedPackage: null,
     isLoading: false
   },
@@ -53,16 +92,48 @@ Page({
     });
   },
 
+  // 切换选项卡
+  switchTab(e) {
+    const tab = e.currentTarget.dataset.tab;
+    this.setData({
+      activeTab: tab,
+      selectedPlan: null,
+      selectedPackage: null
+    });
+  },
+
+  // 选择订阅套餐
+  selectPlan(e) {
+    const planId = e.currentTarget.dataset.id;
+    const selectedPlan = this.data.subscriptionPlans.find(plan => plan.id === planId);
+    this.setData({
+      selectedPlan: selectedPlan,
+      selectedPackage: null
+    });
+  },
+
+  // 选择积分包
   selectPackage(e) {
     const packageId = e.currentTarget.dataset.id;
-    const selectedPackage = this.data.rechargePackages.find(pkg => pkg.id === packageId);
+    const selectedPackage = this.data.creditPackages.find(pkg => pkg.id === packageId);
     this.setData({
-      selectedPackage: selectedPackage
+      selectedPackage: selectedPackage,
+      selectedPlan: null
     });
   },
 
   confirmPurchase() {
-    if (!this.data.selectedPackage) {
+    const { activeTab, selectedPlan, selectedPackage } = this.data;
+    
+    if (activeTab === 'subscription' && !selectedPlan) {
+      tt.showToast({
+        title: '请选择订阅套餐',
+        icon: 'none'
+      });
+      return;
+    }
+    
+    if (activeTab === 'credits' && !selectedPackage) {
       tt.showToast({
         title: '请选择充值套餐',
         icon: 'none'
@@ -70,16 +141,39 @@ Page({
       return;
     }
 
-    const pkg = this.data.selectedPackage;
-    tt.showModal({
-      title: '确认充值',
-      content: `确认支付 ¥${pkg.price} 购买 ${pkg.amount + pkg.bonus} 积分？`,
-      success: (res) => {
-        if (res.confirm) {
-          this.processPurchase(pkg);
+    if (activeTab === 'subscription') {
+      const plan = selectedPlan;
+      tt.showModal({
+        title: '确认订阅',
+        content: `确认支付 ¥${plan.price}/${plan.period} 订阅 ${plan.name}？\n包含 ${plan.credits} 积分和专属权益`,
+        success: (res) => {
+          if (res.confirm) {
+            this.processSubscription(plan);
+          }
         }
-      }
-    });
+      });
+    } else {
+      const pkg = selectedPackage;
+      tt.showModal({
+        title: '确认充值',
+        content: `确认支付 ¥${pkg.price} 购买 ${pkg.amount + pkg.bonus} 积分？`,
+        success: (res) => {
+          if (res.confirm) {
+            this.processPurchase(pkg);
+          }
+        }
+      });
+    }
+  },
+
+  processSubscription(plan) {
+    this.setData({ isLoading: true });
+    tt.showLoading({ title: '处理中...' });
+
+    // 模拟订阅过程
+    setTimeout(() => {
+      this.mockSubscription(plan);
+    }, 2000);
   },
 
   processPurchase(pkg) {
@@ -89,6 +183,40 @@ Page({
     // 模拟支付过程
     setTimeout(() => {
       this.mockPayment(pkg);
+    }, 2000);
+  },
+
+  mockSubscription(plan) {
+    // 模拟订阅成功
+    const newScore = this.data.currentScore + plan.credits;
+    
+    // 更新用户信息
+    let userInfo = tt.getStorageSync('userInfo') || {};
+    userInfo.score = newScore;
+    userInfo.subscription = {
+      plan: plan.id,
+      name: plan.name,
+      expireDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(), // 30天后过期
+      features: plan.features
+    };
+    tt.setStorageSync('userInfo', userInfo);
+
+    this.setData({ 
+      currentScore: newScore,
+      isLoading: false,
+      selectedPlan: null 
+    });
+
+    tt.hideLoading();
+    tt.showToast({
+      title: `订阅成功！获得${plan.credits}积分`,
+      icon: 'success',
+      duration: 2000
+    });
+
+    // 延迟返回
+    setTimeout(() => {
+      tt.navigateBack();
     }, 2000);
   },
 

@@ -174,6 +174,7 @@ Page({
   },
 
   submit(){
+    tt.showLoading({ title: '提交中...', mask: true });
     // 上传图片
     uploadImage({
       url: 'http://110.40.183.254:8001/files/upload/image',
@@ -226,7 +227,18 @@ Page({
       if(videoRes.message=="任务创建成功")
         {
           tt.hideLoading();
-          tt.showToast({ title: '任务创建成功！', icon: 'success' });
+          tt.showToast({ 
+            title: '任务创建成功！', 
+            icon: 'success',
+            duration: 2000
+          });
+
+          // 延迟跳转，让用户看到成功提示
+          setTimeout(() => {
+            tt.navigateBack({
+              delta: 1 // 返回到上一页 (detail-entry)
+            });
+          }, 2000);
 
           // 恢复默认状态
           // this.resetToDefault();
