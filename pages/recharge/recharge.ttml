@@ -1,0 +1,66 @@
+<view class="container">
+  <!-- 头部 -->
+  <view class="header">
+    <view class="back-btn" bindtap="goBack">
+      <text class="back-icon">‹</text>
+    </view>
+    <text class="page-title">积分充值</text>
+    <view class="placeholder"></view>
+  </view>
+
+  <!-- 当前积分显示 -->
+  <view class="score-display">
+    <view class="score-card">
+      <text class="score-label">当前积分</text>
+      <text class="score-value">{{currentScore}}</text>
+    </view>
+  </view>
+
+  <!-- 充值套餐 -->
+  <view class="packages-section">
+    <text class="section-title">选择充值套餐</text>
+    <view class="packages-grid">
+      <view 
+        class="package-item {{selectedPackage && selectedPackage.id === item.id ? 'selected' : ''}}"
+        tt:for="{{rechargePackages}}" 
+        tt:key="id"
+        bindtap="selectPackage"
+        data-id="{{item.id}}"
+      >
+        <view class="package-label">{{item.label}}</view>
+        <view class="package-amount">{{item.amount}}积分</view>
+        <view class="package-bonus" tt:if="{{item.bonus > 0}}">
+          <text class="bonus-text">+{{item.bonus}}赠送</text>
+        </view>
+        <view class="package-price">¥{{item.price}}</view>
+        <view class="package-total" tt:if="{{item.bonus > 0}}">
+          <text class="total-text">共{{item.amount + item.bonus}}积分</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 充值说明 -->
+  <view class="notice-section">
+    <text class="notice-title">充值说明</text>
+    <view class="notice-list">
+      <text class="notice-item">• 积分可用于生成视频、解锁高级功能</text>
+      <text class="notice-item">• 充值后积分立即到账</text>
+      <text class="notice-item">• 积分永久有效，无过期时间</text>
+      <text class="notice-item">• 如有问题请联系客服</text>
+    </view>
+  </view>
+
+  <!-- 购买按钮 -->
+  <view class="purchase-section">
+    <button 
+      class="purchase-btn {{selectedPackage ? 'active' : 'disabled'}}" 
+      bindtap="confirmPurchase"
+      disabled="{{!selectedPackage || isLoading}}"
+    >
+      <text tt:if="{{isLoading}}">处理中...</text>
+      <text tt:elif="{{selectedPackage}}">支付 ¥{{selectedPackage.price}}</text>
+      <text tt:else>请选择充值套餐</text>
+    </button>
+  </view>
+</view>

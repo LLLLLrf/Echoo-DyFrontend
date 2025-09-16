@@ -44,7 +44,71 @@
   font-size: 20px;
   font-weight: bold;
   display: block;
-  margin-bottom: 5px;
+  margin-bottom: 8px;
+}
+
+/* 积分区域样式 */
+.score-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 25px;
+  padding: 12px 16px;
+  margin-top: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.score-info {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.score-icon {
+  font-size: 18px;
+  margin-right: 8px;
+}
+
+.user-score {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.95);
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.recharge-btn {
+  background: linear-gradient(45deg, #667eea, #764ba2);
+  color: white;
+  border: none;
+  border-radius: 16px;
+  padding: 6px 20px;
+  font-size: 13px;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  min-width: 75px;
+}
+
+.recharge-btn:active {
+  transform: scale(0.96);
+  box-shadow: 0 1px 4px rgba(102, 126, 234, 0.5);
+}
+
+.recharge-icon {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.recharge-text {
+  font-size: 12px;
+  font-weight: 600;
 }
 
 .user-id {

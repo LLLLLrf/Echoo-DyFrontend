@@ -396,5 +396,11 @@ Page({
     tt.navigateTo({
       url: '/pages/case-show/case-show'
     });
+  },
+
+  goToRecharge() {
+    tt.navigateTo({
+      url: '/pages/recharge/recharge'
+    });
   }
 }); 

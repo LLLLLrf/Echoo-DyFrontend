@@ -17,4 +17,12 @@
       {{isPlaying ? '暂停' : '播放'}}
     </button>
   </view>
+
+  <view class="controls">
+    <button class="play-btn" open-type="uploadDouyinVideo" id="1" data-hello="world">
+      一键抖音投稿
+    </button>
+  </view>
+
+  
 </view>

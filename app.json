@@ -8,7 +8,8 @@
     "pages/video-player/video-player",
     "pages/case-show/case-show",
     "pages/template-create/template-create",
-    "pages/video-create/video-create"
+    "pages/video-create/video-create",
+    "pages/recharge/recharge"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -5,7 +5,16 @@
       <image class="avatar" src="{{userInfo.avatar || '/images/default-avatar.png'}}" mode="aspectFill"></image>
       <view class="user-details">
         <text class="nickname">{{userInfo.nickname}}</text>
-        <text class="user-id">ID: {{userInfo.userId}}</text>
+        <view class="score-section">
+          <view class="score-info">
+            <text class="score-icon">💎</text>
+            <text class="user-score">{{userInfo.score || 0}} 积分</text>
+          </view>
+          <button class="recharge-btn" bindtap="goToRecharge">
+            <text class="recharge-icon">+</text>
+            <text class="recharge-text">充值</text>
+          </button>
+        </view>
       </view>
       <!-- <button class="edit-btn" bindtap="editProfile">编辑</button> -->
     </view>

@@ -3,41 +3,66 @@ const { requestWithAuth } = require('../../utils/request');
 
 Page({
   data: {
-    audioOptions: [
-      { name: 'BLACKPINK-Hou you like that', value: 'blackpink' },
-      { name: 'TWICE-Strategy', value: 'twice' },
-      // { name: '背景音乐2', value: 'audio2' }
-    ],
-        // 模板信息映射表，对应 detail-entry 中的 cards 数据
+    // 模板信息映射表，对应 detail-entry 中的 cards 数据
     templateMap: {
       3: {
         title: '赛博霓虹',
         cover: 'http://110.40.183.254:9000/echoo/image/nihong.png',
-        color: '#ffffff'
+        color: '#ffffff',
+        audioOptions: [
+          { name: '电音之夜', value: 'cyber_night' },
+          { name: '霓虹节奏', value: 'neon_beat' }
+        ]
       },
       4: {
         title: '合拍挑战',
         cover: 'http://110.40.183.254:9000/echoo/image/hepai.jpg',
-        color: '#000000'
+        color: '#000000',
+        audioOptions: [
+          { name: '合拍节奏', value: 'hepai_beat' },
+          { name: '双人舞曲', value: 'duet_dance' }
+        ]
       },
       2: {
         title: '奇幻穿越',
         cover: 'http://110.40.183.254:9000/echoo/image/halibote.png',
-        color: '#ffffff'
+        color: '#ffffff',
+        audioOptions: [
+          { name: '魔法序曲', value: 'magic_overture' },
+          { name: '穿越幻想', value: 'fantasy_travel' }
+        ]
       },
       0: {
         title: '故事MV',
         cover: 'http://110.40.183.254:9000/echoo/image/example2-first.jpg',
-        color: '#000000'
+        color: '#000000',
+        audioOptions: [
+          { name: 'BLACKPINK-Hou you like that', value: 'blackpink' },
+          { name: 'TWICE-Strategy', value: 'twice' }
+        ]
       },
       1: {
         title: 'Kpop韩流',
-        cover: 'http://110.40.183.254:9000/echoo/image/example3-first.jpg',
-        color: '#000000'
+        cover: 'http://110.40.183.254:9000/echoo/image/example4-first.jpg',
+        color: '#000000',
+        audioOptions: [
+          { name: 'BLACKPINK-Hou you like that', value: 'blackpink' },
+          { name: 'TWICE-Strategy', value: 'twice' }
+        ]
+      },
+      5: {
+        title: '欧美流行',
+        cover: 'http://110.40.183.254:9000/echoo/image/europe-example.jpg',
+        color: '#000000',
+        audioOptions: [
+          { name: 'JustinBieber-STAY', value: 'jb' },
+        ]
       }
     },
+    audioOptions: [], // 当前模板的歌曲选项
     portraitPreview: null,
-    selectedAudioName: null,
+    selectedAudioName: null, // 显示的音频名称
+    selectedAudioValue: null, // 提交给服务器的音频值
     selectedAudioFile: null, // 存储选择的音频文件路径
     inputText: '',
     currentTemplate: null // 当前选中的模板信息
@@ -46,10 +71,11 @@ Page({
   onLoad(options) {
     const templateId = options.templateId || '1';
     const currentTemplate = this.data.templateMap[templateId];
-    
+    const audioOptions = currentTemplate && currentTemplate.audioOptions ? currentTemplate.audioOptions : [];
     this.setData({ 
       templateId: templateId,
       currentTemplate: currentTemplate || { title: '未知模板', cover: '' },
+      audioOptions: audioOptions,
       loading: false
     }, () => {
       console.log('当前模板ID:', this.data.templateId);
@@ -89,6 +115,8 @@ Page({
   uploadPortrait() {
     tt.chooseImage({
       count: 1,
+      sizeType: ['compressed'],
+      sourceType: ['album'],
       success: (res) => {
         this.setData({
           portraitPreview: res.tempFilePaths[0]
@@ -131,9 +159,13 @@ Page({
   // 选择音频
   handleAudioChange(e) {
     const index = e.detail.value;
-    this.setData({
-      selectedAudioName: this.data.audioOptions[index].name
-    });
+    const audioOptions = this.data.audioOptions || [];
+    if (audioOptions[index]) {
+      this.setData({
+        selectedAudioName: audioOptions[index].name,
+        selectedAudioValue: audioOptions[index].value
+      });
+    }
   },
 
   // 输入文本
@@ -176,14 +208,14 @@ Page({
     .then(({ imageUrl, audioFiles }) => {
       // 请求生成视频
       return requestWithAuth({
-        url: "http://localhost:8001/tasks/video",
+        url: "http://110.40.183.254:8001/tasks/video",
         method: 'POST',
         data: {
           image_files: [imageUrl],
           audio_files: audioFiles,
           template_id: this.data.templateId == 0 ? null : parseInt(this.data.templateId),
           input_params: this.data.templateId == 0 ? {} : {
-            'music': 'blackpink',
+            'music': this.data.selectedAudioValue,
             'clothes': this.data.inputText
           }
         }

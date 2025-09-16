@@ -12,7 +12,7 @@ Page({
       {
         id: 1,
         title: 'Kpop韩流',
-        cover: "http://110.40.183.254:9000/echoo/image/example3-first.jpg"
+        cover: "http://110.40.183.254:9000/echoo/image/example4-first.jpg"
       },
       {
         id: 2,
@@ -40,6 +40,12 @@ Page({
       },
       {
         id: 5,
+        title: '欧美流行',
+        cover: 'http://110.40.183.254:9000/echoo/image/europe-example.jpg',
+        color: '#ffffff'
+      },
+      {
+        id: 6,
         title: '油画世界',
         cover: imageBase64.youhua,
         color: '#ffffff'
@@ -53,7 +59,7 @@ Page({
       {
         id: 1,
         title: 'Kpop韩流',
-        cover: 'http://110.40.183.254:9000/echoo/image/example3-first.jpg',
+        cover: 'http://110.40.183.254:9000/echoo/image/example4-first.jpg',
         color: '#ffffff'
       }
     ],
